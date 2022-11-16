@@ -6,6 +6,8 @@ import {
   EspecialOffersContent,
   BrandsSection,
   BrandsContent,
+  NewsLetterSection,
+  NewsLetterContent,
 } from "./style";
 import { Container } from "../../styles/GlobalStyles";
 
@@ -20,6 +22,9 @@ import {
 } from "../../assets/specialOffers";
 
 import { Carrera, Persol, Gucci, RayBan } from "../../assets/brands";
+
+import { Banner1, Banner2 } from "../../assets/banner";
+import SendImg from "../../assets/newsLetter/send.png";
 
 export default function Home() {
   return (
@@ -110,6 +115,58 @@ export default function Home() {
           </Container>
         </BrandsSection>
 
+        <NewsLetterSection>
+          <Container>
+            <NewsLetterContent>
+              <h3 className="title">
+                News<span>Letter</span>
+              </h3>
+
+              <div>
+                <ul className="cards">
+                  <li className="card">
+                    <img src={Banner1} alt="imagem" />
+                    <div>
+                      <p>Morbi faucibus elementum sodales</p>
+                      <a href="#">Learn more</a>
+                    </div>
+                  </li>
+                  <li className="card">
+                    <img src={Banner2} alt="imagem" />
+                    <div>
+                      <p>Morbi faucibus elementum sodales</p>
+                      <a href="#">Learn more</a>
+                    </div>
+                  </li>
+                  <li className="card">
+                    <img src={Banner1} alt="imagem" />
+                    <div>
+                      <p>Morbi faucibus elementum sodales</p>
+                      <a href="#">Learn more</a>
+                    </div>
+                  </li>
+                </ul>
+
+                <div className="newsLetter">
+                  <div>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Praesent eu risus nulla. In gravida vestibulum nulla, non
+                      rutrum odio vestibulum ac.
+                    </p>
+                  </div>
+                  <form>
+                    <input type="text" placeholder="email@email.com" />
+
+                    <a type="submit">
+                      <img src={SendImg} alt="botao-enviar" />
+                    </a>
+                  </form>
+                </div>
+              </div>
+            </NewsLetterContent>
+          </Container>
+        </NewsLetterSection>
         
       </MainHome>
     </>

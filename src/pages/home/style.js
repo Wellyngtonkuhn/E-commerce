@@ -302,3 +302,179 @@ export const BrandsContent = styled.div`
     }
   }
 `;
+
+export const NewsLetterSection = styled.section`
+  width: 100%;
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+`;
+
+export const NewsLetterContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .title {
+    font-size: 2rem;
+    letter-spacing: 1px;
+    line-height: 24px;
+    text-transform: uppercase;
+    color: #212121;
+    font-weight: 300;
+    text-align: center;
+    padding-bottom: 2rem;
+
+    span {
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+
+    list-style: none;
+
+    padding: 1rem;
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #212121;
+
+    img {
+      width: 100%;
+      opacity: 0.7;
+    }
+
+    div {
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 75%;
+      padding-bottom: 1rem;
+
+      p {
+        font-size: 1.5rem;
+        font-weight: 500;
+        line-height: 36px;
+        color: #ffffff;
+        text-align: center;
+      }
+
+      a {
+        padding: 0.5rem 1rem;
+        background-color: transparent;
+        color: #ffffff;
+        border: 1px solid #fff;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        line-height: 24px;
+        text-transform: uppercase;
+        transition: all ease 0.3s;
+      }
+
+      a:hover {
+        background-color: ${({ theme }) => theme.color.primaryColor};
+      }
+    }
+  }
+
+  .newsLetter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+
+    p {
+      font-size: 1.2rem;
+      font-weight: 500;
+      line-height: 30px;
+      text-align: center;
+      color: ${({ theme }) => theme.color.primaryColor};
+    }
+
+    form {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 45px;
+      border: 1px solid ${({ theme }) => theme.color.primaryColor};
+    }
+
+    input {
+      width: 80%;
+      height: 100%;
+      font-size: 1.3rem;
+      padding: 1rem;
+      border: none;
+
+      :focus {
+        outline: none;
+      }
+    }
+
+    a {
+      width: 20%;
+      border-left: 1px solid ${({ theme }) => theme.color.primaryColor};
+      text-align: center;
+    }
+  }
+
+  @media screen and (min-width: 425px) {
+    .title {
+      font-size: 2rem;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .title {
+      font-size: 2rem;
+    }
+
+    .cards {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      width: 300px;
+      height: 225px;
+    }
+
+    .newsLetter {
+      width: 39.125rem;
+      margin: auto;
+
+      p {
+        text-align: center;
+      }
+
+      form {
+        margin: 1rem 0;
+      }
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .cards {
+      justify-content: space-between;
+    }
+
+    .card {
+      width: 285px;
+    }
+  }
+`;
