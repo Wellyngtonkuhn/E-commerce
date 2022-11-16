@@ -1,19 +1,20 @@
-import { BestSellersSection, Content, Ul } from "./style";
+import { HighlightsSection, Content, Ul } from "./style";
 import { Container } from "../../styles/GlobalStyles";
 
 import RayBanName from "../../assets/bestSellers/rayBan.png";
 import { Link } from "react-router-dom";
 
-export default function BestSellers() {
+export default function Highlights({ title, span }) {
   return (
     <>
-      <BestSellersSection>
+      <HighlightsSection>
         <Container>
           <Content>
             <h3 className="title">
-              Best<span>sellers</span>
+              {title}
+              <span>{span}</span>
             </h3>
-            <Ul>
+            <ul>
               <li>
                 <img src={RayBanName} alt="bestSeller" />
                 <h3>Rayban Name</h3>
@@ -41,10 +42,10 @@ export default function BestSellers() {
                 <p>645,00 USD</p>
                 <Link to="#"> Shop now</Link>
               </li>
-            </Ul>
+            </ul>
           </Content>
         </Container>
-      </BestSellersSection>
+      </HighlightsSection>
     </>
   );
 }

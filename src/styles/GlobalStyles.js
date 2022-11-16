@@ -7,7 +7,7 @@ export const GlobalStyles = createGlobalStyle`
         margin: 0;
         box-sizing: border-box;
 
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Gotham', sans-serif;
         font-size: 16px;
     }
 
@@ -24,6 +24,8 @@ export const theme = {
 };
 
 export const Container = styled.div`
+  width: 100%;
+  height: 100%;
   @media screen and (min-width: 767px) {
     max-width: 81.25rem;
     margin: auto;

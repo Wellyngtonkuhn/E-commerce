@@ -216,3 +216,89 @@ export const EspecialOffersContent = styled.div`
     }
   }
 `;
+
+export const BrandsSection = styled.section`
+  width: 100%;
+  min-height: 32.5rem;
+  background-color: #e5e5e5;
+  padding: 3.75rem 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+export const BrandsContent = styled.div`
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  h3 {
+    font-size: 2rem;
+    letter-spacing: 1px;
+    line-height: 24px;
+    text-transform: uppercase;
+    color: #212121;
+    font-weight: 300;
+    text-align: center;
+    padding-bottom: 2rem;
+
+    span {
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 3.75rem;
+  }
+
+  ul li img {
+    width: 14rem;
+    height: 13rem;
+    padding: 5rem 2rem;
+    border: 1px solid #aaaaaa;
+  }
+
+  ul li h3 {
+    font-size: 1.125rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: ${({ theme }) => theme.color.primaryColor};
+    text-align: center;
+    padding: 0;
+  }
+
+  @media screen and (min-width: 768px) {
+    ul {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      gap: 1rem;
+    }
+  }
+
+  @media screen and (min-width: 1285px) {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    .title {
+      transform: rotate(-90deg);
+      padding: 0;
+    }
+  }
+`;

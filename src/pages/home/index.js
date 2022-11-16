@@ -4,10 +4,12 @@ import {
   HeadContent,
   EspecialOffersSection,
   EspecialOffersContent,
+  BrandsSection,
+  BrandsContent,
 } from "./style";
 import { Container } from "../../styles/GlobalStyles";
 
-import BestSellers from "../../components/BestSellers";
+import Highlights from "../../components/Highlights";
 
 import { Head1, Head2 } from "../../assets/head/";
 import {
@@ -16,6 +18,8 @@ import {
   FreeShipping,
   ReturnImg,
 } from "../../assets/specialOffers";
+
+import { Carrera, Persol, Gucci, RayBan } from "../../assets/brands";
 
 export default function Home() {
   return (
@@ -75,7 +79,38 @@ export default function Home() {
           </Container>
         </EspecialOffersSection>
 
-        <BestSellers />
+        <Highlights title="Best" span="sellers" />
+        <Highlights title="New" span="arrivals" />
+
+        <BrandsSection>
+          <Container>
+            <BrandsContent>
+              <h3 className="title">
+                Bra<span>nds</span>
+              </h3>
+              <ul>
+                <li>
+                  <img src={RayBan} alt="rayban" />
+                  <h3>345 Products</h3>
+                </li>
+                <li>
+                  <img src={Carrera} alt="carrera" />
+                  <h3>231 Products</h3>
+                </li>
+                <li>
+                  <img src={Persol} alt="persol" />
+                  <h3>172 Products</h3>
+                </li>
+                <li>
+                  <img src={Gucci} alt="gucci" />
+                  <h3>112 Products</h3>
+                </li>
+              </ul>
+            </BrandsContent>
+          </Container>
+        </BrandsSection>
+
+        
       </MainHome>
     </>
   );
