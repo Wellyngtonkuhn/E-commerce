@@ -1,4 +1,5 @@
-import { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
+import { createGlobalStyle, } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
     *{
@@ -16,11 +17,17 @@ export const GlobalStyles = createGlobalStyle`
 `;
 
 export const theme = {
-  container: {
-    maxWidth: "81.25rem",
-  },
-  backgroundColor: '#f2ebe5',
+  backgroundColor: "#f2ebe5",
   color: {
     primaryColor: "#a77c5a",
   },
 };
+
+export const Container = styled.div`
+  @media screen and (min-width: 767px) {
+    max-width: 81.25rem;
+    margin: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+`;

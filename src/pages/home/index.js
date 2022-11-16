@@ -1,18 +1,21 @@
 import {
   MainHome,
   HeadSection,
-  Container,
   HeadContent,
   EspecialOffersSection,
   EspecialOffersContent,
 } from "./style";
+import { Container } from "../../styles/GlobalStyles";
 
-import Head1 from "../../assets/head/head1.png";
-import Head2 from "../../assets/head/head2.png";
-import OfferImg1 from "../../assets/specialOffers/offer1.png";
-import OfferImg2 from "../../assets/specialOffers/offer2.png";
-import FreeShipping from "../../assets/specialOffers/free-shipping.png";
-import ReturnImg from "../../assets/specialOffers/return.png";
+import BestSellers from "../../components/BestSellers";
+
+import { Head1, Head2 } from "../../assets/head/";
+import {
+  OfferImg1,
+  OfferImg2,
+  FreeShipping,
+  ReturnImg,
+} from "../../assets/specialOffers";
 
 export default function Home() {
   return (
@@ -43,7 +46,7 @@ export default function Home() {
                   <img src={OfferImg1} alt="imagem1" />
                   <div>
                     <h3>Fusce sit amet est quam dolor sit ametis</h3>
-                    <button>Learn More </button>
+                    <a>Learn More </a>
                   </div>
                 </div>
 
@@ -65,12 +68,14 @@ export default function Home() {
                 <img src={OfferImg2} alt="imagem2" />
                 <div className="offerContent">
                   <h3>Fusce sit amet est quam dolor sit ametis</h3>
-                  <button>Learn More </button>
+                  <a>Learn More </a>
                 </div>
               </div>
             </EspecialOffersContent>
           </Container>
         </EspecialOffersSection>
+
+        <BestSellers />
       </MainHome>
     </>
   );

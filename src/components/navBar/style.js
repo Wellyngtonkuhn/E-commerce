@@ -6,10 +6,7 @@ export const Header = styled.header`
 `;
 
 export const HeaderContent = styled.div`
-  max-width: ${({ theme }) => theme.container.maxWidth};
-  margin: auto;
   padding: 3rem 1rem;
-
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -3,21 +3,13 @@ import styled from "styled-components";
 export const MainHome = styled.main`
   width: 100%;
   min-height: 100vh;
+  padding-top: -1px;
 `;
 
 export const HeadSection = styled.section`
   width: 100%;
   height: 100%;
   background-color: ${({ theme }) => theme.backgroundColor};
-`;
-
-export const Container = styled.div`
-  @media screen and (min-width: 767px) {
-    max-width: ${({ theme }) => theme.container.maxWidth};
-    margin: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
 `;
 
 export const HeadContent = styled.div`
@@ -98,6 +90,7 @@ export const EspecialOffersContent = styled.div`
   div {
     padding: 0.5rem;
   }
+
   img {
     width: 100%;
   }
@@ -111,27 +104,36 @@ export const EspecialOffersContent = styled.div`
       bottom: 0;
       right: 5px;
       text-align: center;
+      margin: 2rem 0;
 
       h3 {
         font-size: 1.3rem;
-        color: #ffffff;
         font-weight: 500;
+        color: #ffffff;
+        margin-bottom: 1rem;
       }
 
-      button {
-        margin: 1.2rem 0;
+      a {
         padding: 0.5rem 1rem;
         background-color: transparent;
         color: #ffffff;
         border: 1px solid #fff;
 
         font-size: 1.125rem;
+        font-weight: 500;
         letter-spacing: 2px;
         line-height: 24px;
         text-transform: uppercase;
-        font-weight: 500;
+        transition: all ease 0.3s;
       }
     }
+
+    a:hover {
+      background-color: ${({ theme }) => theme.color.primaryColor};
+      border: 1px solid ${({ theme }) => theme.color.primaryColor};
+      cursor: pointer;
+    }
+
     .offerContent {
       width: 75%;
       right: unset;
@@ -210,7 +212,7 @@ export const EspecialOffersContent = styled.div`
 
   @media screen and (min-width: 1024px) {
     .infoDelivery {
-      padding: 2rem;
+      padding: 3rem;
     }
   }
 `;
