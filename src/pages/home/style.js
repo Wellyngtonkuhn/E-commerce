@@ -477,4 +477,19 @@ export const NewsLetterContent = styled.div`
       width: 285px;
     }
   }
+
+  @media screen and (min-width: 1285px) {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    .title {
+      transform: rotate(-90deg);
+      padding: 0;
+      margin-left: -38px; 
+    }
+  }
 `;
