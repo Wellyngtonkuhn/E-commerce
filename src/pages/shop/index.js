@@ -1,12 +1,11 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
-import { MainShop, Content } from "./style";
+import { MainShop, Content, MobileFilter } from "./style";
 import { Container } from "../../styles/GlobalStyles";
 
 import Aside from "../../components/shopPage/Aside";
 import Products from "../../components/shopPage/Products";
-
 
 export default function Shop() {
   const { data, isLoading } = useQuery(
@@ -24,8 +23,11 @@ export default function Shop() {
     <MainShop>
       <Container>
         <Content>
+          <MobileFilter>
+            <button>Filters</button>
+          </MobileFilter>
           <Aside />
-          <Products />
+          <Products data={data} isLoading={isLoading} />
         </Content>
       </Container>
     </MainShop>

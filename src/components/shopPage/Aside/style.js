@@ -4,11 +4,16 @@ export const AsideSection = styled.aside`
   flex-basis: 20%;
   max-width: 20%;
   min-height: 15rem;
+
+  display: none;
+
+  @media screen and (min-width: 674px) {
+    display: flex;
+  }
 `;
 
 export const AsideContent = styled.div`
   position: fixed;
-
   padding: 1rem;
 
   h3 {
