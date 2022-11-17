@@ -5,7 +5,8 @@ import { theme } from "./styles/GlobalStyles";
 import Rotas from "./rotas";
 
 import Warning from "./components/warning";
-import NavBar from './components/navBar'
+import NavBar from "./components/navBar";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -13,8 +14,9 @@ function App() {
       <Warning />
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-        <NavBar />
-        <Rotas />
+          <NavBar />
+          <Rotas />
+          <Footer />
         </BrowserRouter>
       </ThemeProvider>
     </>
