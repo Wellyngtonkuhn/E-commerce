@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const MainHome = styled.main`
   width: 100%;
   min-height: 100vh;
-  padding-top: -1px;
+  padding-top: 8.2rem;
 `;
 
 export const HeadSection = styled.section`

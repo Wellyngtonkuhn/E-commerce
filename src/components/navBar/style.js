@@ -3,6 +3,9 @@ import styled from "styled-components";
 export const Header = styled.header`
   width: 100%;
   background-color: ${({ theme }) => theme.backgroundColor};
+  position: fixed;
+  top: 0;
+  z-index: 9;
 `;
 
 export const HeaderContent = styled.div`

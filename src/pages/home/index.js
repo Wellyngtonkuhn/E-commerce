@@ -167,7 +167,6 @@ export default function Home() {
             </NewsLetterContent>
           </Container>
         </NewsLetterSection>
-        
       </MainHome>
     </>
   );
