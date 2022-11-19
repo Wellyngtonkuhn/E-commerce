@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 
@@ -8,6 +10,13 @@ import Aside from "../../components/shopPage/Aside";
 import Products from "../../components/shopPage/Products";
 
 export default function Shop() {
+  const [brands, setBrands] = useState([
+    { name: "Persol", checked: false },
+    { name: "RayBan", checked: false },
+    { name: "Gucci", checked: false },
+    { name: "Carrera", checked: false },
+  ]);
+
   const { data, isLoading } = useQuery(
     ["data"],
     async () => {
@@ -19,6 +28,18 @@ export default function Shop() {
     }
   );
 
+  const handleFilterBrands = (item) => {
+    const newBrands = brands.map((brand) => {
+      if (brand?.name === item?.name) {
+        return { ...brand, name: item.name, checked: !item.checked };
+      } else {
+        return brand;
+      }
+    });
+
+    setBrands(newBrands);
+  };
+
   return (
     <MainShop>
       <Container>
@@ -26,8 +47,8 @@ export default function Shop() {
           <MobileFilter>
             <button>Filters</button>
           </MobileFilter>
-          <Aside />
-          <Products data={data} isLoading={isLoading} />
+          <Aside brands={brands} handleFilterBrands={handleFilterBrands} />
+          <Products brands={brands} data={data} isLoading={isLoading} />
         </Content>
       </Container>
     </MainShop>

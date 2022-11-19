@@ -1,7 +1,13 @@
-
+import { AccountSection } from "./style";
+import { Container } from "../../styles/GlobalStyles";
+import Login from "../../components/login";
 
 export default function Account() {
   return (
-    <div>Account</div>
-  )
+    <AccountSection>
+      <Container>
+        <Login title="Login" />
+      </Container>
+    </AccountSection>
+  );
 }

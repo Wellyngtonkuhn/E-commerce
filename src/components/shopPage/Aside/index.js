@@ -1,36 +1,20 @@
 import { AsideContent, AsideSection } from "./style";
 
-export default function Aside() {
+export default function Aside({ brands, handleFilterBrands }) {
   return (
     <AsideSection>
       <AsideContent>
         <div>
           <h3>Marcas</h3>
-          <div className="checkbox">
-            <label>
-              <input type="checkbox" />
-              RayBan
-            </label>
-          </div>
-
-          <div className="checkbox">
-            <label>
-              <input type="checkbox" />
-              RayBan
-            </label>
-          </div>
-          <div className="checkbox">
-            <label>
-              <input type="checkbox" />
-              RayBan
-            </label>
-          </div>
-          <div className="checkbox">
-            <label>
-              <input type="checkbox" />
-              RayBan
-            </label>
-          </div>
+          {brands &&
+            brands?.map((item) => (
+              <div className="checkbox" key={item?.name}>
+                <label onClick={() => handleFilterBrands(item)}>
+                  <input type="checkbox" checked={item?.checked} />
+                  {item?.name}
+                </label>
+              </div>
+            ))}
         </div>
 
         <div>
