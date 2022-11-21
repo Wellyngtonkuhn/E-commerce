@@ -1,12 +1,41 @@
+import { useState } from "react";
 import { AccountSection } from "./style";
 import { Container } from "../../styles/GlobalStyles";
 import Login from "../../components/login";
 
 export default function Account() {
+  const [showSignIn, setShowSingIn] = useState(true);
+  const [showRegister, setshowRegister] = useState(false);
+  const [token, setToken] = useState(false);
+
+  const handleLogin = () => {
+    setShowSingIn(true);
+    setshowRegister(false);
+  };
+
+  const handleRegister = () => {
+    setshowRegister(true);
+    setShowSingIn(false);
+  };
+
   return (
     <AccountSection>
       <Container>
-        <Login title="Login" />
+        {!token ? (
+          <>
+            <div className="buttonDivLoginRegister">
+              <button onClick={handleLogin}>Login</button>
+              <button onClick={handleRegister}>Register</button>
+            </div>
+            <Login
+              title="Login"
+              showSignIn={showSignIn}
+              showRegister={showRegister}
+            />
+          </>
+        ) : (
+          "My Account"
+        )}
       </Container>
     </AccountSection>
   );

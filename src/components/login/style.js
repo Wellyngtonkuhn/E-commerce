@@ -1,15 +1,14 @@
 import styled from "styled-components";
 
-export const LoginSection = styled.section`
+export const LoginRegisterSection = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
-export const LoginForm = styled.div`
+export const FormSection = styled.div`
   width: 90%;
-  height: 500px;
   padding: 2rem;
   display: flex;
   align-items: center;
@@ -58,7 +57,7 @@ export const LoginForm = styled.div`
       color: ${({ theme }) => theme.color.primaryColor};
       border: 1px solid ${({ theme }) => theme.color.primaryColor};
       background-color: transparent;
-      padding: 0.3rem 1.5rem;
+      padding: 0.4rem 1.5rem;
       transition: all ease 0.3s;
     }
 
@@ -67,9 +66,27 @@ export const LoginForm = styled.div`
       color: #fff;
     }
   }
+
+  @media screen and (min-width: 426px) {
+    width: 75%;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 50%;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 35%;
+  }
 `;
-export const RegisterForm = styled.div`
-  width: 100%;
-  height: 500px;
-  background-color: blue;
+
+export const Input = styled.input`
+  border: unset;
+  border-bottom: 1px solid ${({ theme }) => theme.color.primaryColor};
+  background-color: transparent;
+  padding: 0.7rem;
+
+  :focus {
+    outline: none;
+  }
 `;
