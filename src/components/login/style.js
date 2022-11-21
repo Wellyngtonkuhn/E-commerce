@@ -50,6 +50,7 @@ export const FormSection = styled.div`
       font-weight: 700;
       line-height: 24px;
       color: #212121;
+      cursor: pointer;
     }
 
     button {
@@ -59,6 +60,7 @@ export const FormSection = styled.div`
       background-color: transparent;
       padding: 0.4rem 1.5rem;
       transition: all ease 0.3s;
+      cursor: pointer;
     }
 
     button:hover {

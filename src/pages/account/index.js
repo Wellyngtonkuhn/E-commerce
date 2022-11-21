@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { AccountSection } from "./style";
 import { Container } from "../../styles/GlobalStyles";
-import Login from "../../components/login";
 
-export default function Account() {
+import Login from "../../components/login";
+import Account from "../../components/Account";
+
+export default function AccountPage() {
+
   const [showSignIn, setShowSingIn] = useState(true);
   const [showRegister, setshowRegister] = useState(false);
-  const [token, setToken] = useState(false);
+  const [token] = useState(true);
 
   const handleLogin = () => {
     setShowSingIn(true);
@@ -34,7 +37,7 @@ export default function Account() {
             />
           </>
         ) : (
-          "My Account"
+          <Account name='Wellynton Kuhn' />
         )}
       </Container>
     </AccountSection>

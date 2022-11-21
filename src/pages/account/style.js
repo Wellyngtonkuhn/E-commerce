@@ -2,10 +2,8 @@ import styled from "styled-components";
 
 export const AccountSection = styled.section`
   width: 100%;
-  min-height: 65vh;
-  margin-top: 8.6rem;
-  display: flex;
-  align-items: center;
+  min-height: 60vh;
+  margin-top: 12rem;
 
   .buttonDivLoginRegister {
     width: 100%;
@@ -25,6 +23,7 @@ export const AccountSection = styled.section`
       background-color: transparent;
       padding: 0.3rem 1.5rem;
       transition: all ease 0.3s;
+      cursor: pointer;
     }
 
     button:hover {
