@@ -21,8 +21,8 @@ export default function NavBar() {
   };
 
   const handleCloseMenuMobile = () => {
-    setShowMenuMobile(false)
-  }
+    setShowMenuMobile(false);
+  };
 
   return (
     <Header>
@@ -63,13 +63,19 @@ export default function NavBar() {
           <p onClick={handleCloseMenuMobile}>X</p>
           <ul>
             <li>
-              <Link onClick={handleCloseMenuMobile} to="/">Home</Link>
+              <Link onClick={handleCloseMenuMobile} to="/">
+                Home
+              </Link>
             </li>
             <li>
-              <Link onClick={handleCloseMenuMobile} to="/shop">Shop now</Link>
+              <Link onClick={handleCloseMenuMobile} to="/shop">
+                Shop now
+              </Link>
             </li>
             <li>
-              <Link onClick={handleCloseMenuMobile} to="/account">My account</Link>
+              <Link onClick={handleCloseMenuMobile} to="/account">
+                My account
+              </Link>
             </li>
           </ul>
         </MenuBurgerMobile>

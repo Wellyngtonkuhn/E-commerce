@@ -69,7 +69,7 @@ export const MenuBurgerMobile = styled.div`
   width: 100%;
   padding-bottom: 1rem;
 
-  p{
+  p {
     font-size: 1.5rem;
     font-weight: 500;
     color: ${({ theme }) => theme.color.primaryColor};
@@ -78,24 +78,24 @@ export const MenuBurgerMobile = styled.div`
     cursor: pointer;
   }
 
-ul{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-  list-style: none;
-  li{
-    padding-bottom: 2rem;
-  }
+    list-style: none;
+    li {
+      padding-bottom: 2rem;
+    }
 
-  a {
-    font-size: 0.875rem;
-    font-weight: 500;
-    letter-spacing: 1px;
-    line-height: 24px;
-    text-transform: uppercase;
-    color: #212121;
+    a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      line-height: 24px;
+      text-transform: uppercase;
+      color: #212121;
+    }
   }
-}
-`
+`;
