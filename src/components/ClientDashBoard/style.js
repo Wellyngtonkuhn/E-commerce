@@ -16,7 +16,6 @@ export const AccountSection = styled.section`
   p {
     font-size: 0.9rem;
     font-weight: 600;
-    text-transform: capitalize;
     color: #212121;
     padding: .4rem 0;
   }

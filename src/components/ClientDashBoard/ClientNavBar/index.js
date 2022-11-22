@@ -12,7 +12,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { MenuContent } from "./style";
 
-export default function ClientNavBar() {
+export default function ClientNavBar({ handleToken }) {
   const [showMenuMobile, setShowMenuMobile] = useState(false);
 
   return (
@@ -65,8 +65,8 @@ export default function ClientNavBar() {
           </Link>
         </li>
         <li>
-          <Link to="#">
-            <div>
+          <Link to="#" onClick={handleToken}>
+            <div >
               <FontAwesomeIcon icon={faArrowRightFromBracket} />
               Sign out
             </div>
