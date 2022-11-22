@@ -3,7 +3,7 @@ import { AccountSection } from "./style";
 import { Container } from "../../styles/GlobalStyles";
 
 import Login from "../../components/login";
-import Account from "../../components/Account";
+import ClientDashBoard from "../../components/ClientDashBoard";
 
 export default function AccountPage() {
 
@@ -37,7 +37,7 @@ export default function AccountPage() {
             />
           </>
         ) : (
-          <Account name='Wellynton Kuhn' />
+          <ClientDashBoard name='Wellygton Kuhn' />
         )}
       </Container>
     </AccountSection>

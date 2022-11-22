@@ -19,7 +19,7 @@ export const Menu = styled.nav`
   ul {
     display: none;
 
-    @media screen and (min-width: 426px) {
+    @media screen and (min-width: 769px) {
       display: flex;
       gap: 1.688rem;
       list-style: none;
@@ -52,7 +52,7 @@ export const MenuMobile = styled.nav`
     width: 35px;
   }
 
-  @media screen and (min-width: 426px) {
+  @media screen and (min-width: 769px) {
     display: none;
   }
 `;
