@@ -72,6 +72,7 @@ export const OrderContent = styled.div`
     gap: 2rem;
     min-height: 3rem;
     padding: 1rem;
+    margin-top: 1rem;
     background-color: ${({ theme }) => theme.backgroundColor};
 
     div {
