@@ -8,7 +8,7 @@ export default function ClientDashBoard({ name }) {
     <AccountSection>
        <h3>My account</h3>
       <p>
-        <spam>Wellcome </spam>
+        <span>Wellcome </span>
         {name}
       </p>
       <Content>

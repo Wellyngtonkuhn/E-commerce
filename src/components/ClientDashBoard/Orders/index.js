@@ -14,7 +14,7 @@ const order = [
       { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
       { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
     ],
-    orderNumber: 7845484,
+    orderNumber: 78425484,
     shippedDate: "14 March 2022",
     Total: "102,55",
     status: "Cancelled",
@@ -25,7 +25,7 @@ const order = [
       { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
       { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
     ],
-    orderNumber: 47555,
+    orderNumber: 475155,
     shippedDate: "14 Jun 2022",
     Total: "502,55",
     status: "Processing",
@@ -37,7 +37,7 @@ const order = [
       { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
       { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
     ],
-    orderNumber: 7845484,
+    orderNumber: 7845345484,
     shippedDate: "30 April 2022",
     Total: "1002,55",
     status: "Out for delivery",
@@ -52,7 +52,7 @@ const order = [
       { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
       { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
     ],
-    orderNumber: 7845484,
+    orderNumber: 784095484,
     shippedDate: "14 November 2022",
     Total: "102,55",
     status: "Delivered",
@@ -67,7 +67,7 @@ export default function Orders() {
 
       {order &&
         order.map((item) => (
-          <OrderContent>
+          <OrderContent key={item.orderNumber}>
             <div className="firsRow">
               <div className="firstCollumn">
                 {item.img.map((img) => (
