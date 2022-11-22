@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const FooterSection = styled.section`
-  min-width: 512px;
+  width: 100%;
   background-color: ${({ theme }) => theme.backgroundColor};
 `;
 

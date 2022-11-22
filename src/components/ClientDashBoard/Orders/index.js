@@ -8,6 +8,11 @@ const order = [
       { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
       { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
       { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
+      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
+      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
+      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
+      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
+      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
     ],
     orderNumber: 7845484,
     shippedDate: "14 March 2022",
@@ -60,42 +65,49 @@ export default function Orders() {
     <Order>
       <h3>Orders</h3>
 
-      <OrderContent>
-        {order &&
-          order.map((item) => (
-            <>
-              <div className="firsColumn">
-                <div>
-                  {item.img.map((img) => (
-                    <img src={img.url} alt="product" />
-                  ))}
-                </div>
-                <div>
-                  <Link to="#">View Order</Link>
-                  <Link to="#">Track Order</Link>
-                </div>
+      {order &&
+        order.map((item) => (
+          <OrderContent>
+            <div className="firsRow">
+              <div className="firstCollumn">
+                {item.img.map((img) => (
+                  <img src={img.url} alt="product" />
+                ))}
               </div>
-
               <div className="secondColumn">
+                <Link to="#">View Order</Link>
+                <Link to="#">Track Order</Link>
+              </div>
+            </div>
+
+            <div className="secondRow">
+              <div>
                 <h4>
                   Order number<span>{item.orderNumber}</span>
                 </h4>
                 <div className="separator"></div>
+              </div>
+              <div>
                 <h4>
                   Shipped date<span>{item.shippedDate}</span>
                 </h4>
                 <div className="separator"></div>
+              </div>
+
+              <div>
                 <h4>
                   Total<span>R$ {item.Total}</span>
                 </h4>
                 <div className="separator"></div>
+              </div>
+              <div>
                 <h4>
                   Status<span className={item.class}>{item.status}</span>
                 </h4>
               </div>
-            </>
-          ))}
-      </OrderContent>
+            </div>
+          </OrderContent>
+        ))}
     </Order>
   );
 }

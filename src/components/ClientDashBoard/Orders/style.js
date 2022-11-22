@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Order = styled.div`
   display: flex;
   flex-direction: column;
-  flex-basis: 100%;
+  width: 100%;
 
   @media screen and (min-width: 769px) {
     flex-basis: 80%;
@@ -17,25 +17,28 @@ export const OrderContent = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid #f2ebe5;
-  padding: 1rem 2rem;
+  padding: 1rem;
 
-  .firsColumn {
+  .firsRow {
+    width: 100%;
+    height: 100%;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
 
-    div {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    div:first-child {
+    .firstCollumn {
       width: 80%;
     }
 
+    .secondColumn {
+      width: 20%;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
     img {
-      width: 100px;
+      width: 75px;
       margin-right: 1rem;
     }
 
@@ -43,8 +46,10 @@ export const OrderContent = styled.div`
       font-size: 1rem;
       color: ${({ theme }) => theme.color.primaryColor};
       border: 1px solid ${({ theme }) => theme.color.primaryColor};
-      width: 90%;
-      height: 2rem;
+      width: 100%;
+      min-height: 2rem;
+      padding: 0.1rem 0;
+      text-align: center;
       transition: all ease 0.3s;
 
       display: flex;
@@ -58,49 +63,54 @@ export const OrderContent = styled.div`
     }
   }
 
-  .secondColumn {
+  .secondRow {
+    width: 100%;
+    height: 100%;
     display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
     gap: 2rem;
     min-height: 3rem;
-    padding-bottom: 1rem;
-    h4 {
+    padding: 1rem;
+    background-color: ${({ theme }) => theme.backgroundColor};
+
+    div {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      text-align: center;
 
-      font-size: 0.9rem;
-      line-height: 22px;
+      h4 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
 
-      span {
-        font-size: 0.8rem;
-        font-weight: 500;
+        font-size: 0.9rem;
+        line-height: 22px;
+
+        span {
+          font-size: 0.8rem;
+          font-weight: 500;
+        }
       }
     }
+  }
 
-    .processing {
-      color: #82ff5b;
-      font-weight: 700;
-    }
+  .processing {
+    color: #5fa948;
+    font-weight: 700;
+  }
 
-    .delivered {
-      color: green;
-      font-weight: 700;
-    }
-    .atTheWay {
-      color: #ffb515;
-      font-weight: 700;
-    }
+  .delivered {
+    color: green;
+    font-weight: 700;
+  }
+  .atTheWay {
+    color: #ffb515;
+    font-weight: 700;
+  }
 
-    .cancelled {
-      color: red;
-      font-weight: 700;
-    }
-
-    .separator {
-      width: 1px;
-      min-height: 100%;
-      background-color: #f2ebe5;
-    }
+  .cancelled {
+    color: red;
+    font-weight: 700;
   }
 
   @media screen and (min-width: 426px) {
