@@ -9,7 +9,7 @@ import ClientDashBoard from "../../components/ClientDashBoard";
 export default function AccountPage() {
   const [showSignIn, setShowSingIn] = useState(true);
   const [showRegister, setshowRegister] = useState(false);
-  const [token, setToken] = useState(false);
+  const [token, setToken] = useState(true);
   const [dataLogin, setDataLogin] = useState([]);
 
   const handleLogin = () => {

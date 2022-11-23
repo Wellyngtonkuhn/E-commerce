@@ -12,14 +12,17 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { MenuContent } from "./style";
 
-export default function ClientNavBar({ handleToken }) {
+export default function ClientNavBar({
+  handleToken,
+  setshowMenuClientContent,
+}) {
   const [showMenuMobile, setShowMenuMobile] = useState(false);
 
   return (
     <MenuContent>
       <ul>
         <li>
-          <Link to="#">
+          <Link onClick={() => setshowMenuClientContent("orders")}>
             <div>
               <FontAwesomeIcon icon={faCartFlatbedSuitcase} />
               Orders
@@ -29,7 +32,7 @@ export default function ClientNavBar({ handleToken }) {
         </li>
 
         <li>
-          <Link to="#">
+          <Link onClick={() => setshowMenuClientContent("favorites")}>
             <div>
               <FontAwesomeIcon icon={faHeart} />
               Favorites
@@ -38,7 +41,7 @@ export default function ClientNavBar({ handleToken }) {
           </Link>
         </li>
         <li>
-          <Link to="#">
+          <Link onClick={() => setshowMenuClientContent("myAccount")}>
             <div>
               <FontAwesomeIcon icon={faUser} />
               My account
@@ -47,7 +50,7 @@ export default function ClientNavBar({ handleToken }) {
           </Link>
         </li>
         <li>
-          <Link to="#">
+          <Link onClick={() => setshowMenuClientContent("address")}>
             <div>
               <FontAwesomeIcon icon={faHouse} />
               Address
@@ -56,7 +59,7 @@ export default function ClientNavBar({ handleToken }) {
           </Link>
         </li>
         <li>
-          <Link to="#">
+          <Link onClick={() => setshowMenuClientContent("changePassword")}>
             <div>
               <FontAwesomeIcon icon={faLock} />
               Change password
@@ -65,8 +68,8 @@ export default function ClientNavBar({ handleToken }) {
           </Link>
         </li>
         <li>
-          <Link to="#" onClick={handleToken}>
-            <div >
+          <Link onClick={handleToken}>
+            <div>
               <FontAwesomeIcon icon={faArrowRightFromBracket} />
               Sign out
             </div>
