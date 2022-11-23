@@ -22,19 +22,35 @@ export default function MyAccount() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <label>
             Nome Completo
-            <Input type="text" {...register("name")} />
+            <Input
+              type="text"
+              {...register("name")}
+              placeholder="digite seu nome completo"
+            />
           </label>
           <label>
             E-mail
-            <Input type="text" {...register("email")} />
+            <Input
+              type="text"
+              {...register("email")}
+              placeholder="seu melhor email"
+            />
           </label>
           <label>
             Celular
-            <Input type="text" {...register("phoneNumber")} />
+            <Input
+              type="text"
+              {...register("phoneNumber")}
+              placeholder="(00) 9 0000-0000"
+            />
           </label>
           <label>
             Cpf
-            <Input type="text" {...register("cpf")} />
+            <Input
+              type="text"
+              {...register("cpf")}
+              placeholder="000.000.000-00"
+            />
           </label>
           <label>
             Sexo

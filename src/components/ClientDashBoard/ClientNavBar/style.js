@@ -4,16 +4,14 @@ export const MenuContent = styled.div`
   display: none;
   flex-direction: column;
   /*
-  justify-content: center;
   position: fixed;
-  top: 8rem;
+  top: 1rem;
   left: 0;
   width: 100%;
   height: 100vh;
   padding: 0 5rem;
   background-color: ${({ theme }) => theme.backgroundColor};
-  */
-
+*/
   ul {
     list-style: none;
     display: flex;

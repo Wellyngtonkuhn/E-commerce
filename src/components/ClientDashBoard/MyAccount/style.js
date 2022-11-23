@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const MyAccountSection = styled.section`
   width: 100%;
 
-  @media screen and (min-width: 729px) {
+  @media screen and (min-width: 728px) {
     flex-basis: 80%;
     padding-left: 2rem;
   }
@@ -43,9 +43,20 @@ export const Content = styled.div`
     color: #fff;
   }
 
-  @media screen and (min-width: 1024px) {
-    width: 50%;
+  @media screen and (min-width: 768px) {
+    width: 100%;
     margin: auto;
+    margin-top: 1rem;
+
+    form {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 80%;
   }
 `;
 

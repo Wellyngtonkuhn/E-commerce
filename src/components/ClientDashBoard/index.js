@@ -9,8 +9,7 @@ import Address from "./Address";
 import ChangePassword from "./ChangePassword";
 
 export default function ClientDashBoard({ data, handleToken }) {
-  const [showMenuClientContent, setshowMenuClientContent] =
-    useState("address");
+  const [showMenuClientContent, setshowMenuClientContent] = useState("orders");
 
   const handleSwitchContent = (showMenuClientContent) => {
     switch (showMenuClientContent) {

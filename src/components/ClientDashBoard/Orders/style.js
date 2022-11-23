@@ -5,7 +5,7 @@ export const Order = styled.div`
   flex-direction: column;
   width: 100%;
 
-  @media screen and (min-width: 769px) {
+  @media screen and (min-width: 768px) {
     flex-basis: 80%;
     padding-left: 2rem;
   }
