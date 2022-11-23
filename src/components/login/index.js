@@ -25,11 +25,11 @@ export default function Login({
             <div>
               <label>
                 <input type="checkbox" />
-                Remember me
+                Lembrar
               </label>
-              <Link to="#">Forgot password?</Link>
+              <Link to="#">Esqueceu a senha?</Link>
             </div>
-            <button type="submit">Sign in</button>
+            <button type="submit">Entrar</button>
           </form>
         </FormSection>
       )}
@@ -37,7 +37,7 @@ export default function Login({
       {showRegister && (
         <FormSection>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <h3>Register</h3>
+            <h3>Criar Conta</h3>
             <Input type="text" placeholder="name" {...register("name")} />
             <Input type="text" placeholder="email" {...register("email")} />
             <Input
@@ -45,7 +45,7 @@ export default function Login({
               placeholder="password"
               {...register("password")}
             />
-            <button type="submit">Create account</button>
+            <button type="submit">Criar conta</button>
           </form>
         </FormSection>
       )}

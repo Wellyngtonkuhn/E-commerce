@@ -45,13 +45,13 @@ const favorites = [
 export default function Favorites() {
   return (
     <Favorite>
-      <h3>Favorites</h3>
+      <h3>Favoritos</h3>
       <div>
         <tr>
-          <td>Image</td>
-          <td>Product</td>
-          <td>Price</td>
-          <td className="removeTitle">Remove</td>
+          <td>Imagem</td>
+          <td>Produto</td>
+          <td>Preço</td>
+          <td className="removeTitle">Remover</td>
         </tr>
       </div>
 

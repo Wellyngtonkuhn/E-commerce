@@ -44,7 +44,7 @@ export const MenuContent = styled.div`
     color: #fff;
   }
 
-  @media screen and (min-width: 769px) {
+  @media screen and (min-width: 768px) {
     display: flex;
     flex-basis: 20%;
     position: unset;

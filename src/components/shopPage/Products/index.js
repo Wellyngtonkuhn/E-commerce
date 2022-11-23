@@ -4,7 +4,7 @@ import { ProductsSection, Ul } from "./style";
 export default function Products({ data, isLoading }) {
   return (
     <ProductsSection>
-      {isLoading && <h1>Loading...</h1>}
+      {isLoading && <h1>Carregando...</h1>}
       <Ul>
         {data &&
           data.map((item) => (
@@ -12,7 +12,7 @@ export default function Products({ data, isLoading }) {
               <img src={item.url} alt={item.nome} />
               <h3>{item.nome}</h3>
               <p>{item.preco}</p>
-              <Link to="#"> Shop now</Link>
+              <Link to="#"> Comprar</Link>
             </li>
           ))}
       </Ul>

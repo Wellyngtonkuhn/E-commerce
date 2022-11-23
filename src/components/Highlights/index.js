@@ -19,28 +19,28 @@ export default function Highlights({ title, span }) {
                 <img src={RayBanName} alt="bestSeller" />
                 <h3>Rayban Name</h3>
                 <p>645,00 USD</p>
-                <Link to="#"> Shop now</Link>
+                <Link to="#"> Comprar</Link>
               </li>
 
               <li>
                 <img src={RayBanName} alt="bestSeller" />
                 <h3>Rayban Name</h3>
                 <p>645,00 USD</p>
-                <Link to="#"> Shop now</Link>
+                <Link to="#"> Comprar</Link>
               </li>
 
               <li>
                 <img src={RayBanName} alt="bestSeller" />
                 <h3>Rayban Name</h3>
                 <p>645,00 USD</p>
-                <Link to="#"> Shop now</Link>
+                <Link to="#"> Comprar</Link>
               </li>
 
               <li>
                 <img src={RayBanName} alt="bestSeller" />
                 <h3>Rayban Name</h3>
                 <p>645,00 USD</p>
-                <Link to="#"> Shop now</Link>
+                <Link to="#"> Comprar</Link>
               </li>
             </ul>
           </Content>

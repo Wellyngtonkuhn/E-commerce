@@ -25,7 +25,7 @@ export default function ClientNavBar({
           <Link onClick={() => setshowMenuClientContent("orders")}>
             <div>
               <FontAwesomeIcon icon={faCartFlatbedSuitcase} />
-              Orders
+              Pedidos
             </div>
             <FontAwesomeIcon icon={faAngleRight} />
           </Link>
@@ -35,7 +35,7 @@ export default function ClientNavBar({
           <Link onClick={() => setshowMenuClientContent("favorites")}>
             <div>
               <FontAwesomeIcon icon={faHeart} />
-              Favorites
+              Favoritos
             </div>
             <FontAwesomeIcon icon={faAngleRight} />
           </Link>
@@ -44,7 +44,7 @@ export default function ClientNavBar({
           <Link onClick={() => setshowMenuClientContent("myAccount")}>
             <div>
               <FontAwesomeIcon icon={faUser} />
-              My account
+              Minha conta
             </div>
             <FontAwesomeIcon icon={faAngleRight} />
           </Link>
@@ -53,7 +53,7 @@ export default function ClientNavBar({
           <Link onClick={() => setshowMenuClientContent("address")}>
             <div>
               <FontAwesomeIcon icon={faHouse} />
-              Address
+              Endereço
             </div>
             <FontAwesomeIcon icon={faAngleRight} />
           </Link>
@@ -62,7 +62,7 @@ export default function ClientNavBar({
           <Link onClick={() => setshowMenuClientContent("changePassword")}>
             <div>
               <FontAwesomeIcon icon={faLock} />
-              Change password
+              Mudar senha
             </div>
             <FontAwesomeIcon icon={faAngleRight} />
           </Link>
@@ -71,7 +71,7 @@ export default function ClientNavBar({
           <Link onClick={handleToken}>
             <div>
               <FontAwesomeIcon icon={faArrowRightFromBracket} />
-              Sign out
+              Sair
             </div>
             <FontAwesomeIcon icon={faAngleRight} />
           </Link>

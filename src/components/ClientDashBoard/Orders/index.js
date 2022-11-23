@@ -63,7 +63,7 @@ const order = [
 export default function Orders() {
   return (
     <Order>
-      <h3>Orders</h3>
+      <h3>Pedidos</h3>
 
       {order &&
         order.map((item) => (
@@ -75,21 +75,21 @@ export default function Orders() {
                 ))}
               </div>
               <div className="secondColumn">
-                <Link to="#">View Order</Link>
-                <Link to="#">Track Order</Link>
+                <Link to="#">Ver Pedido</Link>
+                <Link to="#">Ver Entrega</Link>
               </div>
             </div>
 
             <div className="secondRow">
               <div>
                 <h4>
-                  Order number<span>{item.orderNumber}</span>
+                  Pedido<span>{item.orderNumber}</span>
                 </h4>
                 <div className="separator"></div>
               </div>
               <div>
                 <h4>
-                  Shipped date<span>{item.shippedDate}</span>
+                  Enviado<span>{item.shippedDate}</span>
                 </h4>
                 <div className="separator"></div>
               </div>

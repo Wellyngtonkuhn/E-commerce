@@ -79,6 +79,7 @@ export const FavoriteContent = styled.div`
   .removeFavorite:hover {
     background-color: ${({ theme }) => theme.color.primaryColor};
     color: #fff;
+    cursor: pointer;
   }
 
   @media screen and (min-width: 768px) {

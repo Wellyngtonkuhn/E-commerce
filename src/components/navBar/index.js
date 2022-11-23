@@ -69,12 +69,12 @@ export default function NavBar() {
             </li>
             <li>
               <Link onClick={handleCloseMenuMobile} to="/shop">
-                Shop now
+                Shop
               </Link>
             </li>
             <li>
               <Link onClick={handleCloseMenuMobile} to="/account">
-                My account
+                Minha Conta
               </Link>
             </li>
           </ul>

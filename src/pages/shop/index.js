@@ -45,7 +45,7 @@ export default function Shop() {
       <Container>
         <Content>
           <MobileFilter>
-            <button>Filters</button>
+            <button>filtros</button>
           </MobileFilter>
           <Aside brands={brands} handleFilterBrands={handleFilterBrands} />
           <Products brands={brands} data={data} isLoading={isLoading} />

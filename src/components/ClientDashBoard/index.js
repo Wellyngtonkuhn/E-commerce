@@ -9,7 +9,8 @@ import Address from "./Address";
 import ChangePassword from "./ChangePassword";
 
 export default function ClientDashBoard({ data, handleToken }) {
-  const [showMenuClientContent, setshowMenuClientContent] = useState("favorites");
+  const [showMenuClientContent, setshowMenuClientContent] =
+    useState("address");
 
   const handleSwitchContent = (showMenuClientContent) => {
     switch (showMenuClientContent) {
@@ -30,9 +31,9 @@ export default function ClientDashBoard({ data, handleToken }) {
 
   return (
     <AccountSection>
-      <h3>My account</h3>
+      <h3>Minha conta</h3>
       <p>
-        <span>Wellcome </span>
+        <span>Bem vindo </span>
         {data.name ? data.name : data.email}
       </p>
       <Content>
