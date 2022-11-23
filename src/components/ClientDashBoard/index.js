@@ -4,14 +4,14 @@ import { AccountSection, Content } from "./style";
 import ClientNavBar from "./ClientNavBar";
 import Orders from "./Orders";
 import Favorites from "./Favorites";
-import MyAccount from './MyAccount'
-import Address from './Address'
-import ChangePassword from './ChangePassword'
+import MyAccount from "./MyAccount";
+import Address from "./Address";
+import ChangePassword from "./ChangePassword";
 
 export default function ClientDashBoard({ data, handleToken }) {
-  const [showMenuClientContent, setshowMenuClientContent] = useState("orders");
+  const [showMenuClientContent, setshowMenuClientContent] = useState("favorites");
 
-  const handleSwitchContet = (showMenuClientContent) => {
+  const handleSwitchContent = (showMenuClientContent) => {
     switch (showMenuClientContent) {
       case "orders":
         return <Orders />;
@@ -23,7 +23,6 @@ export default function ClientDashBoard({ data, handleToken }) {
         return <Address />;
       case "changePassword":
         return <ChangePassword />;
-
       default:
         return null;
     }
@@ -42,7 +41,7 @@ export default function ClientDashBoard({ data, handleToken }) {
           setshowMenuClientContent={setshowMenuClientContent}
         />
 
-        {handleSwitchContet(showMenuClientContent)}
+        {handleSwitchContent(showMenuClientContent)}
       </Content>
     </AccountSection>
   );
