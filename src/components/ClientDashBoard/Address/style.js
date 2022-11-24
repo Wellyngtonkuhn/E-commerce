@@ -42,6 +42,12 @@ export const Content = styled.div`
     background-color: ${({ theme }) => theme.color.primaryColor};
     color: #fff;
   }
+
+  .errorMessageform {
+    font-weight: ${({ theme }) => theme.errorMessage.fontWeight};
+    color: ${({ theme }) => theme.errorMessage.color};
+  }
+  
   @media screen and (min-width: 768px) {
     width: 100%;
     margin: auto;

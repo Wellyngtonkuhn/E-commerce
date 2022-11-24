@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { createGlobalStyle, } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
     *{
@@ -20,6 +20,10 @@ export const theme = {
   backgroundColor: "#f2ebe5",
   color: {
     primaryColor: "#a77c5a",
+  },
+  errorMessage: {
+    fontWeight: 500,
+    color: "#ff0000",
   },
 };
 

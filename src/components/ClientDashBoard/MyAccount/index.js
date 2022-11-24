@@ -1,7 +1,17 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import { Content, Input, Select, MyAccountSection } from "./style";
+
+const schema = yup.object({
+  name: yup.string().required('campo obrigatório'),
+  email: yup.string().email('email inválido').required('campo obrigatório'),
+  phoneNumber: yup.string().required('campo obrigatório'),
+  cpf: yup.string().required('campo obrigatório'),
+  sexo: yup.string().required('campo obrigatório'),
+})
 
 export default function MyAccount() {
   const [optionsSelect, setOptionsSelect] = useState([
@@ -10,11 +20,15 @@ export default function MyAccount() {
     "feminino",
   ]);
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, formState:{errors, isValid} } = useForm({
+    mode:'onBlur',
+    resolver: yupResolver(schema)
+  });
 
   const onSubmit = (data) => {
     console.log(data);
   };
+
   return (
     <MyAccountSection>
       <h3>Dados pessoais</h3>
@@ -27,6 +41,7 @@ export default function MyAccount() {
               {...register("name")}
               placeholder="digite seu nome completo"
             />
+             <p className="errorMessageform">{errors.name?.message}</p>
           </label>
           <label>
             E-mail
@@ -35,6 +50,7 @@ export default function MyAccount() {
               {...register("email")}
               placeholder="seu melhor email"
             />
+              <p className="errorMessageform">{errors.email?.message}</p>
           </label>
           <label>
             Celular
@@ -43,6 +59,7 @@ export default function MyAccount() {
               {...register("phoneNumber")}
               placeholder="(00) 9 0000-0000"
             />
+              <p className="errorMessageform">{errors.phoneNumber?.message}</p>
           </label>
           <label>
             Cpf
@@ -51,6 +68,7 @@ export default function MyAccount() {
               {...register("cpf")}
               placeholder="000.000.000-00"
             />
+              <p className="errorMessageform">{errors.cpf?.message}</p>
           </label>
           <label>
             Sexo
@@ -61,9 +79,9 @@ export default function MyAccount() {
                 </option>
               ))}
             </Select>
+            <p className="errorMessageform">{errors.sexo?.message}</p>
           </label>
-
-          <button type="submit">Salvar</button>
+          <button disabled={!isValid} type="submit">Salvar</button>
         </form>
       </Content>
     </MyAccountSection>
