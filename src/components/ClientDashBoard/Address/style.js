@@ -2,10 +2,12 @@ import styled from "styled-components";
 
 export const AddressSection = styled.section`
   width: 100%;
+  padding-top: 3rem;
 
   @media screen and (min-width: 768px) {
     flex-basis: 80%;
     padding-left: 2rem;
+    padding-top: 0;
   }
 `;
 

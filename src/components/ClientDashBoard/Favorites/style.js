@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Favorite = styled.section`
   width: 100%;
+  padding-top: 3rem;
 
   tr {
     display: flex;
@@ -34,6 +35,7 @@ export const Favorite = styled.section`
   @media screen and (min-width: 768px) {
     flex-basis: 80%;
     padding-left: 2rem;
+    padding-top: 0;
 
     .removeTitle {
       display: block;
@@ -46,7 +48,6 @@ export const Favorite = styled.section`
 
 export const FavoriteContent = styled.div`
   width: 100%;
-
   border: 1px solid #f2ebe5;
   padding: 1rem;
   margin-top: 1rem;
@@ -55,7 +56,6 @@ export const FavoriteContent = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     list-style: none;
   }
 

@@ -1,13 +1,15 @@
 import styled from "styled-components";
 
-export const Order = styled.div`
+export const Order = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding-top: 3rem;
 
   @media screen and (min-width: 768px) {
     flex-basis: 80%;
     padding-left: 2rem;
+    padding-top: 0;
   }
 `;
 
