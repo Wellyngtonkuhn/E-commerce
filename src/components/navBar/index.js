@@ -11,7 +11,11 @@ import {
   MenuBurgerMobile,
 } from "./style";
 
-import { Logo, MenuBurger, CartImg } from "../../assets/header/";
+import { Logo } from "../../assets/header/";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faX, faCartShopping } from "@fortawesome/free-solid-svg-icons";
+
 
 export default function NavBar() {
   const [showMenuMobile, setShowMenuMobile] = useState(false);
@@ -48,19 +52,22 @@ export default function NavBar() {
           <Cart>
             <MenuMobile>
               <button onClick={hadleToggleMenuMobile}>
-                <img src={MenuBurger} alt="menu-burger" />
+                {!showMenuMobile ? (
+                  <FontAwesomeIcon icon={faBars} size={"lg"} />
+                ) : (
+                  <FontAwesomeIcon icon={faX} size={"lg"} />
+                )}
               </button>
             </MenuMobile>
 
             <a href="#">
-              <img src={CartImg} alt="cart" />
+            <FontAwesomeIcon icon={faCartShopping} size={"lg"} />
             </a>
           </Cart>
         </HeaderContent>
       </Container>
       {showMenuMobile && (
         <MenuBurgerMobile>
-          <p onClick={handleCloseMenuMobile}>X</p>
           <ul>
             <li>
               <Link onClick={handleCloseMenuMobile} to="/">

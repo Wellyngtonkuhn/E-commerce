@@ -63,6 +63,9 @@ export const Cart = styled.div`
   flex-direction: row-reverse;
   align-items: center;
   gap: 1rem;
+  a{
+    color: ${({theme}) => theme.color.primaryColor};
+  }
 `;
 
 export const MenuBurgerMobile = styled.div`
