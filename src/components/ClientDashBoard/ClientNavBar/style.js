@@ -2,16 +2,16 @@ import styled from "styled-components";
 
 export const MenuContentMobile = styled.div`
   width: 100%;
-  min-height: 30rem;
+  min-height: 100vh;
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 
   position: fixed;
   left: 0;
-  top: 5rem;
+  top: 13rem;
+  padding-top: 30%;
 
   background-color: ${({ theme }) => theme.backgroundColor};
 

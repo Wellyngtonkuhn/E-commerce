@@ -9,7 +9,7 @@ import Address from "./Address";
 import ChangePassword from "./ChangePassword";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
 
 export default function ClientDashBoard({ data, handleToken }) {
   const [showMenuMobile, setShowMenuMobile] = useState(false);
@@ -42,8 +42,12 @@ export default function ClientDashBoard({ data, handleToken }) {
             {data.name ? data.name : data.email}
           </p>
         </div>
-        <button onClick={() => setShowMenuMobile(true)}>
-          <FontAwesomeIcon icon={faBars} size={"lg"} />
+        <button onClick={() => setShowMenuMobile(!showMenuMobile)}>
+          {!showMenuMobile ? (
+            <FontAwesomeIcon icon={faBars} size={"lg"} />
+          ) : (
+            <FontAwesomeIcon icon={faX} size={"lg"} />
+          )}
         </button>
       </div>
       <Content>
