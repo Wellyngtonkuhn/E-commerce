@@ -14,7 +14,7 @@ import {
 import { Logo } from "../../assets/header/";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faX, faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faX, faBagShopping } from "@fortawesome/free-solid-svg-icons";
 
 
 export default function NavBar() {
@@ -61,7 +61,7 @@ export default function NavBar() {
             </MenuMobile>
 
             <a href="#">
-            <FontAwesomeIcon icon={faCartShopping} size={"lg"} />
+            <FontAwesomeIcon icon={faBagShopping} size={"lg"} />
             </a>
           </Cart>
         </HeaderContent>
