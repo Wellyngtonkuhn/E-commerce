@@ -7,7 +7,7 @@ import Login from "../../components/login";
 import ClientDashBoard from "../../components/ClientDashBoard";
 
 export default function AccountPage() {
-  const [token, setToken] = useState(true);
+  const [token, setToken] = useState(false);
   const [dataLogin, setDataLogin] = useState([]);
 
   const handleToken = () => {

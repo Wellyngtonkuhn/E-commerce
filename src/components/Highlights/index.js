@@ -1,10 +1,23 @@
-import { HighlightsSection, Content, Ul } from "./style";
-import { Container } from "../../styles/GlobalStyles";
-
-import RayBanName from "../../assets/bestSellers/rayBan.png";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function Highlights({ title, span }) {
+import { HighlightsSection, Content } from "./style";
+import { Container } from "../../styles/GlobalStyles";
+
+
+export default function Highlights({ title, span, data, isLoading }) {
+  const [bestSeller, setBestSeller] = useState([]);
+
+  const handleBestSeller = async (data) => {
+    const bestSeller = await data?.sort((a, b) => {
+      return b.unidadesVendidas - a.unidadesVendidas;
+    });
+
+    return setBestSeller(bestSeller);
+  };
+
+  handleBestSeller(data);
+
   return (
     <>
       <HighlightsSection>
@@ -15,33 +28,24 @@ export default function Highlights({ title, span }) {
               <span>{span}</span>
             </h3>
             <ul>
-              <li>
-                <img src={RayBanName} alt="bestSeller" />
-                <h3>Rayban Name</h3>
-                <p>645,00 USD</p>
-                <Link to="#"> Comprar</Link>
-              </li>
+              {bestSeller &&
+                bestSeller.slice(0, 4).map((item) => (
+                  <li>
+                    <img src={item.url} alt="bestSeller" />
+                    <h3>{item.nome}</h3>
+                    <p>R${item.preco}</p>
+                    <Link to="#"> Comprar</Link>
+                  </li>
+                ))}
 
-              <li>
-                <img src={RayBanName} alt="bestSeller" />
-                <h3>Rayban Name</h3>
-                <p>645,00 USD</p>
-                <Link to="#"> Comprar</Link>
-              </li>
-
-              <li>
-                <img src={RayBanName} alt="bestSeller" />
-                <h3>Rayban Name</h3>
-                <p>645,00 USD</p>
-                <Link to="#"> Comprar</Link>
-              </li>
-
-              <li>
-                <img src={RayBanName} alt="bestSeller" />
-                <h3>Rayban Name</h3>
-                <p>645,00 USD</p>
-                <Link to="#"> Comprar</Link>
-              </li>
+              {!bestSeller && (
+                <li>
+                  <img src="" alt="Carregando..." />
+                  <h3>Carregando...</h3>
+                  <p>Carregando...</p>
+                  <Link to="#"> Comprar</Link>
+                </li>
+              )}
             </ul>
           </Content>
         </Container>

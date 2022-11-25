@@ -39,7 +39,7 @@ export const Content = styled.div`
   }
 
   img {
-    width: 250px;
+    width: 175px;
   }
 
   h3 {
@@ -78,31 +78,35 @@ export const Content = styled.div`
   }
 
   @media screen and (min-width: 425px) {
-    
     padding: 0 1rem;
 
-    ul{
+    ul {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: space-between;
-      li{
+      li {
         width: 40%;
       }
 
-      li img{
+      li img {
         width: 100%;
       }
     }
-   
+  }
+
+  @media screen and (min-width: 768px) {
+      ul li img{
+        width: 200px;
+      }
   }
 
   @media screen and (min-width: 1024px) {
     ul li {
       width: 30%;
 
-      img{
-        width: 100%;
+      img {
+        width: 200px;
       }
     }
   }
@@ -112,7 +116,7 @@ export const Content = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 1rem;
 
     .title {
@@ -120,12 +124,16 @@ export const Content = styled.div`
       padding: 0;
       margin-left: -60px;
     }
-    
+    ul{
+      width: 100%;
+      justify-content: space-between;
+    }
+
     ul li {
       width: 25%;
 
-      img{
-        width: 100%;
+      img {
+        width: 200px;
       }
     }
   }

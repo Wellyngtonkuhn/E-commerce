@@ -1,3 +1,6 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+
 import {
   MainHome,
   HeadSection,
@@ -26,7 +29,19 @@ import { Carrera, Persol, Gucci, RayBan } from "../../assets/brands";
 import { Banner1, Banner2 } from "../../assets/banner";
 import SendImg from "../../assets/newsLetter/send.png";
 
+
+
 export default function Home() {
+  
+  const {data, isLoading} = useQuery(["highlights"], 
+    async () => {
+      const request = await axios.get("http://localhost:3004/data")
+      return request.data
+  },{
+    staleTime: 10000 * 60
+  })
+
+
   return (
     <>
       <MainHome>
@@ -84,8 +99,9 @@ export default function Home() {
           </Container>
         </EspecialOffersSection>
 
-        <Highlights title="Best" span="sellers" />
-        <Highlights title="New" span="arrivals" />
+        <Highlights title="Best" span="sellers" data={data} isLoading={isLoading}/>
+        
+
 
         <BrandsSection>
           <Container>

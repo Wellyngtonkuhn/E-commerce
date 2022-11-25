@@ -17,8 +17,7 @@ export default function Shop() {
     { name: "Carrera", checked: false },
   ]);
 
-  const { data, isLoading } = useQuery(
-    ["data"],
+  const { data, isLoading } = useQuery(["data"],
     async () => {
       const request = await axios.get("http://localhost:3004/data");
       return request.data;
