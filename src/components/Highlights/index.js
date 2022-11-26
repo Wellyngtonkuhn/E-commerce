@@ -29,11 +29,11 @@ export default function Highlights({ title, span, data, isLoading }) {
             <ul>
               {bestSeller &&
                 bestSeller.slice(0, 4).map((item) => (
-                  <li>
+                  <li key={item.id}>
                     <img src={item.url} alt="bestSeller" />
                     <h3>{item.nome}</h3>
                     <p>R${item.preco}</p>
-                    <Link to="#"> Comprar</Link>
+                    <Link to={`/shop/${item.nome}/${item.id}`}> Comprar</Link>
                   </li>
                 ))}
 
