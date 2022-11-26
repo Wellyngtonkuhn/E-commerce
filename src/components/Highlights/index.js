@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { HighlightsSection, Content } from "./style";
 import { Container } from "../../styles/GlobalStyles";
 
-
 export default function Highlights({ title, span, data, isLoading }) {
   const [bestSeller, setBestSeller] = useState([]);
 
@@ -39,12 +38,32 @@ export default function Highlights({ title, span, data, isLoading }) {
                 ))}
 
               {!bestSeller && (
-                <li>
-                  <img src="" alt="Carregando..." />
-                  <h3>Carregando...</h3>
-                  <p>Carregando...</p>
-                  <Link to="#"> Comprar</Link>
-                </li>
+                <div className="loadingContent">
+                  <li className="loading">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </li>
+                  <li className="loading">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </li>
+                  <li className="loading">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </li>
+                  <li className="loading">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </li>
+                </div>
               )}
             </ul>
           </Content>
