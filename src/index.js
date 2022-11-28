@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 import App from "./App";
@@ -13,7 +16,9 @@ root.render(
   <>
     <QueryClientProvider client={client}>
       <GlobalStyles />
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </QueryClientProvider>
   </>
 );

@@ -5,6 +5,7 @@
 ### Stacks front-end:
     - React
     - React query
+    - Redux
     - StyledComponents
     - React hook form / yup
 

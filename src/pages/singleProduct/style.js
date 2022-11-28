@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const SingleProductSection = styled.section`
   width: 100%;
   margin-top: 8.7rem;
-  z-index: 1;
 `;
 
 export const Content = styled.div`
@@ -130,7 +129,7 @@ export const SecondColumn = styled.div`
   }
 
   .productPrice {
-    font-size: 2rem;
+    font-size: 1.7rem;
   }
 
   .pruductQTD {
@@ -150,7 +149,7 @@ export const SecondColumn = styled.div`
       width: 45%;
       select {
         width: 100%;
-        padding: 0.9rem 0;
+        padding: 0.42rem 0;
         text-align: center;
         border: 1px solid ${({ theme }) => theme.color.primaryColor};
 
@@ -167,7 +166,7 @@ export const SecondColumn = styled.div`
         display: flex;
         align-items: center;
         gap: 1rem;
-        padding: 0.82rem 0;
+        padding: 0.3rem 0;
         border: 1px solid ${({ theme }) => theme.color.primaryColor};
 
         button {
@@ -207,7 +206,7 @@ export const SecondColumn = styled.div`
       color: ${({ theme }) => theme.color.primaryColor};
       border: 1px solid ${({ theme }) => theme.color.primaryColor};
       background-color: transparent;
-      padding: 1rem 0;
+      padding: 0.7rem 0;
       transition: all ease 0.3s;
     }
 
@@ -222,22 +221,6 @@ export const SecondColumn = styled.div`
     .productDetails {
       h3 {
         font-size: 1.8rem;
-      }
-    }
-
-    .pruductQTD {
-      div:nth-child(2) {
-        div {
-          padding: 0.82rem 2rem;
-
-          button:nth-child(1) {
-            padding-right: 1rem;
-          }
-
-          button:nth-child(3) {
-            padding-left: 1rem;
-          }
-        }
       }
     }
   }
