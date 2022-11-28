@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const FooterSection = styled.section`
   width: 100%;
   background-color: ${({ theme }) => theme.backgroundColor};
+  z-index: 2;
 `;
 
 export const Content = styled.div`
