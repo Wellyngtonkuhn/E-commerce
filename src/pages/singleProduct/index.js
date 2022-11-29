@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/cartSlice";
 
 import {
   FirstColumn,
@@ -13,19 +15,13 @@ import { Container } from "../../styles/GlobalStyles";
 
 export default function SingleProduct() {
   const [quantidade, setQuantidade] = useState(1);
+  const { id } = useParams();
+  const dispatch = useDispatch();
 
-  const { product, id } = useParams();
-
-  const { data, isLoading } = useQuery(
-    ["product"],
-    async () => {
-      const request = await axios.get(`http://localhost:3004/data/${id}`);
-      return request.data;
-    },
-    {
-      staleTime: 10000 * 60,
-    }
-  );
+  const { data, isLoading } = useQuery(["product"], async () => {
+    const request = await axios.get(`http://localhost:3004/data/${id}`);
+    return request.data;
+  });
 
   const handleAddQTD = (qtd) => {
     if (quantidade < qtd) {
@@ -37,6 +33,10 @@ export default function SingleProduct() {
     if (quantidade > 1) {
       setQuantidade(quantidade - 1);
     }
+  };
+
+  const handleAddToCard = (data, quantidade) => {
+    dispatch(addToCart([data, quantidade]));
   };
 
   return (
@@ -145,7 +145,9 @@ export default function SingleProduct() {
                 </div>
 
                 <div className="productBuyButton">
-                  <button>Adicionar ao carrinho</button>
+                  <button onClick={() => handleAddToCard(data, quantidade)}>
+                    Adicionar ao carrinho
+                  </button>
                 </div>
               </>
             )}

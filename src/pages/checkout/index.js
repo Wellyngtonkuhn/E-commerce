@@ -1,6 +1,14 @@
+import { CheckOutSection, Content } from "./style";
+import { Container } from '../../styles/GlobalStyles'
 
 export default function CheckOut() {
   return (
-    <div>CheckOut</div>
+    <CheckOutSection>
+      <Container>
+        <Content>
+          CheckOut
+        </Content>
+      </Container>
+    </CheckOutSection>
   )
 }
