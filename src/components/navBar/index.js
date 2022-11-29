@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Container } from "../../styles/GlobalStyles";
 
@@ -18,6 +19,7 @@ import { faBars, faX, faBagShopping } from "@fortawesome/free-solid-svg-icons";
 
 export default function NavBar() {
   const [showMenuMobile, setShowMenuMobile] = useState(false);
+  const length = useSelector((state) => state.cart.cartItems.length);
 
   const hadleToggleMenuMobile = () => {
     setShowMenuMobile(!showMenuMobile);
@@ -59,7 +61,8 @@ export default function NavBar() {
               </button>
             </MenuMobile>
 
-            <Link to="/cart">
+            <Link to="/cart" className="cart">
+              <p>{length > 0 ? length : ''}</p>
               <FontAwesomeIcon icon={faBagShopping} size={"lg"} />
             </Link>
           </Cart>

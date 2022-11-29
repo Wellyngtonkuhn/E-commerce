@@ -63,8 +63,19 @@ export const Cart = styled.div`
   flex-direction: row-reverse;
   align-items: center;
   gap: 1rem;
-  a{
-    color: ${({theme}) => theme.color.primaryColor};
+
+  .cart {
+    display: flex;
+    flex-direction: row-reverse;
+    p {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-top: -0.4rem;
+    }
+  }
+
+  a {
+    color: ${({ theme }) => theme.color.primaryColor};
   }
 `;
 

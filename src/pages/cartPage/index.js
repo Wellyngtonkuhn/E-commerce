@@ -1,4 +1,7 @@
-import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { decreaseCartItem, removeFromCart, increaseCartItem } from "../../redux/cartSlice";
+
 import {
   CartSection,
   Content,
@@ -7,13 +10,13 @@ import {
   ShopNow,
 } from "./style";
 import { Container } from "../../styles/GlobalStyles";
-import { faArrowsLeftRight, faShop } from "@fortawesome/free-solid-svg-icons";
+import { faShop } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
 
 export default function CartPage() {
   const { cartItems } = useSelector((state) => state.cart);
-  console.log(cartItems);
+  const dispatch = useDispatch();
+
   return (
     <CartSection>
       <Container>
@@ -30,7 +33,9 @@ export default function CartPage() {
                           <img src={item.url} alt={item.nome} />
                           <h3>{item.nome}</h3>
                         </div>
-                        <p>Remover</p>
+                        <button onClick={() => dispatch(removeFromCart(item))}>
+                          Remover
+                        </button>
                       </div>
 
                       <div className="price">
@@ -41,9 +46,9 @@ export default function CartPage() {
                       <div className="quantity">
                         <h4>Quantidade</h4>
                         <div>
-                          <button>-</button>
+                          <button onClick={()=> dispatch(decreaseCartItem(item))}>-</button>
                           <p>{item.itemQuantity}</p>
-                          <button>+</button>
+                          <button onClick={()=> dispatch(increaseCartItem(item))}>+</button>
                         </div>
                       </div>
 
