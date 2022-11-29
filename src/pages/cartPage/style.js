@@ -197,12 +197,16 @@ export const ShopNow = styled.div`
     background-color: ${({ theme }) => theme.color.primaryColor};
     color: #fff;
     padding: 0.7rem 3rem;
-    transition: all ease 0.3s;
   }
 
-  a:hover {
-    border: 1px solid ${({ theme }) => theme.color.primaryColor};
-    color: ${({ theme }) => theme.color.primaryColor};
-    background-color: #fff;
+  @media screen and (min-width: 1024px) {
+    a {
+      transition: all ease 0.3s;
+    }
+    a:hover {
+      border: 1px solid ${({ theme }) => theme.color.primaryColor};
+      color: ${({ theme }) => theme.color.primaryColor};
+      background-color: #fff;
+    }
   }
 `;
