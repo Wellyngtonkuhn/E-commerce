@@ -16,7 +16,7 @@ const order = [
     ],
     orderNumber: 78425484,
     shippedDate: "14 March 2022",
-    Total: "102,55",
+    Total: 102.55,
     status: "Cancelled",
     class: "cancelled",
   },
@@ -27,7 +27,7 @@ const order = [
     ],
     orderNumber: 475155,
     shippedDate: "14 Jun 2022",
-    Total: "502,55",
+    Total: 950.99,
     status: "Processing",
     class: "processing",
   },
@@ -39,7 +39,7 @@ const order = [
     ],
     orderNumber: 7845345484,
     shippedDate: "30 April 2022",
-    Total: "1002,55",
+    Total: 250.00,
     status: "Out for delivery",
     class: "atTheWay",
   },
@@ -54,7 +54,7 @@ const order = [
     ],
     orderNumber: 784095484,
     shippedDate: "14 November 2022",
-    Total: "102,55",
+    Total: 15458,
     status: "Delivered",
     class: "delivered",
   },
@@ -96,7 +96,13 @@ export default function Orders() {
 
               <div>
                 <h4>
-                  Total<span>R$ {item.Total}</span>
+                  Total
+                  <span>
+                    {item.Total.toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
+                  </span>
                 </h4>
                 <div className="separator"></div>
               </div>

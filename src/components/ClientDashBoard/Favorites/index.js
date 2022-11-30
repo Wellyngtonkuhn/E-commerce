@@ -6,7 +6,7 @@ const favorites = [
     nome: "Aviator Classic Ouro",
     modelo: "Ouro - Lentes: Verde Classic G-15  +  Armação: Ouro",
     tamanho: "XL (58-14)",
-    preco: "1.500,00",
+    preco: 3459,
     quantidade: "10",
     marca: "Carrera",
     descricao:
@@ -19,7 +19,7 @@ const favorites = [
     nome: "Aviator Classic Ouro",
     modelo: "Ouro - Lentes: Verde Classic G-15  +  Armação: Ouro",
     tamanho: "XL (58-14)",
-    preco: "1.500,00",
+    preco: 1500,
     quantidade: "10",
     marca: "Carrera",
     descricao:
@@ -32,7 +32,7 @@ const favorites = [
     nome: "Aviator Classic Ouro",
     modelo: "Ouro - Lentes: Verde Classic G-15  +  Armação: Ouro",
     tamanho: "XL (58-14)",
-    preco: "1.500,00",
+    preco: 15000,
     quantidade: "10",
     marca: "Carrera",
     descricao:
@@ -66,7 +66,12 @@ export default function Favorites() {
                 <p>{item.nome}</p>
               </li>
               <li>
-                <p>{item.preco}</p>
+                <p>
+                  {item.preco.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
+                </p>
               </li>
               <li>
                 <a className="removeFavorite">X</a>

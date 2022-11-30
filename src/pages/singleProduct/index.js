@@ -75,7 +75,7 @@ export default function SingleProduct() {
                     {data?.quantidade < 5 && "Últimas unidades"}
                   </p>
                   <h4>Preço</h4>
-                  <h5 className="productPrice">R${data?.preco}</h5>
+                  <h5 className="productPrice">teste{data?.preco}</h5>
                 </div>
 
                 <div className="pruductQTD">
@@ -121,7 +121,12 @@ export default function SingleProduct() {
                     {data?.quantidade < 5 && "Últimas unidades"}
                   </p>
                   <h4>Preço</h4>
-                  <h5 className="productPrice">R${data?.preco}</h5>
+                  <h5 className="productPrice">
+                    {data?.preco.toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
+                  </h5>
                 </div>
 
                 <div className="pruductQTD">

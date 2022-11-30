@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { decreaseCartItem, removeFromCart, increaseCartItem } from "../../redux/cartSlice";
+import {
+  decreaseCartItem,
+  removeFromCart,
+  increaseCartItem,
+} from "../../redux/cartSlice";
 
 import {
   CartSection,
@@ -16,6 +20,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function CartPage() {
   const { cartItems } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+
+  const totalPrice = () => {
+    const totalProduct = cartItems.map((item) => {
+      const totalItem = item.preco * item.itemQuantity;
+      return totalItem;
+    });
+    const finalTotal = totalProduct.reduce((acc, curr) => {
+      return acc + curr;
+    }, 0);
+
+    return finalTotal.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+  };
 
   return (
     <CartSection>
@@ -33,28 +52,48 @@ export default function CartPage() {
                           <img src={item.url} alt={item.nome} />
                           <h3>{item.nome}</h3>
                         </div>
-                        <button onClick={() => dispatch(removeFromCart(item))}>
+                        <button className="removeButton" onClick={() => dispatch(removeFromCart(item))}>
                           Remover
                         </button>
                       </div>
 
                       <div className="price">
                         <h4>Preço</h4>
-                        <p>R${item.preco}</p>
+                        <p>
+                          {item.preco.toLocaleString("pt-BR", {
+                            style: "currency",
+                            currency: "BRL",
+                          })}
+                        </p>
                       </div>
 
                       <div className="quantity">
                         <h4>Quantidade</h4>
                         <div>
-                          <button onClick={()=> dispatch(decreaseCartItem(item))}>-</button>
+                          <button
+                            onClick={() => dispatch(decreaseCartItem(item))}
+                          >
+                            -
+                          </button>
                           <p>{item.itemQuantity}</p>
-                          <button onClick={()=> dispatch(increaseCartItem(item))}>+</button>
+                          <button
+                            onClick={() => dispatch(increaseCartItem(item))}
+                          >
+                            +
+                          </button>
                         </div>
                       </div>
 
                       <div className="total">
                         <h4>Total</h4>
-                        <p>R$1547,00</p>
+                        <p>
+                          {(
+                            Number(item.preco) * item.itemQuantity
+                          ).toLocaleString("pt-BR", {
+                            style: "currency",
+                            currency: "BRL",
+                          })}
+                        </p>
                       </div>
                     </li>
                   ))}
@@ -72,7 +111,7 @@ export default function CartPage() {
 
                 <div className="finalTotal">
                   <p>Total</p>
-                  <p>R$1542,00</p>
+                  <p>{totalPrice()}</p>
                 </div>
                 <button>Finalizar compra</button>
               </SecondColumn>

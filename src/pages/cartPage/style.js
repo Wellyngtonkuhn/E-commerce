@@ -62,6 +62,11 @@ export const FirstColumn = styled.div`
         font-weight: 500;
       }
     }
+    .removeButton {
+      color: red;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
   }
 
   .price {
@@ -104,6 +109,10 @@ export const FirstColumn = styled.div`
     font-weight: 500;
   }
 
+  .total {
+    display: none;
+  }
+
   @media screen and (min-width: 425px) {
     li {
       padding: 0 0.5rem;
@@ -118,7 +127,7 @@ export const FirstColumn = styled.div`
   }
 
   @media screen and (min-width: 768px) {
-    width: 70%;
+    width: 75%;
     .price {
       display: flex;
       flex-direction: column;
@@ -131,8 +140,6 @@ export const FirstColumn = styled.div`
   }
 
   @media screen and (min-width: 1024px) {
-    width: 70%;
-
     .product div img {
       width: 120px;
     }
@@ -158,24 +165,31 @@ export const SecondColumn = styled.div`
 
   button {
     width: 100%;
-    font-size: 1rem;
+    font-size: .95rem;
     font-weight: 700;
     text-transform: uppercase;
     color: ${({ theme }) => theme.color.primaryColor};
     border: 1px solid ${({ theme }) => theme.color.primaryColor};
     background-color: transparent;
-    padding: 0.7rem 0;
+    padding: 0.6rem 0;
     transition: all ease 0.3s;
   }
 
-  @media screen and (min-width: 768px) {
-    width: 30%;
+  button:hover {
+    background-color: ${({ theme }) => theme.color.primaryColor};
+    color: #fff;
+    cursor: pointer;
+  }
 
-    button:hover {
-      background-color: ${({ theme }) => theme.color.primaryColor};
-      color: #fff;
-      cursor: pointer;
-    }
+  @media screen and (min-width: 768px) {
+    width: 25%;
+  }
+
+  @media screen and (min-width: 1024px) {
+  button{
+    font-size: 1rem;
+    padding: 0.7rem 0;
+  }
   }
 `;
 
