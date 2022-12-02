@@ -18,6 +18,7 @@ export const Ul = styled.ul`
 
   li img {
     width: 150px;
+    height: 75px;
   }
 
   li h3 {
@@ -29,7 +30,6 @@ export const Ul = styled.ul`
     color: ${({ theme }) => theme.color.primaryColor};
     font-family: "Gotham";
     padding: 0;
-    margin-top: -40px;
   }
 
   li p {
@@ -57,7 +57,7 @@ export const Ul = styled.ul`
 
   @media screen and (min-width: 552px) {
     flex-basis: 80%;
-    gap: 3rem;
+    gap: 2rem;
 
     li {
       margin-bottom: unset;
@@ -65,6 +65,7 @@ export const Ul = styled.ul`
 
     li img {
       width: 200px;
+      height: 100px;
     }
 
     li h3 {
@@ -77,6 +78,17 @@ export const Ul = styled.ul`
     li a {
       font-size: 1rem;
       padding: 0.3rem 1.5rem;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    justify-content: space-between;
+    li {
+      width: 22%;
+
+      img {
+        width: 100%;
+      }
     }
   }
 

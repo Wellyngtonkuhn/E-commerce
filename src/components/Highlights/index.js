@@ -38,7 +38,7 @@ export default function Highlights({ title, span, data, isLoading }) {
                         currency: "BRL",
                       })}
                     </p>
-                    <Link to={`/shop/${item.nome}/${item.id}`}> Comprar</Link>
+                    <Link to={`/shop/${item.nome}/${item._id}`}> Comprar</Link>
                   </li>
                 ))}
 

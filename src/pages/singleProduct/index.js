@@ -15,13 +15,20 @@ import { Container } from "../../styles/GlobalStyles";
 
 export default function SingleProduct() {
   const [quantidade, setQuantidade] = useState(1);
-  const { id } = useParams();
+  const { _id } = useParams();
   const dispatch = useDispatch();
 
   const { data, isLoading } = useQuery(["product"], async () => {
-    const request = await axios.get(`http://localhost:3004/data/${id}`);
+    const request = await axios.get(
+      `https://ecommerce-back-end-api.onrender.com/products/${_id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
     return request.data;
   });
+  
 
   const handleAddQTD = (qtd) => {
     if (quantidade < qtd) {
@@ -75,7 +82,7 @@ export default function SingleProduct() {
                     {data?.quantidade < 5 && "Últimas unidades"}
                   </p>
                   <h4>Preço</h4>
-                  <h5 className="productPrice">teste{data?.preco}</h5>
+                  <h5 className="productPrice">{data?.preco}</h5>
                 </div>
 
                 <div className="pruductQTD">

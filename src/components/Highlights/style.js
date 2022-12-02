@@ -42,6 +42,7 @@ export const Content = styled.div`
 
   img {
     width: 175px;
+    height: 100px;
   }
 
   h3 {
@@ -53,7 +54,6 @@ export const Content = styled.div`
     color: ${({ theme }) => theme.color.primaryColor};
     font-family: "Gotham";
     padding: 0;
-    margin-top: -40px;
   }
 
   p {
@@ -78,6 +78,14 @@ export const Content = styled.div`
     background-color: ${({ theme }) => theme.color.primaryColor};
     color: #fff;
   }
+
+
+  @media screen and (min-width: 1024px) {
+      ul li img{
+        width: 230px;
+        height: 100px;
+      }
+    }
 
   .loadingContent {
     width: 100%;

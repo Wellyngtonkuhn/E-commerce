@@ -19,7 +19,14 @@ export default function Shop() {
 
   const { data, isLoading } = useQuery(["data"],
     async () => {
-      const request = await axios.get("http://localhost:3004/data");
+      const request = await axios.get(
+        "https://ecommerce-back-end-api.onrender.com/products",
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       return request.data;
     },
     {
