@@ -32,7 +32,7 @@ export const FirstColumn = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
-
+    margin-bottom: 1rem;
     border-bottom: 1px solid ${({ theme }) => theme.color.primaryColor};
   }
 
