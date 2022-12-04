@@ -15,6 +15,7 @@ import {
 import { Container } from "../../styles/GlobalStyles";
 
 import Highlights from "../../components/Highlights";
+import RenderOnTop from "../../components/RenderOnTop";
 
 import { Head1, Head2 } from "../../assets/head/";
 import {
@@ -193,6 +194,7 @@ export default function Home() {
           </Container>
         </NewsLetterSection>
       </MainHome>
+      <RenderOnTop />
     </>
   );
 }

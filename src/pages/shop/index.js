@@ -8,6 +8,7 @@ import { Container } from "../../styles/GlobalStyles";
 
 import Aside from "../../components/shopPage/Aside";
 import Products from "../../components/shopPage/Products";
+import RenderOnTop from "../../components/RenderOnTop";
 
 export default function Shop() {
   const [brands, setBrands] = useState([
@@ -57,6 +58,7 @@ export default function Shop() {
           <Products brands={brands} data={data} isLoading={isLoading} />
         </Content>
       </Container>
+      <RenderOnTop />
     </MainShop>
   );
 }

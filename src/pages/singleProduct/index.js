@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/cartSlice";
+import RenderOnTop from '../../components/RenderOnTop/'
 
 import {
   FirstColumn,
@@ -166,6 +167,7 @@ export default function SingleProduct() {
           </SecondColumn>
         </Content>
       </Container>
+      <RenderOnTop />
     </SingleProductSection>
   );
 }

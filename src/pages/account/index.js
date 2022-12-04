@@ -5,6 +5,7 @@ import { Container } from "../../styles/GlobalStyles";
 
 import Login from "../../components/login";
 import ClientDashBoard from "../../components/ClientDashBoard";
+import RenderOnTop from '../../components/RenderOnTop/'
 
 export default function AccountPage() {
   const [token, setToken] = useState(false);
@@ -23,6 +24,7 @@ export default function AccountPage() {
           <ClientDashBoard handleToken={handleToken} data={dataLogin} />
         )}
       </Container>
+      <RenderOnTop />
     </AccountSection>
   );
 }

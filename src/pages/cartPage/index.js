@@ -5,6 +5,7 @@ import {
   removeFromCart,
   increaseCartItem,
 } from "../../redux/cartSlice";
+import RenderOnTop from '../../components/RenderOnTop/'
 
 import {
   CartSection,
@@ -126,6 +127,7 @@ export default function CartPage() {
           )}
         </Content>
       </Container>
+      <RenderOnTop />
     </CartSection>
   );
 }
