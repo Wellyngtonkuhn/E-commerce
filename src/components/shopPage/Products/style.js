@@ -17,8 +17,8 @@ export const Ul = styled.ul`
   }
 
   li img {
-    width: 150px;
-    height: 75px;
+    width: 180px;
+    height: 135px;
   }
 
   li h3 {
@@ -61,11 +61,6 @@ export const Ul = styled.ul`
 
     li {
       margin-bottom: unset;
-    }
-
-    li img {
-      width: 200px;
-      height: 100px;
     }
 
     li h3 {
