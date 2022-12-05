@@ -31,6 +31,9 @@ export const Ul = styled.ul`
     font-family: "Gotham";
     padding: 0;
   }
+  li a {
+    color: unset;
+  }
 
   li p {
     font-size: 1rem;
@@ -42,15 +45,15 @@ export const Ul = styled.ul`
     padding: 0.5rem 0 1rem 0;
   }
 
-  li a {
-    font-size: 0.8rem;
+  .btn-buy {
+    font-size: 0.9rem;
     color: ${({ theme }) => theme.color.primaryColor};
     border: 1px solid ${({ theme }) => theme.color.primaryColor};
     padding: 0.3rem 1.5rem;
     transition: all ease 0.3s;
   }
 
-  a:hover {
+  .btn-buy:hover {
     background-color: ${({ theme }) => theme.color.primaryColor};
     color: #fff;
   }
@@ -70,7 +73,7 @@ export const Ul = styled.ul`
       font-size: 1.1rem;
     }
 
-    li a {
+    .btn-buy {
       font-size: 1rem;
       padding: 0.3rem 1.5rem;
     }
@@ -83,6 +86,18 @@ export const Ul = styled.ul`
 
       img {
         width: 100%;
+      }
+    }
+  }
+
+  @media screen and (min-width: 1440px) {
+    justify-content: space-between;
+    li {
+      width: 21%;
+
+      img {
+        width: 100%;
+        height: 175px;
       }
     }
   }

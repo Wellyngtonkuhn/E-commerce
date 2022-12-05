@@ -21,7 +21,7 @@ export const FirstColumn = styled.div`
   align-items: center;
 
   img {
-    width: 225px;
+    width: 100%;
   }
 
   .loading {
@@ -61,19 +61,10 @@ export const FirstColumn = styled.div`
     }
   }
 
-  @media screen and (min-width: 425px) {
-    img {
-      width: 250px;
-    }
-  }
 
   @media screen and (min-width: 768px) {
     div {
       position: fixed;
-    }
-
-    img {
-      width: 350px;
     }
   }
 `;

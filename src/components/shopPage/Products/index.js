@@ -9,14 +9,16 @@ export default function Products({ data, isLoading }) {
           data.map((item) => (
             <li key={item.id}>
               <img src={item.url} alt={item.nome} />
-              <h3>{item.nome}</h3>
+              <h3>
+                <Link to={`/shop/${item.nome}/${item._id}`}>{item.nome}</Link>
+              </h3>
               <p>
                 {item.preco.toLocaleString("pt-BR", {
                   style: "currency",
                   currency: "BRL",
                 })}
               </p>
-              <Link to={`/shop/${item.nome}/${item._id}`}> Comprar</Link>
+              <Link className="btn-buy" to={`/shop/${item.nome}/${item._id}`}> Comprar</Link>
             </li>
           ))}
 
