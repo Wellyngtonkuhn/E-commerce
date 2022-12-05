@@ -41,8 +41,7 @@ export const Content = styled.div`
   }
 
   img {
-    width: 175px;
-    height: 100px;
+    width: 200px;
   }
 
   h3 {
@@ -79,13 +78,17 @@ export const Content = styled.div`
     color: #fff;
   }
 
+  @media screen and (min-width: 768px) {
+    ul li img {
+      height: 140px;
+    }
+  }
 
   @media screen and (min-width: 1024px) {
-      ul li img{
-        width: 230px;
-        height: 100px;
-      }
+    ul li img {
+      height: 130px;
     }
+  }
 
   .loadingContent {
     width: 100%;
@@ -223,7 +226,7 @@ export const Content = styled.div`
       width: 25%;
 
       img {
-        width: 200px;
+        width: 90%;
       }
     }
   }
