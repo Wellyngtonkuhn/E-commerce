@@ -7,44 +7,66 @@ import { Container } from "../../styles/GlobalStyles";
 
 import Login from "../../components/login";
 import ClientDashBoard from "../../components/ClientDashBoard";
-import RenderOnTop from '../../components/RenderOnTop/'
+import RenderOnTop from "../../components/RenderOnTop/";
 
-const productionUrl = 'https://ecommerce-back-end-api.onrender.com'
-const devUrl = 'http://localhost:3004'
+const productionUrl = "https://ecommerce-back-end-api.onrender.com";
+const devUrl = "http://localhost:3004";
 
 export default function AccountPage() {
-  const [token, setToken] = useState(false);
-  const [userDataLogin, setUserDataLogin] = useState([]);
+  const [token, setToken] = useState(null);
+  const [userData, setUserData] = useState([]);
 
-  const handleRemoveToken = () => {
-    Cookies.remove('token')
-    setToken(false);
+  const handleLogin = async ({ email, password }) => {
+    const { data } = await axios.post(`${productionUrl}/login`, { email, password });
+    if (data) {
+      Cookies.set("token", data.token, { expires: 1 });
+      localStorage.setItem("user", JSON.stringify(data?.user));
+      setUserData(data.user);
+      setToken(data.token);
+    }
   };
 
-  const handleLogin = async ({email, password}) => {
-    const { data } = await axios.post(`${devUrl}/login`, { email, password })
-    if(data){
-     Cookies.set('token', data.token, {expires: 1})
-     setUserDataLogin(data)
-     setToken(true)
+  const handleRegister = async ({ userName, email, password }) => {
+    const { data } = await axios.post(`${productionUrl}/register`, {
+      userName,
+      email,
+      password,
+    });
+    if (data) {
+      Cookies.set("token", data.token, { expires: 1 });
+      localStorage.setItem("user", JSON.stringify(data?.user));
+      setUserData(data.user);
+      setToken(data.token);
     }
+  };
+
+  const handleLogOut = () => {
+    Cookies.remove("token");
+    localStorage.removeItem("user");
+    setUserData([])
+    setToken(null);
   };
 
   useEffect(() => {
-    const isTokenCookie = Cookies.get('token')
-    if(isTokenCookie){
-      setToken(true)
+    const isTokenCookie = Cookies.get("token");
+    const isUser = localStorage.getItem("user");
+    if (isTokenCookie) {
+      // To do - Verificar se o token é valido
+      setToken(isTokenCookie);
     }
-  },[])
 
+    if (isUser) {
+      setUserData(JSON.parse(isUser));
+    }
+  }, []);
 
   return (
     <AccountSection>
       <Container>
         {!token ? (
-          <Login handleLogin={handleLogin} />
+          <Login handleLogin={handleLogin} handleRegister={handleRegister} />
         ) : (
-          <ClientDashBoard handleRemoveToken={handleRemoveToken} data={userDataLogin} />
+          <ClientDashBoard handleLogOut={handleLogOut} userData={userData} />
         )}
       </Container>
       <RenderOnTop />

@@ -12,12 +12,12 @@ const schemaLogin = yup.object({
 });
 
 const schemaRegister = yup.object({
-  name: yup.string().required("campo obrigatório"),
+  userName: yup.string().required("campo obrigatório"),
   email: yup.string().email("email inválido").required("campo obrigatório"),
   password: yup.string().required("campo obrigatório"),
 });
 
-export default function Login({ handleLogin }) {
+export default function Login({ handleLogin, handleRegister }) {
   const [showSignIn, setShowSingIn] = useState(true);
   const [showRegister, setshowRegister] = useState(false);
 
@@ -30,11 +30,6 @@ export default function Login({ handleLogin }) {
     resolver: yupResolver(schemaLogin, schemaRegister),
   });
 
-
-  const handleRegister = async (data) => {
-    //const userLogin = await axios.post(`${devUrl}/login`, data)
-    //console.log(data)
-  };
 
   const handleShowLogin = () => {
     setShowSingIn(true);
@@ -86,8 +81,8 @@ export default function Login({ handleLogin }) {
         <FormSection>
           <form onSubmit={handleSubmit(handleRegister)}>
             <h3>Criar Conta</h3>
-            <Input type="text" placeholder="name" {...register("name")} />
-            <p className="errorMessageform">{errors.name?.message}</p>
+            <Input type="text" placeholder="name" {...register("userName")} />
+            <p className="errorMessageform">{errors.userName?.message}</p>
             <Input type="text" placeholder="email" {...register("email")} />
             <p className="errorMessageform">{errors.email?.message}</p>
             <Input
