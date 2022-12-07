@@ -10,6 +10,9 @@ import Aside from "../../components/shopPage/Aside";
 import Products from "../../components/shopPage/Products";
 import RenderOnTop from "../../components/RenderOnTop";
 
+const productionUrl = 'https://ecommerce-back-end-api.onrender.com'
+const devUrl = 'http://localhost:3004'
+
 export default function Shop() {
   const [brands, setBrands] = useState([
     { name: "Persol", checked: false },
@@ -21,7 +24,7 @@ export default function Shop() {
   const { data, isLoading } = useQuery(["data"],
     async () => {
       const request = await axios.get(
-        "https://ecommerce-back-end-api.onrender.com/products",
+        `${productionUrl}/products`,
         {
           headers: {
             "Content-Type": "application/json",

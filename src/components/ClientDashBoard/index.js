@@ -11,7 +11,7 @@ import ChangePassword from "./ChangePassword";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
 
-export default function ClientDashBoard({ data, handleToken }) {
+export default function ClientDashBoard({ data, handleRemoveToken }) {
   const [showMenuMobile, setShowMenuMobile] = useState(false);
   const [showMenuClientContent, setshowMenuClientContent] = useState("orders");
 
@@ -32,6 +32,8 @@ export default function ClientDashBoard({ data, handleToken }) {
     }
   };
 
+  console.log(data)
+
   return (
     <AccountSection>
       <div className="clienteMenu">
@@ -39,7 +41,7 @@ export default function ClientDashBoard({ data, handleToken }) {
           <h3>Minha conta</h3>
           <p>
             <span>Bem vindo </span>
-            {data.name ? data.name : data.email}
+            {data?.userName}
           </p>
         </div>
         <button onClick={() => setShowMenuMobile(!showMenuMobile)}>
@@ -54,7 +56,7 @@ export default function ClientDashBoard({ data, handleToken }) {
         <ClientNavBar
           showMenuMobile={showMenuMobile}
           setShowMenuMobile={setShowMenuMobile}
-          handleToken={handleToken}
+          handleRemoveToken={handleRemoveToken}
           setshowMenuClientContent={setshowMenuClientContent}
         />
 

@@ -17,7 +17,7 @@ const schemaRegister = yup.object({
   password: yup.string().required("campo obrigatório"),
 });
 
-export default function Login({ setDataLogin, setToken }) {
+export default function Login({ handleLogin }) {
   const [showSignIn, setShowSingIn] = useState(true);
   const [showRegister, setshowRegister] = useState(false);
 
@@ -30,17 +30,18 @@ export default function Login({ setDataLogin, setToken }) {
     resolver: yupResolver(schemaLogin, schemaRegister),
   });
 
-  const onSubmit = (data) => {
-    setDataLogin(data);
-    setToken(true);
+
+  const handleRegister = async (data) => {
+    //const userLogin = await axios.post(`${devUrl}/login`, data)
+    //console.log(data)
   };
 
-  const handleLogin = () => {
+  const handleShowLogin = () => {
     setShowSingIn(true);
     setshowRegister(false);
   };
 
-  const handleRegister = () => {
+  const handleShowRegister = () => {
     setshowRegister(true);
     setShowSingIn(false);
   };
@@ -48,13 +49,16 @@ export default function Login({ setDataLogin, setToken }) {
   return (
     <LoginRegisterSection>
       <div className="buttonDivLoginRegister">
-        <button onClick={handleLogin}>Login</button>
-        <button onClick={handleRegister}>Register</button>
+        <button onClick={handleShowLogin}>Login</button>
+        <button onClick={handleShowRegister}>Register</button>
       </div>
+
       {showSignIn && (
         <FormSection>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <p>Entre com qualquer email e senha. Não estamos validando no momento</p>
+          <form onSubmit={handleSubmit(handleLogin)}>
+            <p>Utilize os dados a seguir para acessar a aplicação</p>
+            <p>email: admin@gmail.com</p>
+            <p>password: 123456</p>
             <h3>Login</h3>
             <Input type="text" placeholder="email" {...register("email")} />
             <p className="errorMessageform">{errors.email?.message}</p>
@@ -80,7 +84,7 @@ export default function Login({ setDataLogin, setToken }) {
 
       {showRegister && (
         <FormSection>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(handleRegister)}>
             <h3>Criar Conta</h3>
             <Input type="text" placeholder="name" {...register("name")} />
             <p className="errorMessageform">{errors.name?.message}</p>

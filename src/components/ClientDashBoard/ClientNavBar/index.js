@@ -14,7 +14,7 @@ import { MenuContent, MenuContentMobile } from "./style";
 export default function ClientNavBar({
   showMenuMobile,
   setShowMenuMobile,
-  handleToken,
+  handleRemoveToken,
   setshowMenuClientContent,
 }) {
   const handleMobileMenu = (path) => {
@@ -73,7 +73,7 @@ export default function ClientNavBar({
               </Link>
             </li>
             <li>
-              <Link onClick={handleToken}>
+              <Link onClick={handleRemoveToken}>
                 <div>
                   <FontAwesomeIcon icon={faArrowRightFromBracket} />
                   Sair
@@ -133,7 +133,7 @@ export default function ClientNavBar({
               </Link>
             </li>
             <li>
-              <Link onClick={handleToken}>
+              <Link onClick={handleRemoveToken}>
                 <div>
                   <FontAwesomeIcon icon={faArrowRightFromBracket} />
                   Sair
