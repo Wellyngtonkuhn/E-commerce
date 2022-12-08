@@ -1,6 +1,5 @@
 import { useState } from "react";
-
-import axios from "axios";
+import { api } from "../../axiosConfig/api";
 import { useQuery } from "@tanstack/react-query";
 
 import { MainShop, Content, MobileFilter } from "./style";
@@ -10,8 +9,6 @@ import Aside from "../../components/shopPage/Aside";
 import Products from "../../components/shopPage/Products";
 import RenderOnTop from "../../components/RenderOnTop";
 
-const productionUrl = 'https://ecommerce-back-end-api.onrender.com'
-const devUrl = 'http://localhost:3004'
 
 export default function Shop() {
   const [brands, setBrands] = useState([
@@ -23,14 +20,7 @@ export default function Shop() {
 
   const { data, isLoading } = useQuery(["data"],
     async () => {
-      const request = await axios.get(
-        `${productionUrl}/products`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const request = await api.get('/products');
       return request.data;
     },
     {

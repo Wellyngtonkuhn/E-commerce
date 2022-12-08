@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { api } from '../../axiosConfig/api.js'
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/cartSlice";
 import RenderOnTop from '../../components/RenderOnTop/'
@@ -20,17 +20,10 @@ export default function SingleProduct() {
   const dispatch = useDispatch();
 
   const { data, isLoading } = useQuery(["product"], async () => {
-    const request = await axios.get(
-      `https://ecommerce-back-end-api.onrender.com/products/${_id}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+    const request = await api.get(`/products/${_id}`);
     return request.data;
   });
   
-
   const handleAddQTD = (qtd) => {
     if (quantidade < qtd) {
       setQuantidade(quantidade + 1);

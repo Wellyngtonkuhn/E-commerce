@@ -1,25 +1,44 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { api } from "../../axiosConfig/api";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 
 import { Input, FormSection, LoginRegisterSection } from "./style";
+import { addToken } from "../../redux/userSlice";
 
-const schemaLogin = yup.object({
+const userLogin = yup.object({
   email: yup.string().email("email inválido").required("campo obrigatório"),
-  password: yup.string().required("campo obrigatório"),
+  password: yup.string().min(8, 'mínino de 8 caractéres').required("campo obrigatório"),
 });
 
-const schemaRegister = yup.object({
+const userRegister = yup.object({
   userName: yup.string().required("campo obrigatório"),
   email: yup.string().email("email inválido").required("campo obrigatório"),
-  password: yup.string().required("campo obrigatório"),
+  password: yup.string().min(8, 'mínino de 8 caractéres').required("campo obrigatório"),
 });
 
-export default function Login({ handleLogin, handleRegister }) {
+export default function Login() {
   const [showSignIn, setShowSingIn] = useState(true);
   const [showRegister, setshowRegister] = useState(false);
+  const dispatch = useDispatch()
+  
+  const handleLogin = async ({ email, password }) => {
+    const { data } = await api.post('/login', { email, password });
+      if (data) {
+        dispatch(addToken(data))
+      }
+  };
+
+  const handleRegister = async ({ userName, email, password }) => {
+    const { data } = await api.post('/register', { userName, email, password, });
+      if (data) {
+        dispatch(addToken(data))
+      }
+  };
+
 
   const {
     register,
@@ -27,7 +46,7 @@ export default function Login({ handleLogin, handleRegister }) {
     formState: { errors, isValid },
   } = useForm({
     mode: "onChange",
-    resolver: yupResolver(schemaLogin, schemaRegister),
+    resolver: yupResolver(userLogin, userRegister),
   });
 
 
@@ -58,7 +77,7 @@ export default function Login({ handleLogin, handleRegister }) {
             <Input type="text" placeholder="email" {...register("email")} />
             <p className="errorMessageform">{errors.email?.message}</p>
             <Input
-              type="text"
+              type="password"
               placeholder="password"
               {...register("password")}
             />
@@ -81,16 +100,15 @@ export default function Login({ handleLogin, handleRegister }) {
         <FormSection>
           <form onSubmit={handleSubmit(handleRegister)}>
             <h3>Criar Conta</h3>
-            <Input type="text" placeholder="name" {...register("userName")} />
+            <Input type="text" placeholder="nome completo" {...register("userName")} />
             <p className="errorMessageform">{errors.userName?.message}</p>
+
             <Input type="text" placeholder="email" {...register("email")} />
             <p className="errorMessageform">{errors.email?.message}</p>
-            <Input
-              type="text"
-              placeholder="password"
-              {...register("password")}
-            />
+
+            <Input type="password" placeholder="password" {...register("password")} />
             <p className="errorMessageform">{errors.password?.message}</p>
+
             <button disabled={!isValid} type="submit">
               Criar conta
             </button>

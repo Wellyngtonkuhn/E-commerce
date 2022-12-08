@@ -18,6 +18,7 @@ const CartSlice = createSlice({
         state.cartItems[index].itemQuantity += action.payload[1];
         toast.success(`${action.payload[0].nome} adicionado ao carrinho`, {
           position: "top-right",
+          autoClose: 3000
         });
       } else {
         const product = {
@@ -27,6 +28,7 @@ const CartSlice = createSlice({
         state.cartItems.push(product);
         toast.success(`${action.payload[0].nome} adicionado ao carrinho`, {
           position: "top-right",
+          autoClose: 3000
         });
       }
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
@@ -38,6 +40,7 @@ const CartSlice = createSlice({
       state.cartItems = newCart;
       toast.error(`${action.payload.nome} removido do carrinho`, {
         position: "top-right",
+        autoClose: 3000
       });
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },

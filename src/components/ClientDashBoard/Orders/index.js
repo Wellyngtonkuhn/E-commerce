@@ -1,66 +1,24 @@
+import { useQuery } from "@tanstack/react-query";
+import { useSelector } from "react-redux";
+import { api } from "../../../axiosConfig/api";
 import { Link } from "react-router-dom";
 import { Order, OrderContent } from "./style";
 
-const order = [
-  {
-    img: [
-      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
-      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
-      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
-      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
-      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
-      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
-      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
-      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
-      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
-    ],
-    orderNumber: 78425484,
-    shippedDate: "14 March 2022",
-    Total: 102.55,
-    status: "Cancelled",
-    class: "cancelled",
-  },
-  {
-    img: [
-      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
-      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
-    ],
-    orderNumber: 475155,
-    shippedDate: "14 Jun 2022",
-    Total: 950.99,
-    status: "Processing",
-    class: "processing",
-  },
-  {
-    img: [
-      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
-      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
-      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
-    ],
-    orderNumber: 784534548777,
-    shippedDate: "30 April 2022",
-    Total: 250.00,
-    status: "Out for delivery",
-    class: "atTheWay",
-  },
-  {
-    img: [
-      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
-      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
-      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
-      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
-      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
-      { url: "https://thumbs2.imgbox.com/96/46/BzWu3TvY_b.png" },
-    ],
-    orderNumber: 784095487584,
-    shippedDate: "14 November 2022",
-    Total: 15458,
-    status: "Delivered",
-    class: "delivered",
-  },
-];
 
 export default function Orders() {
+  const order = []
+  const { token, user } = useSelector(state => state.user)
+
+  const { data } = useQuery(['orders'], async ()=>{
+      const request = await api.get(`/orders/${user?.id}`, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      })
+      return request.data
+  })
+
+  console.log(data)
   return (
     <Order>
       <h3>Pedidos</h3>

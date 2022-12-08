@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { AccountSection, Content } from "./style";
 
 import ClientNavBar from "./ClientNavBar";
@@ -7,6 +8,7 @@ import Favorites from "./Favorites";
 import MyAccount from "./MyAccount";
 import Address from "./Address";
 import ChangePassword from "./ChangePassword";
+import RenderOnTop from "../RenderOnTop";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
@@ -14,6 +16,8 @@ import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
 export default function ClientDashBoard({ userData, handleLogOut }) {
   const [showMenuMobile, setShowMenuMobile] = useState(false);
   const [showMenuClientContent, setshowMenuClientContent] = useState("orders");
+
+  const { user } = useSelector(state => state.user)
 
   const handleSwitchContent = (showMenuClientContent) => {
     switch (showMenuClientContent) {
@@ -39,7 +43,7 @@ export default function ClientDashBoard({ userData, handleLogOut }) {
           <h3>Minha conta</h3>
           <p>
             <span>Bem vindo </span>
-            {userData?.userName}
+            {user?.userName}
           </p>
         </div>
         <button onClick={() => setShowMenuMobile(!showMenuMobile)}>
@@ -54,12 +58,12 @@ export default function ClientDashBoard({ userData, handleLogOut }) {
         <ClientNavBar
           showMenuMobile={showMenuMobile}
           setShowMenuMobile={setShowMenuMobile}
-          handleLogOut={handleLogOut}
           setshowMenuClientContent={setshowMenuClientContent}
         />
 
         {handleSwitchContent(showMenuClientContent)}
       </Content>
+      <RenderOnTop />
     </AccountSection>
   );
 }

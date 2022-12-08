@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import { api } from '../../axiosConfig/api.js' 
 
 import {
   MainHome,
@@ -34,14 +34,7 @@ export default function Home() {
   const { data, isLoading } = useQuery(
     ["highlights"],
     async () => {
-      const request = await axios.get(
-        "https://ecommerce-back-end-api.onrender.com/products",
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const request = await api.get("/products");
       return request.data;
     },
     {

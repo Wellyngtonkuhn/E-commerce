@@ -1,3 +1,4 @@
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   faCartFlatbedSuitcase,
@@ -10,13 +11,15 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { MenuContent, MenuContentMobile } from "./style";
+import { removeToken } from "../../../redux/userSlice";
 
-export default function ClientNavBar({
-  showMenuMobile,
-  setShowMenuMobile,
-  handleLogOut,
-  setshowMenuClientContent,
-}) {
+export default function ClientNavBar({ showMenuMobile, setShowMenuMobile, setshowMenuClientContent }) {
+  const dispatch = useDispatch()
+
+  const handleLogOut = () => {
+    dispatch(removeToken())
+  };
+
   const handleMobileMenu = (path) => {
     setshowMenuClientContent(path);
     setShowMenuMobile(false);
