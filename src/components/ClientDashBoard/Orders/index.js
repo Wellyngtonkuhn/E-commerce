@@ -26,7 +26,7 @@ export default function Orders() {
             <div className="firsRow">
               <div className="firstCollumn">
                 {item.productImg.map((img) => (
-                  <img src={img.url} alt="product" />
+                  <img src={img.url} alt={item._id} />
                 ))}
               </div>
               <div className="secondColumn">

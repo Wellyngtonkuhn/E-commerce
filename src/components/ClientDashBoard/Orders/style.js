@@ -40,7 +40,7 @@ export const OrderContent = styled.div`
     }
 
     img {
-      width: 75px;
+      width: 130px;
       margin-right: 1rem;
     }
 
@@ -114,11 +114,5 @@ export const OrderContent = styled.div`
   .cancelled {
     color: red;
     font-weight: 700;
-  }
-
-  @media screen and (min-width: 426px) {
-    img {
-      width: 125px;
-    }
   }
 `;
