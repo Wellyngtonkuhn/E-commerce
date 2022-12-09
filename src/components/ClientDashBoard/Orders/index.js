@@ -4,31 +4,28 @@ import { api } from "../../../axiosConfig/api";
 import { Link } from "react-router-dom";
 import { Order, OrderContent } from "./style";
 
-
 export default function Orders() {
-  const order = []
-  const { token, user } = useSelector(state => state.user)
+  const { token, user } = useSelector((state) => state.user);
 
-  const { data } = useQuery(['orders'], async ()=>{
-      const request = await api.get(`/orders/${user?.id}`, {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-        },
-      })
-      return request.data
-  })
+  const { data } = useQuery(["orders"], async () => {
+    const request = await api.get(`/orders/${user?.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return request.data;
+  });
 
-  console.log(data)
   return (
     <Order>
       <h3>Pedidos</h3>
 
-      {order &&
-        order.map((item) => (
-          <OrderContent key={item.orderNumber}>
+      {data &&
+        data.map((item) => (
+          <OrderContent key={item._id}>
             <div className="firsRow">
               <div className="firstCollumn">
-                {item.img.map((img) => (
+                {item.productImg.map((img) => (
                   <img src={img.url} alt="product" />
                 ))}
               </div>
@@ -41,13 +38,13 @@ export default function Orders() {
             <div className="secondRow">
               <div>
                 <h4>
-                  Pedido<span>{item.orderNumber}</span>
+                  Pedido<span>{item._id}</span>
                 </h4>
                 <div className="separator"></div>
               </div>
               <div>
                 <h4>
-                  Enviado<span>{item.shippedDate}</span>
+                  Enviado<span>{item.shipped}</span>
                 </h4>
                 <div className="separator"></div>
               </div>
@@ -56,7 +53,7 @@ export default function Orders() {
                 <h4>
                   Total
                   <span>
-                    {item.Total.toLocaleString("pt-BR", {
+                    {item.totalPrice.toLocaleString("pt-BR", {
                       style: "currency",
                       currency: "BRL",
                     })}
@@ -66,7 +63,8 @@ export default function Orders() {
               </div>
               <div>
                 <h4>
-                  Status<span className={item.class}>{item.status}</span>
+                  Status
+                  <span className={item.orderStatus}>{item.orderStatus}</span>
                 </h4>
               </div>
             </div>
