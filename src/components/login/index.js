@@ -39,7 +39,6 @@ export default function Login() {
       }
   };
 
-
   const {
     register,
     handleSubmit,
@@ -72,7 +71,7 @@ export default function Login() {
           <form onSubmit={handleSubmit(handleLogin)}>
             <p>Utilize os dados a seguir para acessar a aplicação</p>
             <p>email: admin@gmail.com</p>
-            <p>password: 123456</p>
+            <p>password: 123456789</p>
             <h3>Login</h3>
             <Input type="text" placeholder="email" {...register("email")} />
             <p className="errorMessageform">{errors.email?.message}</p>

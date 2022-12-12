@@ -16,17 +16,31 @@ export default function Orders() {
     return request.data;
   });
 
+  console.log(data)
+
   return (
     <Order>
       <h3>Pedidos</h3>
 
       {data &&
         data.map((item) => (
-          <OrderContent key={item._id}>
+          <OrderContent key={item.userId}>
             <div className="firsRow">
               <div className="firstCollumn">
-                {item.productImg.map((img) => (
-                  <img src={img.url} alt={item._id} />
+                {item?.product.map((product) => (
+                  <div key={item._id}>
+                    <img src={product.url} alt={item._id} />
+                    <h3>{product.name}</h3>
+                    <h4>
+                      Quantidade: <span>{product.quantity}</span>
+                    </h4>
+                    <h4>
+                      Preço: <span>{product.price.toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}</span>
+                    </h4>
+                  </div>
                 ))}
               </div>
               <div className="secondColumn">
@@ -65,6 +79,12 @@ export default function Orders() {
                 <h4>
                   Status
                   <span className={item.orderStatus}>{item.orderStatus}</span>
+                </h4>
+              </div>
+              <div>
+                <h4>
+                Pagamento
+                  <span className={item.paymentStatus}>{item.paymentStatus}</span>
                 </h4>
               </div>
             </div>

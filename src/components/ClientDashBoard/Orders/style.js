@@ -30,6 +30,27 @@ export const OrderContent = styled.div`
 
     .firstCollumn {
       width: 80%;
+
+      h4{
+        font-size: 0.9rem;
+        line-height: 22px;
+
+        span {
+          font-size: 0.8rem;
+          font-weight: 500;
+        }
+      }
+
+      @media screen and (min-width: 425px) {
+          display: flex;
+          flex-wrap: wrap;
+      }
+
+      @media screen and (min-width: 768px) {
+        h3{
+          font-size: 1rem;
+        }
+      }
     }
 
     .secondColumn {
@@ -71,7 +92,7 @@ export const OrderContent = styled.div`
     display: flex;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: .5rem;
     min-height: 3rem;
     padding: 1rem;
     margin-top: 1rem;
@@ -97,6 +118,12 @@ export const OrderContent = styled.div`
     }
   }
 
+  @media screen and (min-width: 425px) {
+      .secondRow{
+        gap: 2rem;
+      }
+  }
+
   .processing {
     color: #5fa948;
     font-weight: 700;
@@ -106,6 +133,7 @@ export const OrderContent = styled.div`
     color: green;
     font-weight: 700;
   }
+
   .atTheWay {
     color: #ffb515;
     font-weight: 700;
@@ -113,6 +141,11 @@ export const OrderContent = styled.div`
 
   .cancelled {
     color: red;
+    font-weight: 700;
+  }
+
+  .approved {
+    color: green;
     font-weight: 700;
   }
 `;

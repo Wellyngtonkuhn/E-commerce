@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { api } from "../../axiosConfig/api.js";
 import {
   decreaseCartItem,
   removeFromCart,
   increaseCartItem,
 } from "../../redux/cartSlice";
-import RenderOnTop from '../../components/RenderOnTop/'
+import RenderOnTop from "../../components/RenderOnTop/";
 
 import {
   CartSection,
@@ -20,6 +21,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function CartPage() {
   const { cartItems } = useSelector((state) => state.cart);
+  const { user, token } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const totalPrice = () => {
@@ -31,10 +33,32 @@ export default function CartPage() {
       return acc + curr;
     }, 0);
 
-    return finalTotal.toLocaleString("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    });
+    return Number(finalTotal);
+  };
+
+  const handleCheckOut = async(user, token) => {
+    const order = {
+      userId: user.id,
+      product: cartItems.map((item) => {
+        return {
+          name: item.nome,
+          quantity: item.itemQuantity,
+          url: item.url,
+          price: item.preco,
+        };
+      }),
+      totalPrice: totalPrice(),
+      shipped: "05/12/2022",
+      orderStatus: "processing",
+      paymentStatus: "approved",
+    };
+
+    const { data } = await api.post('/checkout', order,{
+      headers:{
+        Authorization: `Bearer ${token}`
+      }
+    })
+    console.log(data)
   };
 
   return (
@@ -47,13 +71,16 @@ export default function CartPage() {
               <FirstColumn>
                 <ul>
                   {cartItems?.map((item) => (
-                    <li key={item.id}>
+                    <li key={item._id}>
                       <div className="product">
                         <div>
                           <img src={item.url} alt={item.nome} />
                           <h3>{item.nome}</h3>
                         </div>
-                        <button className="removeButton" onClick={() => dispatch(removeFromCart(item))}>
+                        <button
+                          className="removeButton"
+                          onClick={() => dispatch(removeFromCart(item))}
+                        >
                           Remover
                         </button>
                       </div>
@@ -112,9 +139,16 @@ export default function CartPage() {
 
                 <div className="finalTotal">
                   <p>Total</p>
-                  <p>{totalPrice()}</p>
+                  <p>
+                    {totalPrice().toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
+                  </p>
                 </div>
-                <button>Finalizar compra</button>
+                <button onClick={() => handleCheckOut(user, token)}>
+                  Finalizar compra
+                </button>
               </SecondColumn>
             </>
           ) : (

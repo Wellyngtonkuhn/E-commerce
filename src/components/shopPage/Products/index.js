@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ProductsSection, Ul } from "./style";
 
 export default function Products({ data, isLoading }) {
+
   return (
     <ProductsSection>
       <Ul>
