@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { api } from "../../axiosConfig/api";
 import { useForm } from "react-hook-form";
@@ -11,32 +12,60 @@ import { addToken } from "../../redux/userSlice";
 
 const userLogin = yup.object({
   email: yup.string().email("email inválido").required("campo obrigatório"),
-  password: yup.string().min(8, 'mínino de 8 caractéres').required("campo obrigatório"),
+  password: yup
+    .string()
+    .min(8, "mínino de 8 caractéres")
+    .required("campo obrigatório"),
 });
 
 const userRegister = yup.object({
   userName: yup.string().required("campo obrigatório"),
   email: yup.string().email("email inválido").required("campo obrigatório"),
-  password: yup.string().min(8, 'mínino de 8 caractéres').required("campo obrigatório"),
+  password: yup
+    .string()
+    .min(8, "mínino de 8 caractéres")
+    .required("campo obrigatório"),
 });
 
 export default function Login() {
   const [showSignIn, setShowSingIn] = useState(true);
   const [showRegister, setshowRegister] = useState(false);
-  const dispatch = useDispatch()
-  
+  const [userLocation, setUserLocation] = useState("");
+
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setUserLocation(location?.state?.from);
+  }, []);
+
   const handleLogin = async ({ email, password }) => {
-    const { data } = await api.post('/login', { email, password });
-      if (data) {
-        dispatch(addToken(data))
-      }
+    await api.post("/login", { email, password })
+      .then((res) => {
+        if (userLocation === "/cart") {
+          dispatch(addToken(res?.data));
+          navigate("/cart");
+        } else {
+          dispatch(addToken(res?.data));
+        }
+      })
+      .catch((err) => alert(err.response.data.message));
   };
 
   const handleRegister = async ({ userName, email, password }) => {
-    const { data } = await api.post('/register', { userName, email, password, });
-      if (data) {
-        dispatch(addToken(data))
-      }
+    await api.post("/register", { userName, email, password })
+      .then((res) => {
+        if (userLocation === "/cart") {
+          dispatch(addToken(res?.data));
+          alert(res.data.message);
+          navigate("/cart");
+        } else {
+          dispatch(addToken(res?.data));
+          alert(res.data.message);
+        }
+      })
+      .catch((err) => alert(err.response.data.message));
   };
 
   const {
@@ -47,7 +76,6 @@ export default function Login() {
     mode: "onChange",
     resolver: yupResolver(userLogin, userRegister),
   });
-
 
   const handleShowLogin = () => {
     setShowSingIn(true);
@@ -99,13 +127,21 @@ export default function Login() {
         <FormSection>
           <form onSubmit={handleSubmit(handleRegister)}>
             <h3>Criar Conta</h3>
-            <Input type="text" placeholder="nome completo" {...register("userName")} />
+            <Input
+              type="text"
+              placeholder="nome completo"
+              {...register("userName")}
+            />
             <p className="errorMessageform">{errors.userName?.message}</p>
 
             <Input type="text" placeholder="email" {...register("email")} />
             <p className="errorMessageform">{errors.email?.message}</p>
 
-            <Input type="password" placeholder="password" {...register("password")} />
+            <Input
+              type="password"
+              placeholder="password"
+              {...register("password")}
+            />
             <p className="errorMessageform">{errors.password?.message}</p>
 
             <button disabled={!isValid} type="submit">

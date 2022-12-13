@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { api } from "../../axiosConfig/api.js";
 import {
   decreaseCartItem,
   removeFromCart,
   increaseCartItem,
+  clearCart,
 } from "../../redux/cartSlice";
 import RenderOnTop from "../../components/RenderOnTop/";
 
@@ -23,6 +24,7 @@ export default function CartPage() {
   const { cartItems } = useSelector((state) => state.cart);
   const { user, token } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const totalPrice = () => {
     const totalProduct = cartItems.map((item) => {
@@ -36,7 +38,7 @@ export default function CartPage() {
     return Number(finalTotal);
   };
 
-  const handleCheckOut = async(user, token) => {
+  const handleCheckOut = async (user, token) => {
     const order = {
       userId: user.id,
       product: cartItems.map((item) => {
@@ -53,12 +55,24 @@ export default function CartPage() {
       paymentStatus: "approved",
     };
 
-    const { data } = await api.post('/checkout', order,{
-      headers:{
-        Authorization: `Bearer ${token}`
-      }
-    })
-    console.log(data)
+    if (token !== "") {
+      const { data } = await api.post("/checkout", order, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return handleCongrats(data);
+    } else {
+      return navigate("/account", {
+        state: { from: "/cart" },
+      });
+    }
+  };
+
+  const handleCongrats = (data) => {
+    dispatch(clearCart());
+
+    navigate("/congrats", { state: { data: data } });
   };
 
   return (

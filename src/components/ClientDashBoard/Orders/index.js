@@ -16,8 +16,6 @@ export default function Orders() {
     return request.data;
   });
 
-  console.log(data)
-
   return (
     <Order>
       <h3>Pedidos</h3>
@@ -35,10 +33,13 @@ export default function Orders() {
                       Quantidade: <span>{product.quantity}</span>
                     </h4>
                     <h4>
-                      Preço: <span>{product.price.toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}</span>
+                      Preço:{" "}
+                      <span>
+                        {product.price.toLocaleString("pt-BR", {
+                          style: "currency",
+                          currency: "BRL",
+                        })}
+                      </span>
                     </h4>
                   </div>
                 ))}
@@ -83,8 +84,10 @@ export default function Orders() {
               </div>
               <div>
                 <h4>
-                Pagamento
-                  <span className={item.paymentStatus}>{item.paymentStatus}</span>
+                  Pagamento
+                  <span className={item.paymentStatus}>
+                    {item.paymentStatus}
+                  </span>
                 </h4>
               </div>
             </div>

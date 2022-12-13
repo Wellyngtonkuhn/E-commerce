@@ -4,6 +4,7 @@ import Shop from "../pages/shop";
 import SingleProduct from "../pages/singleProduct";
 import AccountPage from "../pages/account";
 import CartPage from "../pages/cartPage";
+import Congrats from "../pages/congrats";
 
 export default function Rotas() {
   return (
@@ -14,6 +15,7 @@ export default function Rotas() {
         <Route path="/shop/:product/:_id" element={<SingleProduct />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/congrats" element={<Congrats />} />
       </Routes>
     </>
   );

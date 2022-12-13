@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Container } from "../../styles/GlobalStyles";
 
@@ -15,11 +15,20 @@ import {
 import { Logo } from "../../assets/header/";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faX, faBagShopping } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faX,
+  faBagShopping,
+  faArrowRightFromBracket,
+} from "@fortawesome/free-solid-svg-icons";
+import { removeToken } from "../../redux/userSlice";
 
 export default function NavBar() {
   const [showMenuMobile, setShowMenuMobile] = useState(false);
   const length = useSelector((state) => state.cart.cartItems.length);
+  const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch()
+ 
 
   const hadleToggleMenuMobile = () => {
     setShowMenuMobile(!showMenuMobile);
@@ -61,8 +70,14 @@ export default function NavBar() {
               </button>
             </MenuMobile>
 
+            {user.length !==0 && (
+              <Link onClick={() => dispatch(removeToken())} className="cart">
+                <FontAwesomeIcon icon={faArrowRightFromBracket} size={"lg"} />
+              </Link>
+            ) }
+
             <Link to="/cart" className="cart">
-              <p>{length > 0 ? length : ''}</p>
+              <p>{length > 0 ? length : ""}</p>
               <FontAwesomeIcon icon={faBagShopping} size={"lg"} />
             </Link>
           </Cart>
