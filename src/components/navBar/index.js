@@ -70,7 +70,7 @@ export default function NavBar() {
               </button>
             </MenuMobile>
 
-            {user.length !==0 && (
+            {user?.length !==0 && (
               <Link onClick={() => dispatch(removeToken())} className="cart">
                 <FontAwesomeIcon icon={faArrowRightFromBracket} size={"lg"} />
               </Link>

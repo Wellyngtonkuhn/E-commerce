@@ -50,7 +50,7 @@ export default function Login() {
           dispatch(addToken(res?.data));
         }
       })
-      .catch((err) => alert(err.response.data.message));
+      .catch((err) => alert(err?.response?.data?.message));
   };
 
   const handleRegister = async ({ userName, email, password }) => {
@@ -58,14 +58,14 @@ export default function Login() {
       .then((res) => {
         if (userLocation === "/cart") {
           dispatch(addToken(res?.data));
-          alert(res.data.message);
+          alert(res?.data?.message);
           navigate("/cart");
         } else {
           dispatch(addToken(res?.data));
-          alert(res.data.message);
+          alert(res?.data?.message);
         }
       })
-      .catch((err) => alert(err.response.data.message));
+      .catch((err) => alert(err?.response?.data?.message));
   };
 
   const {
