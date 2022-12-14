@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { api } from "../../axiosConfig/api.js";
 import {
@@ -8,17 +8,15 @@ import {
   clearCart,
 } from "../../redux/cartSlice";
 import RenderOnTop from "../../components/RenderOnTop/";
+import GoToShopping from "../../components/buttonToShop/index.js";
 
 import {
   CartSection,
   Content,
   FirstColumn,
   SecondColumn,
-  ShopNow,
 } from "./style";
 import { Container } from "../../styles/GlobalStyles";
-import { faShop } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function CartPage() {
   const { cartItems } = useSelector((state) => state.cart);
@@ -165,12 +163,7 @@ export default function CartPage() {
               </SecondColumn>
             </>
           ) : (
-            <ShopNow>
-              <Link to="/shop">
-                <FontAwesomeIcon icon={faShop} />
-                Go to Shopping
-              </Link>
-            </ShopNow>
+              <GoToShopping />
           )}
         </Content>
       </Container>

@@ -34,7 +34,7 @@ export default function Products({ data, isLoading }) {
         return toast.success(`${favorite.name} adicionado aos favoritos`, {
           position: "top-right",
           autoClose: 3000
-        });
+        })
       }
     } else {
       return navigate("/account", {

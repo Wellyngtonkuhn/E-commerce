@@ -1,13 +1,20 @@
-import { faEye, faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { api } from "../../../axiosConfig/api";
+
+import { faEye, faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Favorite, FavoriteContent } from "./style";
+
+import GotoShopping from '../../buttonToShop/index.js'
+import { api } from "../../../axiosConfig/api";
+
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Favorites() {
   const { user, token } = useSelector((state) => state.user);
+  const queryClient = useQueryClient();
 
   const { data, isLoading } = useQuery(["favorites"], async () => {
     const request = await api.get(`/favorites/${user?.id}`, {
@@ -17,6 +24,23 @@ export default function Favorites() {
     });
     return request.data;
   });
+
+  const handleDeleteFavorite = async (favoriteId) => {
+    const deleteFavorite = await api.delete(`/favorites/${favoriteId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (deleteFavorite.status === 200) {
+      queryClient.invalidateQueries(["favorites"]);
+      return toast.success(`${deleteFavorite.data.message}`, {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    } else {
+      return alert(deleteFavorite.data.message);
+    }
+  };
 
   return (
     <Favorite>
@@ -28,9 +52,22 @@ export default function Favorites() {
         <p className="removeTitle">Ações</p>
       </div>
 
+      {isLoading && (
+        <div className="loadingContent">
+          <div className="loading"></div>
+          <div className="loading"></div>
+          <div className="loading"></div>
+          <div className="loading"></div>
+        </div>
+      )}
+
+      {data?.favorites.length === 0 && (
+        <GotoShopping />
+      )}
+
       {data?.favorites &&
         data?.favorites.map((item) => (
-          <FavoriteContent key={item.id}>
+          <FavoriteContent key={item._id}>
             <div className="firstColumn">
               <img src={item.img} alt={item.name} />
               <p className="productName">{item.name}</p>
@@ -43,7 +80,7 @@ export default function Favorites() {
             </div>
 
             <div className="secondColumn">
-              <button>
+              <button onClick={() => handleDeleteFavorite(item._id)}>
                 <FontAwesomeIcon icon={faTrashCan} />
               </button>
               <Link to={`/shop/${item.name}/${item.productId}`}>

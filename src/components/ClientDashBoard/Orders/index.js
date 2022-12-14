@@ -3,11 +3,12 @@ import { useSelector } from "react-redux";
 import { api } from "../../../axiosConfig/api";
 import { Link } from "react-router-dom";
 import { Order, OrderContent } from "./style";
+import GotoShopping from "../../buttonToShop/index.js";
 
 export default function Orders() {
   const { token, user } = useSelector((state) => state.user);
 
-  const { data } = useQuery(["orders"], async () => {
+  const { data, isLoading } = useQuery(["orders"], async () => {
     const request = await api.get(`/orders/${user?.id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -16,18 +17,29 @@ export default function Orders() {
     return request.data;
   });
 
-
   return (
     <Order>
       <h3>Pedidos</h3>
 
+      {isLoading && (
+        <div className="loadingContent">
+          <div className="loading"></div>
+          <div className="loading"></div>
+          <div className="loading"></div>
+          <div className="loading"></div>
+          <div className="loading"></div>
+        </div>
+      )}
+
+      {data?.length === 0 && <GotoShopping />}
+
       {data &&
         data.map((item) => (
-          <OrderContent key={item.userId}>
+          <OrderContent key={item._id}>
             <div className="firsRow">
               <div className="firstCollumn">
                 {item?.product.map((product) => (
-                  <div key={item._id}>
+                  <div key={product.url}>
                     <img src={product.url} alt={item._id} />
                     <h3>{product.name}</h3>
                     <h4>

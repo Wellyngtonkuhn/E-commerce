@@ -5,20 +5,20 @@ const UserSlice = createSlice({
   name: "token",
   initialState: {
     token: Cookies.get("token") || "",
-    user: JSON.parse(localStorage.getItem('user')) || []
+    user: JSON.parse(localStorage.getItem("user")) || [],
   },
   reducers: {
-    addToken(state, {payload}) {
+    addToken(state, { payload }) {
       state.token = payload.token;
-      state.user = payload.user
+      state.user = payload.user;
 
       Cookies.set("token", payload.token, { expires: 1 });
       localStorage.setItem("user", JSON.stringify(payload.user));
     },
     removeToken(state, action) {
       state.token = "";
-      state.user = []
-      
+      state.user = [];
+
       Cookies.remove("token");
       localStorage.removeItem("user");
     },
