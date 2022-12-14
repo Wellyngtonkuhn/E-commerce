@@ -71,7 +71,6 @@ export default function CartPage() {
 
   const handleCongrats = (data) => {
     dispatch(clearCart());
-
     navigate("/congrats", { state: { data: data } });
   };
 

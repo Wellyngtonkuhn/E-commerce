@@ -43,30 +43,38 @@ export default function Login() {
   const handleLogin = async ({ email, password }) => {
     await api.post("/login", { email, password })
       .then((res) => {
-        if (userLocation === "/cart") {
-          dispatch(addToken(res?.data));
-          navigate("/cart");
-        } else {
-          dispatch(addToken(res?.data));
-        }
+        dispatch(addToken(res?.data));
+          switch (userLocation) {
+            case "/cart":
+              return navigate("/cart");
+            case "/shop":
+              return navigate("/shop");
+            case "/":
+              return navigate("/");
+            default:
+              break;
+          }
       })
       .catch((err) => alert(err?.response?.data?.message));
   };
 
   const handleRegister = async ({ userName, email, password }) => {
-    await api.post("/register", { userName, email, password })
+    await api
+      .post("/register", { userName, email, password })
       .then((res) => {
-        if (userLocation === "/cart") {
-          dispatch(addToken(res?.data));
-          alert(res?.data?.message);
-          navigate("/cart");
-        } else {
-          dispatch(addToken(res?.data));
-          alert(res?.data?.message);
-        }
+        dispatch(addToken(res?.data));
+        alert(res?.data?.message);
+          switch (userLocation) {
+            case "/cart":
+              return navigate("/cart");
+            case "/shop":
+              return navigate("/shop");
+            default:
+              break;
+          }    
       })
       .catch((err) => alert(err?.response?.data?.message));
-  };
+  };  
 
   const {
     register,

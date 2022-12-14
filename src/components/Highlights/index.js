@@ -1,11 +1,22 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { api } from "../../axiosConfig/api";
 
 import { HighlightsSection, Content } from "./style";
 import { Container } from "../../styles/GlobalStyles";
 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
+
 export default function Highlights({ title, span, data, isLoading }) {
   const [bestSeller, setBestSeller] = useState([]);
+  const navigate = useNavigate()
+  const { user, token } = useSelector((state) => state.user);
+
 
   const handleBestSeller = async (data) => {
     const bestSeller = await data?.sort((a, b) => {
@@ -15,9 +26,37 @@ export default function Highlights({ title, span, data, isLoading }) {
     return setBestSeller(bestSeller);
   };
 
-  handleBestSeller(data);
+  const handleFavorite = async (product) => {
+    const favorite = {
+      userId: user?.id,
+      productId: product?._id,
+      img: product?.url,
+      name: product?.nome,
+      price: product?.preco,
+    };
 
-  return (
+    if (favorite.userId) {
+      const { data } = await api.post(`favorites`, favorite, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if(data.message === "Ok"){
+        return toast.success(`${favorite.name} adicionado aos favoritos`, {
+          position: "top-right",
+          autoClose: 3000
+        });
+      }
+    } else {
+      return navigate("/account", {
+        state: { from: "/" },
+      });
+    }
+  };
+
+ handleBestSeller(data);
+
+ return (
     <>
       <HighlightsSection>
         <Container>
@@ -38,7 +77,20 @@ export default function Highlights({ title, span, data, isLoading }) {
                         currency: "BRL",
                       })}
                     </p>
-                    <Link to={`/shop/${item.nome}/${item._id}`}> Comprar</Link>
+                    <div className="buttons">
+                      <Link
+                        className="btn-buy"
+                        to={`/shop/${item.nome}/${item._id}`}>
+                        Comprar
+                      </Link>
+
+                      <button
+                        className="btn-buy"
+                        onClick={() => handleFavorite(item)}
+                      >
+                        <FontAwesomeIcon icon={faHeart} />
+                      </button>
+                    </div>
                   </li>
                 ))}
 

@@ -8,7 +8,7 @@ export const ProductsSection = styled.section`
 export const Ul = styled.ul`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
   list-style: none;
 
   li {
@@ -30,6 +30,7 @@ export const Ul = styled.ul`
     color: ${({ theme }) => theme.color.primaryColor};
     font-family: "Gotham";
     padding: 0;
+    margin: auto;
   }
   li a {
     color: unset;
@@ -45,22 +46,40 @@ export const Ul = styled.ul`
     padding: 0.5rem 0 1rem 0;
   }
 
-  .btn-buy {
-    font-size: 0.9rem;
-    color: ${({ theme }) => theme.color.primaryColor};
-    border: 1px solid ${({ theme }) => theme.color.primaryColor};
-    padding: 0.3rem 1.5rem;
-    transition: all ease 0.3s;
+  .buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .btn-buy {
+      font-size: 1rem;
+      color: ${({ theme }) => theme.color.primaryColor};
+      border: 1px solid ${({ theme }) => theme.color.primaryColor};
+      padding: 0.3rem 1.5rem;
+      transition: all ease 0.3s;
+    }
+
+    .btn-buy:hover {
+      background-color: ${({ theme }) => theme.color.primaryColor};
+      color: #fff;
+    }
+
+    button {
+      background-color: transparent;
+      cursor: pointer;
+    }
   }
 
-  .btn-buy:hover {
-    background-color: ${({ theme }) => theme.color.primaryColor};
-    color: #fff;
+  @media screen and (min-width: 425px) {
+    justify-content: space-between;
+    li h3 {
+      width: 35ch;
+    }
   }
 
   @media screen and (min-width: 552px) {
     flex-basis: 80%;
     gap: 2rem;
+    justify-content: space-around;
 
     li {
       margin-bottom: unset;
@@ -68,6 +87,7 @@ export const Ul = styled.ul`
 
     li h3 {
       font-size: 0.9rem;
+      width: 27ch;
     }
     li p {
       font-size: 1.1rem;

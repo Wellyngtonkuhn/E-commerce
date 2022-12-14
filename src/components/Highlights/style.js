@@ -36,6 +36,7 @@ export const Content = styled.div`
     flex-direction: column;
     align-items: center;
   }
+
   li {
     padding-bottom: 1rem;
   }
@@ -65,17 +66,26 @@ export const Content = styled.div`
     padding: 0.5rem 0 1rem 0;
   }
 
-  a {
-    font-size: 1rem;
-    color: ${({ theme }) => theme.color.primaryColor};
-    border: 1px solid ${({ theme }) => theme.color.primaryColor};
-    padding: 0.3rem 1.5rem;
-    transition: all ease 0.3s;
-  }
+  .buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .btn-buy {
+      font-size: 1rem;
+      color: ${({ theme }) => theme.color.primaryColor};
+      border: 1px solid ${({ theme }) => theme.color.primaryColor};
+      padding: 0.3rem 1.5rem;
+      transition: all ease 0.3s;
+    }
 
-  a:hover {
-    background-color: ${({ theme }) => theme.color.primaryColor};
-    color: #fff;
+    .btn-buy:hover {
+      background-color: ${({ theme }) => theme.color.primaryColor};
+      color: #fff;
+    }
+    button {
+      background-color: transparent;
+      cursor: pointer;
+    }
   }
 
   @media screen and (min-width: 768px) {
