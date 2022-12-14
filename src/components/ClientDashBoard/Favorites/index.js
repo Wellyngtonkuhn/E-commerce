@@ -61,7 +61,7 @@ export default function Favorites() {
         </div>
       )}
 
-      {data?.favorites.length === 0 && (
+      {data?.favorites.length === 0 && !isLoading && (
         <GotoShopping />
       )}
 

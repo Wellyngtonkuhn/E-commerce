@@ -12,11 +12,12 @@ import RenderOnTop from "../../components/RenderOnTop";
 
 export default function Shop() {
   const [brands, setBrands] = useState([
-    { name: "Persol", checked: false },
-    { name: "RayBan", checked: false },
-    { name: "Gucci", checked: false },
-    { name: "Carrera", checked: false },
+    { name: "Persol", id: 1 },
+    { name: "RayBan", id: 2 },
+    { name: "Gucci", id: 3 },
+    { name: "Carrera", id: 4 },
   ]);
+  const [filter, setFilter] = useState([])
 
   const { data, isLoading } = useQuery(["data"],
     async () => {
@@ -28,18 +29,6 @@ export default function Shop() {
     }
   );
 
-  const handleFilterBrands = (item) => {
-    const newBrands = brands.map((brand) => {
-      if (brand?.name === item?.name) {
-        return { ...brand, name: item.name, checked: !item.checked };
-      } else {
-        return brand;
-      }
-    });
-
-    setBrands(newBrands);
-  };
-
   return (
     <MainShop>
       <Container>
@@ -47,8 +36,8 @@ export default function Shop() {
           <MobileFilter>
             <button>filtros</button>
           </MobileFilter>
-          <Aside brands={brands} handleFilterBrands={handleFilterBrands} />
-          <Products brands={brands} data={data} isLoading={isLoading} />
+          <Aside brands={brands} filter={filter} setFilter={setFilter} />
+          <Products filter={filter} data={data} isLoading={isLoading} />
         </Content>
       </Container>
       <RenderOnTop />

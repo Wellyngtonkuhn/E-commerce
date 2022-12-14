@@ -14,8 +14,8 @@ import { faHeart } from "@fortawesome/free-regular-svg-icons";
 
 export default function Highlights({ title, span, data, isLoading }) {
   const [bestSeller, setBestSeller] = useState([]);
-  const navigate = useNavigate()
   const { user, token } = useSelector((state) => state.user);
+  const navigate = useNavigate()
 
 
   const handleBestSeller = async (data) => {

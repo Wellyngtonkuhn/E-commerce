@@ -1,17 +1,33 @@
 import { AsideContent, AsideSection } from "./style";
 
-export default function Aside({ brands, handleFilterBrands }) {
+export default function Aside({ brands, setFilter, filter }) {
+  const handleToogleCheckbox = (name) => {
+    const currName = filter?.find((e) => e === name);
+    let newFilter = [...filter];
+
+    if (currName === undefined) {
+      newFilter.push(name);
+    } else {
+      newFilter = newFilter.filter((item) => item !== currName);
+    }
+    setFilter(newFilter);
+  };
+
   return (
     <AsideSection>
       <AsideContent>
         <div>
           <h3>Marcas</h3>
           {brands &&
-            brands?.map((item) => (
-              <div className="checkbox" key={item?.name}>
-                <label onClick={() => handleFilterBrands(item)}>
-                  <input type="checkbox" checked={item?.checked} />
-                  {item?.name}
+            brands?.map((brand) => (
+              <div className="checkbox" key={brand?.name}>
+                <label>
+                  <input
+                    type="checkbox"
+                    onChange={() => handleToogleCheckbox(brand?.name)}
+                    checked={filter?.find((e) => e === brand?.name) ? true : false}
+                  />
+                  {brand?.name}
                 </label>
               </div>
             ))}

@@ -7,7 +7,7 @@ export const CongratsSection = styled.section`
 `;
 
 export const Content = styled.div`
-  width: 50%;
+  width: 100%;
   margin: auto;
 
   div {

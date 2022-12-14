@@ -101,7 +101,7 @@ export const Favorite = styled.section`
 
     .loadingContent {
       div:nth-child(1) {
-        width: 30%;
+        width: 20%;
         height: 4rem;
       }
 

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { api } from "../../../axiosConfig/api";
@@ -10,7 +11,8 @@ import { ProductsSection, Ul } from "./style";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function Products({ data, isLoading }) {
+export default function Products({ filter, data, isLoading }) {
+  const [productData, setProductData] = useState([])
   const { user, token } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
@@ -42,6 +44,14 @@ export default function Products({ data, isLoading }) {
       });
     }
   };
+
+// Finalizar o filtro
+  useEffect(() => {
+    const newData = data?.filter(item => item?.marca.includes(filter))
+    setProductData(newData)
+  },[filter])
+
+
 
   return (
     <ProductsSection>

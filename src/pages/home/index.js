@@ -38,7 +38,7 @@ export default function Home() {
       return request.data;
     },
     {
-      staleTime: 10000 * 60,
+      staleTime: (1000 * 60) * 60
     }
   );
 
