@@ -43,7 +43,7 @@ export default function ClientDashBoard() {
       case "address":
         return <Address data={data} user={user} token={token} />;
       case "changePassword":
-        return <ChangePassword />;
+        return <ChangePassword user={user} token={token} />;
       default:
         return null;
     }
