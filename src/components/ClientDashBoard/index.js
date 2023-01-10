@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
+
+import { useQuery } from "@tanstack/react-query";
+import { api } from "../../axiosConfig/api";
+
 import { AccountSection, Content } from "./style";
 
 import ClientNavBar from "./ClientNavBar";
@@ -13,11 +17,20 @@ import RenderOnTop from "../RenderOnTop";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faX } from "@fortawesome/free-solid-svg-icons";
 
-export default function ClientDashBoard({ userData, handleLogOut }) {
+export default function ClientDashBoard() {
   const [showMenuMobile, setShowMenuMobile] = useState(false);
   const [showMenuClientContent, setshowMenuClientContent] = useState("orders");
 
-  const { user } = useSelector(state => state.user)
+  const { user, token } = useSelector(state => state.user)
+
+  const {data, isLoading} = useQuery(['userData'], async () => {
+    const request = await api.get(`/user/${user?.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+    return request.data
+})
 
   const handleSwitchContent = (showMenuClientContent) => {
     switch (showMenuClientContent) {
@@ -26,9 +39,9 @@ export default function ClientDashBoard({ userData, handleLogOut }) {
       case "favorites":
         return <Favorites />;
       case "myAccount":
-        return <MyAccount />;
+        return <MyAccount data={data} user={user} token={token} />;
       case "address":
-        return <Address />;
+        return <Address data={data} user={user} token={token} />;
       case "changePassword":
         return <ChangePassword />;
       default:

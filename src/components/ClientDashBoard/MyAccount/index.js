@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-import { useQuery } from "@tanstack/react-query";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { removeToken } from "../../../redux/userSlice";
 
 import { useForm } from "react-hook-form";
@@ -23,8 +22,7 @@ const schema = yup.object({
   genre: yup.string().required('campo obrigatório'),
 })
 
-export default function MyAccount() {
-  const {user, token} = useSelector((state) => state.user)
+export default function MyAccount({ data, user, token }) {
   const [optionsSelect] = useState(["não informado", "masculino", "feminino"]);
   const dispatch = useDispatch()
 
@@ -33,15 +31,7 @@ export default function MyAccount() {
     resolver: yupResolver(schema)
   });
 
-  const {data, isLoading} = useQuery(['userData'], async () => {
-    const request = await api.get(`/user/${user?.id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-    return request.data
-})
-
+  
   const onSubmit = async (data) => {
       const request = await api.patch(`/user/${user?.id}`, data, {
         headers: {
@@ -75,7 +65,6 @@ export default function MyAccount() {
     }
    }
    
-
   return (
     <MyAccountSection>
       <h3>Dados pessoais</h3>

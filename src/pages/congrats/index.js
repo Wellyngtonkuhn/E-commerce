@@ -13,7 +13,6 @@ export default function Congrats() {
     setOrder(location?.state?.data);
   }, []);
 
-  console.log(order);
   return (
     <CongratsSection>
       <Container>
