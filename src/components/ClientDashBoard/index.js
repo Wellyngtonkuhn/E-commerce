@@ -43,7 +43,7 @@ export default function ClientDashBoard({ userData, handleLogOut }) {
           <h3>Minha conta</h3>
           <p>
             <span>Bem vindo </span>
-            {user?.userName}
+            {user?.name}
           </p>
         </div>
         <button onClick={() => setShowMenuMobile(!showMenuMobile)}>

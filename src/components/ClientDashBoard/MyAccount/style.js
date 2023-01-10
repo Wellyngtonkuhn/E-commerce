@@ -27,6 +27,7 @@ export const Content = styled.div`
     font-weight: 500;
     line-height: 24px;
     color: #212121;
+
   }
 
   button {

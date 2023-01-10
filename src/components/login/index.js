@@ -19,7 +19,7 @@ const userLogin = yup.object({
 });
 
 const userRegister = yup.object({
-  userName: yup.string().required("campo obrigatório"),
+  name: yup.string().required("campo obrigatório"),
   email: yup.string().email("email inválido").required("campo obrigatório"),
   password: yup
     .string()
@@ -58,9 +58,9 @@ export default function Login() {
       .catch((err) => alert(err?.response?.data?.message));
   };
 
-  const handleRegister = async ({ userName, email, password }) => {
+  const handleRegister = async ({ name, email, password }) => {
     await api
-      .post("/register", { userName, email, password })
+      .post("/register", { name, email, password })
       .then((res) => {
         dispatch(addToken(res?.data));
         alert(res?.data?.message);
@@ -138,9 +138,9 @@ export default function Login() {
             <Input
               type="text"
               placeholder="nome completo"
-              {...register("userName")}
+              {...register("name")}
             />
-            <p className="errorMessageform">{errors.userName?.message}</p>
+            <p className="errorMessageform">{errors.name?.message}</p>
 
             <Input type="text" placeholder="email" {...register("email")} />
             <p className="errorMessageform">{errors.email?.message}</p>
