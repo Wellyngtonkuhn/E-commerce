@@ -10,6 +10,9 @@ import { Link } from "react-router-dom";
 import { Input, FormSection, LoginRegisterSection } from "./style";
 import { addToken } from "../../redux/userSlice";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
+
 const userLogin = yup.object({
   email: yup.string().email("email inválido").required("campo obrigatório"),
   password: yup
@@ -31,6 +34,7 @@ export default function Login() {
   const [showSignIn, setShowSingIn] = useState(true);
   const [showRegister, setshowRegister] = useState(false);
   const [userLocation, setUserLocation] = useState("");
+  const [showPassword, setShowPassword] = useState('password')
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -111,11 +115,16 @@ export default function Login() {
             <h3>Login</h3>
             <Input type="text" placeholder="email" {...register("email")} />
             <p className="errorMessageform">{errors.email?.message}</p>
-            <Input
-              type="password"
-              placeholder="password"
-              {...register("password")}
-            />
+            <div className="inputPassword">
+              <Input
+                type={showPassword}
+                placeholder="password"
+                {...register("password")}/>
+              <FontAwesomeIcon 
+              icon={showPassword === 'password' ? faEye : faEyeSlash}
+              onClick={() => setShowPassword(showPassword === 'password' ? 'text' : 'password')}
+              />
+            </div>
             <p className="errorMessageform">{errors.password?.message}</p>
             <div>
               <label>
@@ -144,14 +153,18 @@ export default function Login() {
 
             <Input type="text" placeholder="email" {...register("email")} />
             <p className="errorMessageform">{errors.email?.message}</p>
-
-            <Input
-              type="password"
-              placeholder="password"
-              {...register("password")}
-            />
+            <div className="inputPassword">
+              <Input
+                type={showPassword}
+                placeholder="password"
+                {...register("password")}
+              />
+              <FontAwesomeIcon 
+                icon={showPassword === 'password' ? faEye : faEyeSlash}
+                onClick={() => setShowPassword(showPassword === 'password' ? 'text' : 'password')}
+                />
+            </div>
             <p className="errorMessageform">{errors.password?.message}</p>
-
             <button disabled={!isValid} type="submit">
               Criar conta
             </button>

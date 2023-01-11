@@ -27,6 +27,20 @@ export const Content = styled.div`
     font-weight: 500;
     line-height: 24px;
     color: #212121;
+
+    .inputPassword{
+    position: relative;
+
+    input{
+      width: 100%;
+    }
+
+    svg{
+      position: absolute;
+      right: 5%;
+      cursor: pointer;
+    }
+  }
   }
 
   button {

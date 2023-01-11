@@ -18,6 +18,11 @@ export const Content = styled.div`
   form {
     display: flex;
     flex-direction: column;
+
+    div{
+      display: flex;
+      flex-direction: column;
+    }
   }
 
   label {
@@ -28,6 +33,20 @@ export const Content = styled.div`
     line-height: 24px;
     color: #212121;
 
+    .inputCpf{
+      width: 100%;
+      border: unset;
+      border-bottom: 1px solid ${({ theme }) => theme.color.primaryColor};
+      background-color: transparent;
+      padding: 0.7rem 0.7rem 0.1rem 0.7rem;
+      margin-bottom: 0.5rem;
+
+      font-size: 1rem;
+
+      :focus {
+        outline: none;
+      }
+    }
   }
 
   button {
@@ -60,26 +79,18 @@ export const Content = styled.div`
       flex-direction: row;
       flex-wrap: wrap;
       gap: 1rem;
+
+      div{
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        align-items: center;
+      }
     }
   }
 
   @media screen and (min-width: 1024px) {
     width: 80%;
-  }
-`;
-
-export const Input = styled.input`
-  width: 100%;
-  border: unset;
-  border-bottom: 1px solid ${({ theme }) => theme.color.primaryColor};
-  background-color: transparent;
-  padding: 0.7rem 0.7rem 0.1rem 0.7rem;
-  margin-bottom: 0.5rem;
-
-  font-size: 1rem;
-
-  :focus {
-    outline: none;
   }
 `;
 

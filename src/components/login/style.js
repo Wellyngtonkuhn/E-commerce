@@ -101,6 +101,20 @@ export const FormSection = styled.div`
     }
   }
 
+  .inputPassword{
+    position: relative;
+
+    input{
+      width: 100%;
+    }
+
+    svg{
+      position: absolute;
+      right: 5%;
+      cursor: pointer;
+    }
+  }
+
   @media screen and (min-width: 426px) {
     width: 75%;
   }

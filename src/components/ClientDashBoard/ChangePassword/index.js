@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -8,6 +9,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { api } from '../../../axiosConfig/api.js'
 
 import { ChangePasswordSection, Content, Input } from "./style";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
+
 
 const schema = yup.object({
   password: yup
@@ -21,6 +26,8 @@ const schema = yup.object({
 });
 
 export default function ChangePassword({ user, token }) {
+  const [showPassword, setShowPassword] = useState('password')
+
   const {
     register,
     handleSubmit,
@@ -55,21 +62,29 @@ export default function ChangePassword({ user, token }) {
         <form onSubmit={handleSubmit(handleChangePassword)}>
           <label>
             Nova senha
-            <Input
-              autoFocus
-              type="password"
-              placeholder="digite a nova senha"
-              {...register("password")}
-            />
+           
+              <Input
+                autoFocus
+                type={showPassword}
+                placeholder="digite a nova senha"
+                {...register("password")}
+              />
+
             <p className="errorMessageform">{errors.password?.message}</p>
           </label>
           <label>
             Repita a senha
-            <Input
-              type="password"
-              placeholder="confirme a nova senha"
-              {...register("secondPassword")}
-            />
+            <div className="inputPassword">
+              <Input
+                type={showPassword}
+                placeholder="confirme a nova senha"
+                {...register("secondPassword")}
+              />
+              <FontAwesomeIcon 
+                icon={showPassword === 'password' ? faEye : faEyeSlash}
+                onClick={() => setShowPassword(showPassword === 'password' ? 'text' : 'password')}
+              />
+            </div>
             <p className="errorMessageform">{errors.secondPassword?.message}</p>
           </label>
           <button disabled={!isValid} type="submit">

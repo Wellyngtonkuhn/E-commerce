@@ -1,12 +1,17 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import axios from "axios";
+
+import { useQueryClient } from "@tanstack/react-query";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { AddressSection, Content, Input } from "./style";
+import { AddressSection, Content } from "./style";
 import { api } from '../../../axiosConfig/api.js'
+
+import InputMask from 'react-input-mask';
 
 const schema = yup.object({
   cep: yup.string().required("campo obrigatório"),
@@ -20,11 +25,9 @@ const schema = yup.object({
 });
 
 export default function Address({ data, user, token }) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-  } = useForm({
+  const queryClient = useQueryClient()
+
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     mode: "onBlur",
     resolver: yupResolver(schema),
   });
@@ -37,6 +40,7 @@ export default function Address({ data, user, token }) {
     })
 
     if(request.status === 200){
+      queryClient.invalidateQueries('userData')
       return toast.success('Endereço atualizado', {
         position: "top-right",
         autoClose: 3000
@@ -44,7 +48,15 @@ export default function Address({ data, user, token }) {
      }
   };
 
-
+  const handleSearchByCep = async (cpf) => {
+    const request = await axios.get(`https://viacep.com.br/ws/${cpf}/json/`)
+      setValue('street',request.data.logradouro)
+      setValue('complement',request.data.complemento)
+      setValue('district',request.data.bairro)
+      setValue('city',request.data.localidade)
+      setValue('state',request.data.uf)   
+  }
+ 
   return (
     <AddressSection>
       <h3>Endereço</h3>
@@ -53,18 +65,21 @@ export default function Address({ data, user, token }) {
         <form onSubmit={handleSubmit(handleAddressUpdate)}>
           <label>
             CEP
-            <Input
-              type="text"
-              placeholder="00000-00"
+            <InputMask
+              type='text'
+              className="inputCpf"
+              mask='99999-999'
               defaultValue={data?.cep}
               {...register("cep")}
+              onChange={(e)=>handleSearchByCep(e.target.value)}
             />
             <p className="errorMessageform">{errors.cep?.message}</p>
           </label>
           <label>
             Destinatário
-            <Input
+            <input
               type="text"
+              className="inputCpf"
               placeholder="nome de quem vai receber"
               defaultValue={data?.addressee}
               {...register("addressee")}
@@ -73,7 +88,8 @@ export default function Address({ data, user, token }) {
           </label>
           <label>
             Rua
-            <Input
+            <input
+              className="inputCpf"
               type="text"
               placeholder="rua exemplo"
               defaultValue={data?.street}
@@ -83,7 +99,8 @@ export default function Address({ data, user, token }) {
           </label>
           <label>
             Número
-            <Input
+            <input
+              className="inputCpf"
               type="text"
               placeholder="000"
               defaultValue={data?.number}
@@ -93,7 +110,8 @@ export default function Address({ data, user, token }) {
           </label>
           <label>
             Complemento
-            <Input
+            <input 
+              className="inputCpf"
               type="text"
               placeholder="ex: apto-000 | casa-000"
               defaultValue={data?.complement}
@@ -103,7 +121,8 @@ export default function Address({ data, user, token }) {
           </label>
           <label>
             Bairro
-            <Input
+            <input
+              className="inputCpf"
               type="text"
               placeholder="centro"
               defaultValue={data?.district}
@@ -113,7 +132,8 @@ export default function Address({ data, user, token }) {
           </label>
           <label>
             Cidade
-            <Input
+            <input
+              className="inputCpf"
               type="text"
               placeholder="cidade"
               defaultValue={data?.city}
@@ -123,7 +143,8 @@ export default function Address({ data, user, token }) {
           </label>
           <label>
             Estado
-            <Input
+            <input
+              className="inputCpf"
               type="text"
               placeholder="estado"
               defaultValue={data?.state}
@@ -134,16 +155,15 @@ export default function Address({ data, user, token }) {
 
           <label>
             Referência
-            <Input
+            <input
+              className="inputCpf"
               type="text"
               placeholder="locais próximos"
               defaultValue={data?.reference}
               {...register("reference")}
             />
           </label>
-          <button disabled={!isValid} type="submit">
-            Salvar
-          </button>
+          <button type="submit">Salvar</button>
         </form>
       </Content>
     </AddressSection>

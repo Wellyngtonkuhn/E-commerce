@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { useQueryClient } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { removeToken } from "../../../redux/userSlice";
 
@@ -11,8 +11,11 @@ import * as yup from "yup";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Content, Input, Select, MyAccountSection } from "./style";
+import { Content, Select, MyAccountSection } from "./style";
 import { api } from "../../../axiosConfig/api";
+
+import InputMask from 'react-input-mask';
+
 
 const schema = yup.object({
   name: yup.string().required('campo obrigatório'),
@@ -24,15 +27,15 @@ const schema = yup.object({
 
 export default function MyAccount({ data, user, token }) {
   const [optionsSelect] = useState(["não informado", "masculino", "feminino"]);
+  const queryClient = useQueryClient()
   const dispatch = useDispatch()
 
-  const { register, handleSubmit, formState:{errors, isValid} } = useForm({
+  const { register, handleSubmit, formState:{errors} } = useForm({
     mode:'onBlur',
     resolver: yupResolver(schema)
   });
 
-  
-  const onSubmit = async (data) => {
+  const handleSaveUser = async (data) => {
       const request = await api.patch(`/user/${user?.id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -40,6 +43,7 @@ export default function MyAccount({ data, user, token }) {
       })
 
      if(request.status === 200){
+      queryClient.invalidateQueries('userData')
       return toast.success('Usuário atualizado', {
         position: "top-right",
         autoClose: 3000
@@ -48,31 +52,34 @@ export default function MyAccount({ data, user, token }) {
   };
 
   const handleDelete = async (id) => {
-    const deleteUserAccount = window.confirm('Deseja excluir sua conta')
-    if(deleteUserAccount){
-      const request = await api.delete(`user/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
+    const deleteUserAccount = window.confirm(`${user?.name} deseja excluir sua conta?`)
+
+      if(deleteUserAccount){
+        const request = await api.delete(`user/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        if(request.status === 200){
+          toast.success('Usuário deletado', {
+            position: "top-right",
+            autoClose: 3000
+          });
+            return dispatch(removeToken())
+          }
         }
-      })
-      if(request.status === 200){
-        toast.success('Usuário deletado', {
-          position: "top-right",
-          autoClose: 3000
-        });
-        return dispatch(removeToken())
-      }
-    }
-   }
+      return null
+  }
    
   return (
     <MyAccountSection>
       <h3>Dados pessoais</h3>
       <Content>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(handleSaveUser)}>
           <label>
             Nome Completo
-            <Input
+            <input
+              className="inputCpf"
               defaultValue={data?.name}
               type="text"
               {...register("name")}
@@ -82,7 +89,8 @@ export default function MyAccount({ data, user, token }) {
           </label>
           <label>
             E-mail
-            <Input
+            <input
+              className="inputCpf"
               defaultValue={data?.email}
               type="text"
               {...register("email")}
@@ -92,7 +100,9 @@ export default function MyAccount({ data, user, token }) {
           </label>
           <label>
             Celular
-            <Input
+            <InputMask
+              mask='(99) 9 9999-9999'
+              className="inputCpf"
               defaultValue={data?.cellPhone}
               type="text"
               {...register("cellPhone")}
@@ -102,12 +112,12 @@ export default function MyAccount({ data, user, token }) {
           </label>
           <label>
             Cpf
-            <Input
-              className="inputCpf"
-              defaultValue={data?.cpf}
+            <InputMask
               type="text"
+              className="inputCpf"
+              mask='999.999.999-99'
+              defaultValue={data?.cpf}
               {...register("cpf")}
-              placeholder="000.000.000-00"
             />
              <p className="errorMessageform">{errors.cpf?.message}</p>
           </label>
@@ -122,8 +132,10 @@ export default function MyAccount({ data, user, token }) {
             </Select>
             <p className="errorMessageform">{errors.genre?.message}</p>
           </label>
-          <button disabled={!isValid} type="submit">Salvar</button>
-          <button onClick={()=> handleDelete(user?.id)}>Excuir conta</button>
+          <div>
+            <button type="submit">Salvar</button>
+            <button onClick={()=> handleDelete(user?.id)}>Excuir conta</button>
+          </div>
         </form>
       </Content>
     </MyAccountSection>
