@@ -16,4 +16,4 @@
     - Mongodb
 
 ### Deployed at Vercel
-    - E-commerce em produção - https://lnkd.in/dJhtH3UJ
+    - https://e-commerce-seven-indol.vercel.app/
