@@ -72,13 +72,13 @@ export default function NavBar() {
 
             {user?.length !==0 && (
               <Link onClick={() => dispatch(removeToken())} className="cart">
-                <FontAwesomeIcon icon={faArrowRightFromBracket} size={"lg"} />
+                <FontAwesomeIcon title="Sair" icon={faArrowRightFromBracket} size={"lg"} />
               </Link>
             ) }
 
             <Link to="/cart" className="cart">
               <p>{length > 0 ? length : ""}</p>
-              <FontAwesomeIcon icon={faBagShopping} size={"lg"} />
+              <FontAwesomeIcon title="Carrinho" icon={faBagShopping} size={"lg"} />
             </Link>
           </Cart>
         </HeaderContent>

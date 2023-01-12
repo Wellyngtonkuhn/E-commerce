@@ -40,3 +40,35 @@ export const Content = styled.div`
     justify-content: space-between;
   }
 `;
+
+export const DevSection = styled.div`
+  width: 100%;
+  border-top: 1px solid #a0a0a0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+
+  text-align: center;
+  padding: 1rem;
+
+  h4, h5{
+    font-size: .7rem;
+    font-weight: 500;
+  }
+
+  ul{
+    display: flex;
+    gap: 1rem;
+    li{
+      list-style: none;
+
+      a{
+        color: unset;
+      }
+    }
+
+  }
+`

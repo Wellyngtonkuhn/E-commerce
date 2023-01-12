@@ -39,6 +39,10 @@ export const Content = styled.div`
 
   li {
     padding-bottom: 1rem;
+
+    h3 a {
+      color: unset;
+    }
   }
 
   img {

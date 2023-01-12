@@ -59,7 +59,7 @@ export default function Products({ filter, data, isLoading }) {
         {data &&
           data.map((item) => (
             <li key={item._id}>
-              <img src={item.url} alt={item.nome} />
+               <Link to={`/shop/${item.nome}/${item._id}`}><img src={item.url} alt={item.nome} /></Link>
               <h3>
                 <Link to={`/shop/${item.nome}/${item._id}`}>{item.nome}</Link>
               </h3>

@@ -1,24 +1,24 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { api } from "../../axiosConfig/api.js";
-import {
-  decreaseCartItem,
-  removeFromCart,
-  increaseCartItem,
-  clearCart,
-} from "../../redux/cartSlice";
+import { clearCart } from "../../redux/cartSlice";
 import RenderOnTop from "../../components/RenderOnTop/";
 import GoToShopping from "../../components/buttonToShop/index.js";
 
-import {
-  CartSection,
-  Content,
-  FirstColumn,
-  SecondColumn,
-} from "./style";
+import { CartSection, Content, FirstColumn, SecondColumn } from "./style";
 import { Container } from "../../styles/GlobalStyles";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+
+import Cart from "../../components/checkout/Cart/index.js";
+import UserData from "../../components/checkout/UserData/index.js";
+import UserAddress from "../../components/checkout/UserAddress/index.js";
+import Payment from "../../components/checkout/Payment/index.js";
+
 export default function CartPage() {
+  const [buySteps, setBuySteps] = useState("cart");
   const { cartItems } = useSelector((state) => state.cart);
   const { user, token } = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -74,80 +74,68 @@ export default function CartPage() {
 
   return (
     <CartSection>
+      <div className="buySteps">
+        <ul>
+          <li>
+            <button onClick={() => setBuySteps("cart")}>
+              <FontAwesomeIcon icon={faCheckCircle} color={"#4ECD82"} />
+              Carrinho
+            </button>
+          </li>
+          <li>
+            <button onClick={() => setBuySteps("userData")}>
+              <FontAwesomeIcon
+                icon={faCheckCircle}
+                color={
+                  (buySteps === "userData" ||
+                    buySteps === "address" ||
+                    buySteps === "payment") &&
+                  "#4ECD82"
+                }
+              />
+              Dados
+            </button>
+          </li>
+          <li>
+            <button onClick={() => setBuySteps("address")}>
+              <FontAwesomeIcon
+                icon={faCheckCircle}
+                color={
+                  (buySteps === "address" || buySteps === "payment") &&
+                  "#4ECD82"
+                }
+              />
+              Endereço
+            </button>
+          </li>
+          <li>
+            <button onClick={() => setBuySteps("payment")}>
+              <FontAwesomeIcon
+                icon={faCheckCircle}
+                color={buySteps === "payment" && "#4ECD82"}
+              />
+              Pagamento
+            </button>
+          </li>
+        </ul>
+      </div>
       <Container>
-        <h3 className="cartTitle">Carrinho</h3>
+        <h3 className="cartTitle">
+          {buySteps === "cart" && "Carrinho"}
+          {buySteps === "userData" && "Dados"}
+          {buySteps === "address" && "Endereço"}
+          {buySteps === "payment" && "Pagamento"}
+        </h3>
         <Content>
           {cartItems.length > 0 ? (
             <>
               <FirstColumn>
-                <ul>
-                  {cartItems?.map((item) => (
-                    <li key={item._id}>
-                      <div className="product">
-                        <div>
-                          <img src={item.url} alt={item.nome} />
-                          <h3>{item.nome}</h3>
-                        </div>
-                        <button
-                          className="removeButton"
-                          onClick={() => dispatch(removeFromCart(item))}
-                        >
-                          Remover
-                        </button>
-                      </div>
-
-                      <div className="price">
-                        <h4>Preço</h4>
-                        <p>
-                          {item.preco.toLocaleString("pt-BR", {
-                            style: "currency",
-                            currency: "BRL",
-                          })}
-                        </p>
-                      </div>
-
-                      <div className="quantity">
-                        <h4>Quantidade</h4>
-                        <div>
-                          <button
-                            onClick={() => dispatch(decreaseCartItem(item))}
-                          >
-                            -
-                          </button>
-                          <p>{item.itemQuantity}</p>
-                          <button
-                            onClick={() => dispatch(increaseCartItem(item))}
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-
-                      <div className="total">
-                        <h4>Total</h4>
-                        <p>
-                          {(
-                            Number(item.preco) * item.itemQuantity
-                          ).toLocaleString("pt-BR", {
-                            style: "currency",
-                            currency: "BRL",
-                          })}
-                        </p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+                {buySteps === "cart" && <Cart cartItems={cartItems} />}
+                {buySteps === "userData" && <UserData cartItems={cartItems} />}
+                {buySteps === "address" && <UserAddress cartItems={cartItems} />}
+                {buySteps === "payment" && <Payment cartItems={cartItems} />}
               </FirstColumn>
               <SecondColumn>
-                <div>
-                  <p>Entrega</p>
-                  <p>R$0</p>
-                </div>
-                <div>
-                  <p>Desconto</p>
-                  <p>R$0</p>
-                </div>
-
                 <div className="finalTotal">
                   <p>Total</p>
                   <p>
@@ -157,13 +145,27 @@ export default function CartPage() {
                     })}
                   </p>
                 </div>
-                <button onClick={() => handleCheckOut(user, token)}>
-                  Finalizar compra
+                <button
+                  disabled={!cartItems}
+                  onClick={() => {
+                    switch (buySteps) {
+                      case "cart":
+                        return setBuySteps("userData");
+                      case 'userData':
+                        return setBuySteps('address')
+                      case 'address':
+                        return setBuySteps('payment')
+                      default:
+                        break;
+                    }
+                  }}
+                >
+                  Próximo
                 </button>
               </SecondColumn>
             </>
           ) : (
-              <GoToShopping />
+            <GoToShopping />
           )}
         </Content>
       </Container>

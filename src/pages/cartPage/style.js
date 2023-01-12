@@ -4,11 +4,51 @@ export const CartSection = styled.section`
   width: 100%;
   margin-top: 10rem;
 
+  .buySteps{
+    background-color: #EEEEEE;
+    padding: 1rem 0;
+
+    ul{
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+
+      li{
+        list-style: none;
+        
+        button{
+          display: flex;
+          align-items: center;
+          gap: .5rem;
+          background-color: transparent;
+          border: none;
+          color: ${({theme}) => theme.color.primaryColor};
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
   .cartTitle {
     font-size: 1.8rem;
     font-weight: 700;
     color: ${({ theme }) => theme.color.primaryColor};
     padding: 1rem 0;
+  }
+
+  @media screen and (min-width: 425px){
+      .buySteps{
+        border-radius: 25px;
+        margin: auto;
+      }
+  }
+
+  @media screen and (min-width: 500px){
+      .buySteps{
+        width: 31rem;
+      }
   }
 `;
 
@@ -27,124 +67,7 @@ export const Content = styled.div`
 export const FirstColumn = styled.div`
   width: 100%;
 
-  li {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1rem;
-    border-bottom: 1px solid ${({ theme }) => theme.color.primaryColor};
-  }
-
-  .product {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-
-    p {
-      font-size: 0.8rem;
-      padding-bottom: 0.5rem;
-    }
-
-    div {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-
-      img {
-        width: 75px;
-      }
-
-      h3 {
-        font-size: 1rem;
-        width: 7ch;
-        font-weight: 500;
-      }
-    }
-    .removeButton {
-      color: red;
-      font-size: 0.9rem;
-      font-weight: 700;
-    }
-  }
-
-  .price {
-    display: none;
-  }
-
-  button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-  }
-
-  .quantity {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    margin-top: 0.5rem;
-    div {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.4rem 0.9rem;
-      border: 1px solid ${({ theme }) => theme.color.primaryColor};
-      border-radius: 25px;
-      button {
-        font-size: 1.2rem;
-      }
-
-      p:nth-child(2) {
-        border-left: 1px solid ${({ theme }) => theme.color.primaryColor};
-        border-right: 1px solid ${({ theme }) => theme.color.primaryColor};
-        padding: 0 0.3rem;
-      }
-    }
-  }
-
-  h4 {
-    font-size: 1rem;
-    font-weight: 500;
-  }
-
-  .total {
-    display: none;
-  }
-
-  @media screen and (min-width: 425px) {
-    li {
-      padding: 0 0.5rem;
-    }
-
-    .total {
-      display: flex;
-      flex-direction: column;
-      margin: 0.5rem 0;
-      gap: 0.9rem;
-    }
-  }
-
-  @media screen and (min-width: 768px) {
-    width: 75%;
-    .price {
-      display: flex;
-      flex-direction: column;
-      gap: 0.9rem;
-      margin: 0.5rem 0;
-    }
-    img {
-      width: 100px;
-    }
-  }
-
-  @media screen and (min-width: 1024px) {
-    .product div img {
-      width: 120px;
-    }
-  }
-`;
+ `;
 
 export const SecondColumn = styled.div`
   display: flex;
