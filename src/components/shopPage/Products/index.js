@@ -51,8 +51,6 @@ export default function Products({ filter, data, isLoading }) {
     setProductData(newData)
   },[filter])
 
-
-
   return (
     <ProductsSection>
       <Ul>

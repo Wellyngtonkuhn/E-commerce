@@ -66,7 +66,6 @@ export const Content = styled.div`
 
 export const FirstColumn = styled.div`
   width: 100%;
-
  `;
 
 export const SecondColumn = styled.div`
@@ -109,9 +108,9 @@ export const SecondColumn = styled.div`
   }
 
   @media screen and (min-width: 1024px) {
-  button{
-    font-size: 1rem;
-    padding: 0.7rem 0;
-  }
+    button{
+      font-size: 1rem;
+      padding: 0.7rem 0;
+    }
   }
 `;

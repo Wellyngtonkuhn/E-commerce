@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const Ul = styled.ul`
+
   li {
     display: flex;
     flex-wrap: wrap;
@@ -32,7 +33,7 @@ export const Ul = styled.ul`
 
       h3 {
         font-size: 1rem;
-        width: 7ch;
+        width: 10ch;
         font-weight: 500;
       }
     }
@@ -101,7 +102,7 @@ export const Ul = styled.ul`
   }
 
   @media screen and (min-width: 768px) {
-    width: 75%;
+    width: 100%;
     .price {
       display: flex;
       flex-direction: column;
@@ -114,8 +115,13 @@ export const Ul = styled.ul`
   }
 
   @media screen and (min-width: 1024px) {
-    .product div img {
-      width: 120px;
+    .product div {
+      img{
+        width: 120px;
+      }
+      h3{
+        width: 100%;
+      }
     }
   }
 `;

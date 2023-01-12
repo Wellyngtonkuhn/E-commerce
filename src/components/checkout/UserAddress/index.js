@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -7,6 +8,8 @@ import InputMask from "react-input-mask";
 import axios from "axios";
 
 import { Form } from "./style";
+
+import { addUserAddrees } from "../../../redux/checkout";
 
 const schema = yup.object({
   cep: yup.string().required("campo obrigatório"),
@@ -22,6 +25,7 @@ const schema = yup.object({
 
 export default function UserAddress({ data, user, token }) {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     mode: "onBlur",
@@ -38,7 +42,7 @@ export default function UserAddress({ data, user, token }) {
   };
 
   const handleUserAddress = (data) => {
-    console.log(data);
+      return dispatch(addUserAddrees(data))
   };
 
   useEffect(() => {
@@ -78,7 +82,7 @@ export default function UserAddress({ data, user, token }) {
         <InputMask
           type="text"
           className="inputCpf"
-          //mask="999.999.999-99"
+          mask="999.999.999-99"
           placeholder="999.999.999-99"
           defaultValue={''}
           {...register("addresseeCpf")}/>

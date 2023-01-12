@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -6,6 +7,8 @@ import * as yup from "yup";
 import InputMask from 'react-input-mask';
 
 import { Form } from "./style";
+
+import { addUserInfo } from "../../../redux/checkout";
 
 const schema = yup.object({
   name: yup.string().required('campo obrigatório'),
@@ -16,6 +19,7 @@ const schema = yup.object({
 
 export default function UserData({ data, token }) {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   
   const { register, handleSubmit, formState:{errors} } = useForm({
     mode:'onBlur',
@@ -29,7 +33,7 @@ export default function UserData({ data, token }) {
   }, [])
 
   const handleSaveUserData = (data) => {
-    console.log(data) 
+      return dispatch(addUserInfo(data))
   }
 
   return (
