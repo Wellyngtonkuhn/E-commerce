@@ -76,7 +76,7 @@ export default function NavBar() {
               </Link>
             ) }
 
-            <Link to="/cart" className="cart">
+            <Link to="/cart/details" className="cart">
               <p>{length > 0 ? length : ""}</p>
               <FontAwesomeIcon title="Carrinho" icon={faBagShopping} size={"lg"} />
             </Link>

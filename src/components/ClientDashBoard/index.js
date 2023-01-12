@@ -23,7 +23,7 @@ export default function ClientDashBoard() {
 
   const { user, token } = useSelector(state => state.user)
 
-  const {data, isLoading} = useQuery(['userData'], async () => {
+  const {data} = useQuery(['userData'], async () => {
     const request = await api.get(`/user/${user?.id}`, {
       headers: {
         Authorization: `Bearer ${token}`

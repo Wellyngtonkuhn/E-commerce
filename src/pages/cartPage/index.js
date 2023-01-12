@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { api } from "../../axiosConfig/api.js";
 import { clearCart } from "../../redux/cartSlice";
@@ -12,10 +12,6 @@ import { Container } from "../../styles/GlobalStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
-import Cart from "../../components/checkout/Cart/index.js";
-import UserData from "../../components/checkout/UserData/index.js";
-import UserAddress from "../../components/checkout/UserAddress/index.js";
-import Payment from "../../components/checkout/Payment/index.js";
 
 export default function CartPage() {
   const [buySteps, setBuySteps] = useState("cart");
@@ -36,7 +32,7 @@ export default function CartPage() {
     return Number(finalTotal);
   };
 
-  const handleCheckOut = async (user, token) => {
+  const handleCheckOutTeste = async (user, token) => {
     const order = {
       userId: user.id,
       product: cartItems.map((item) => {
@@ -72,50 +68,62 @@ export default function CartPage() {
     navigate("/congrats", { state: { data: data } });
   };
 
+  // Certo
+  const handleCheckOut = () => {
+    if(token){
+      switch (buySteps) {
+        case "cart":
+          return setBuySteps("userData");
+        case 'userData':
+          return setBuySteps('address')
+        case 'address':
+          return setBuySteps('payment')
+        default:
+          break;
+      }
+    }else{
+      return navigate("/account", {
+        state: { from: "/cart" },
+      });
+    }
+  }
+
   return (
     <CartSection>
       <div className="buySteps">
         <ul>
           <li>
-            <button onClick={() => setBuySteps("cart")}>
+            <Link to='details' onClick={() => setBuySteps("cart")}>
               <FontAwesomeIcon icon={faCheckCircle} color={"#4ECD82"} />
               Carrinho
-            </button>
+            </Link>
           </li>
           <li>
-            <button onClick={() => setBuySteps("userData")}>
+            <Link to='user-info' onClick={() => setBuySteps("userData")}>
               <FontAwesomeIcon
                 icon={faCheckCircle}
-                color={
-                  (buySteps === "userData" ||
-                    buySteps === "address" ||
-                    buySteps === "payment") &&
-                  "#4ECD82"
-                }
+                color={(buySteps === "userData" || buySteps === "address" || buySteps === "payment") && "#4ECD82"}
               />
               Dados
-            </button>
+            </Link>
           </li>
           <li>
-            <button onClick={() => setBuySteps("address")}>
+            <Link to='user-address' onClick={() => setBuySteps("address")}>
               <FontAwesomeIcon
                 icon={faCheckCircle}
-                color={
-                  (buySteps === "address" || buySteps === "payment") &&
-                  "#4ECD82"
-                }
+                color={(buySteps === "address" || buySteps === "payment") && "#4ECD82"}
               />
               Endereço
-            </button>
+            </Link>
           </li>
           <li>
-            <button onClick={() => setBuySteps("payment")}>
+            <Link to='payment' onClick={() => setBuySteps("payment")} >
               <FontAwesomeIcon
                 icon={faCheckCircle}
                 color={buySteps === "payment" && "#4ECD82"}
               />
               Pagamento
-            </button>
+            </Link>
           </li>
         </ul>
       </div>
@@ -130,10 +138,7 @@ export default function CartPage() {
           {cartItems.length > 0 ? (
             <>
               <FirstColumn>
-                {buySteps === "cart" && <Cart cartItems={cartItems} />}
-                {buySteps === "userData" && <UserData cartItems={cartItems} />}
-                {buySteps === "address" && <UserAddress cartItems={cartItems} />}
-                {buySteps === "payment" && <Payment cartItems={cartItems} />}
+                <Outlet />
               </FirstColumn>
               <SecondColumn>
                 <div className="finalTotal">
@@ -147,20 +152,8 @@ export default function CartPage() {
                 </div>
                 <button
                   disabled={!cartItems}
-                  onClick={() => {
-                    switch (buySteps) {
-                      case "cart":
-                        return setBuySteps("userData");
-                      case 'userData':
-                        return setBuySteps('address')
-                      case 'address':
-                        return setBuySteps('payment')
-                      default:
-                        break;
-                    }
-                  }}
-                >
-                  Próximo
+                  onClick={() => handleCheckOut()}>
+                    Próximo
                 </button>
               </SecondColumn>
             </>

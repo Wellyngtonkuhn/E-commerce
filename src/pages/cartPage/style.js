@@ -18,7 +18,7 @@ export const CartSection = styled.section`
       li{
         list-style: none;
         
-        button{
+        a{
           display: flex;
           align-items: center;
           gap: .5rem;

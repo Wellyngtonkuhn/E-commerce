@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -12,19 +14,26 @@ const schema = yup.object({
   cpf: yup.string().required('campo obrigatório')
 })
 
-export default function UserData() {
-  const data = {}
-
+export default function UserData({ data, token }) {
+  const navigate = useNavigate()
+  
   const { register, handleSubmit, formState:{errors} } = useForm({
     mode:'onBlur',
     resolver: yupResolver(schema)
   });
 
+  useEffect(() => {
+    if(!token) navigate("/account", {
+      state: { from: "/cart/user-info" },
+    }) 
+  }, [])
+
   const handleSaveUserData = (data) => {
-    console.log(data)
+    console.log(data) 
   }
 
   return (
+    
     <Form onSubmit={handleSubmit(handleSaveUserData)}>
       <label>
         Nome Completo

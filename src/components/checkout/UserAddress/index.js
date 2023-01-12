@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -18,9 +20,9 @@ const schema = yup.object({
   state: yup.string().required("campo obrigatório"),
 });
 
-export default function UserAddress() {
-  const data = {};
-
+export default function UserAddress({ data, user, token }) {
+  const navigate = useNavigate()
+  
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     mode: "onBlur",
     resolver: yupResolver(schema),
@@ -38,6 +40,12 @@ export default function UserAddress() {
   const handleUserAddress = (data) => {
     console.log(data);
   };
+
+  useEffect(() => {
+    if(!token) navigate("/account", {
+      state: { from: "/cart/user-info" },
+    }) 
+  }, [])
 
   return (
     <Form onSubmit={handleSubmit(handleUserAddress)}>
@@ -70,12 +78,10 @@ export default function UserAddress() {
         <InputMask
           type="text"
           className="inputCpf"
-          mask="999.999.999-99"
+          //mask="999.999.999-99"
           placeholder="999.999.999-99"
-          defaultValue={data?.addresseeCpf}
-          {...register("addresseeCpf")}
-          onChange={(e) => handleSearchByCep(e.target.value)}
-        />
+          defaultValue={''}
+          {...register("addresseeCpf")}/>
         <p className="errorMessageform">{errors.addresseeCpf?.message}</p>
       </label>
       <label>

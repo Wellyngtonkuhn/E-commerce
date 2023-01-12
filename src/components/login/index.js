@@ -31,6 +31,7 @@ const userRegister = yup.object({
 });
 
 export default function Login() {
+  
   const [showSignIn, setShowSingIn] = useState(true);
   const [showRegister, setshowRegister] = useState(false);
   const [userLocation, setUserLocation] = useState("");
@@ -44,13 +45,18 @@ export default function Login() {
     setUserLocation(location?.state?.from);
   }, []);
 
+
   const handleLogin = async ({ email, password }) => {
     await api.post("/login", { email, password })
       .then((res) => {
         dispatch(addToken(res?.data));
           switch (userLocation) {
-            case "/cart":
-              return navigate("/cart");
+            case "/cart/user-info":
+              return navigate("/cart/details");
+            case "/cart/user-address":
+              return navigate("/cart/details");
+            case "/cart/payment":
+              return navigate("/cart/details");
             case "/shop":
               return navigate("/shop");
             case "/":
@@ -69,10 +75,16 @@ export default function Login() {
         dispatch(addToken(res?.data));
         alert(res?.data?.message);
           switch (userLocation) {
-            case "/cart":
-              return navigate("/cart");
+            case "/cart/user-info":
+              return navigate("/cart/details");
+            case "/cart/user-address":
+              return navigate("/cart/details");
+            case "/cart/payment":
+              return navigate("/cart/details");
             case "/shop":
               return navigate("/shop");
+            case "/":
+              return navigate("/");
             default:
               break;
           }    
