@@ -16,6 +16,7 @@ import InputMask from 'react-input-mask';
 const schema = yup.object({
   cep: yup.string().required("campo obrigatório"),
   addressee: yup.string().required("campo obrigatório"),
+  addresseeCpf: yup.string().required("campo obrigatório"),
   street: yup.string().required("campo obrigatório"),
   number: yup.string().required("campo obrigatório"),
   complement: yup.string().required("campo obrigatório"),
@@ -85,6 +86,18 @@ export default function Address({ data, user, token }) {
               {...register("addressee")}
             />
             <p className="errorMessageform">{errors.addressee?.message}</p>
+          </label>
+          <label>
+            Cpf do Destinatário
+            <InputMask
+              type="text"
+              className="inputCpf"
+              mask={'999.999.999-99'}
+              placeholder="cpf de quem vai receber"
+              defaultValue={data?.addresseeCpf}
+              {...register("addresseeCpf")}
+            />
+            <p className="errorMessageform">{errors.addresseeCpf?.message}</p>
           </label>
           <label>
             Rua

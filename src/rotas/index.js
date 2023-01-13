@@ -49,7 +49,7 @@ export default function Rotas() {
           <Route path="user-address" element={<UserAddress data={data} user={user} token={token} />} />
           <Route path="payment" element={<Payment token={token} />} />
         </Route>
-
+        
         <Route path="/congrats" element={<Congrats />} />
       </Routes>
     </>

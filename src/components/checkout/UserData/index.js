@@ -30,14 +30,15 @@ export default function UserData({ data, token }) {
     if(!token) navigate("/account", {
       state: { from: "/cart/user-info" },
     }) 
-  }, [])
+  }, [token])
 
   const handleSaveUserData = (data) => {
-      return dispatch(addUserInfo(data))
+      dispatch(addUserInfo(data))
+      navigate('/cart/user-address')
+    return
   }
 
   return (
-    
     <Form onSubmit={handleSubmit(handleSaveUserData)}>
       <label>
         Nome Completo

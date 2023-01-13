@@ -9,7 +9,7 @@ export default function Payment({ token }) {
     if(!token) navigate("/account", {
       state: { from: "/cart/payment" },
     }) 
-  }, [])
+  }, [token])
   
   return (
     <div>Payment</div>

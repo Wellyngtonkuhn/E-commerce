@@ -42,14 +42,15 @@ export default function UserAddress({ data, user, token }) {
   };
 
   const handleUserAddress = (data) => {
-      return dispatch(addUserAddrees(data))
+      dispatch(addUserAddrees(data))
+      navigate('/cart/payment')
   };
 
   useEffect(() => {
     if(!token) navigate("/account", {
       state: { from: "/cart/user-info" },
     }) 
-  }, [])
+  }, [token])
 
   return (
     <Form onSubmit={handleSubmit(handleUserAddress)}>
@@ -84,7 +85,7 @@ export default function UserAddress({ data, user, token }) {
           className="inputCpf"
           mask="999.999.999-99"
           placeholder="999.999.999-99"
-          defaultValue={''}
+          defaultValue={data?.addresseeCpf}
           {...register("addresseeCpf")}/>
         <p className="errorMessageform">{errors.addresseeCpf?.message}</p>
       </label>

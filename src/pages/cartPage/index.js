@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Link, useNavigate, Outlet } from "react-router-dom";
+import { Link, useNavigate, Outlet, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { api } from "../../axiosConfig/api.js";
 import { clearCart } from "../../redux/cartSlice";
@@ -14,11 +13,14 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 
 export default function CartPage() {
-  const [buySteps, setBuySteps] = useState("cart");
+
   const { cartItems } = useSelector((state) => state.cart);
+  const { userCheckoutInfo, userCheckoutAddress } = useSelector((state) => state.checkout);
   const { user, token } = useSelector((state) => state.user);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation()
 
   const totalPrice = () => {
     const totalProduct = cartItems.map((item) => {
@@ -69,22 +71,34 @@ export default function CartPage() {
   };
 
   // Certo
-  const handleCheckOut = () => {
+  const handleCheckOut = (path) => {
     if(token){
-      switch (buySteps) {
-        case "cart":
-          return setBuySteps("userData");
-        case 'userData':
-          return setBuySteps('address')
-        case 'address':
-          return setBuySteps('payment')
+      switch (path) {
+        case "details":
+          navigate('details')
+          break
+        case "/cart/details":
+          navigate('user-info')
+          break
+        case '/cart/user-info':
+          if(userCheckoutInfo.length === 0){
+            return alert('Preencha e salve os dados para prosseguir')
+          }
+            navigate('user-address')
+          break
+        case '/cart/user-address':
+          if(userCheckoutAddress.length === 0){
+            return alert('Preencha e salve os dados para prosseguir')
+          }
+          navigate('payment')
+          break
         default:
           break;
       }
     }else{
-      return navigate("/account", {
-        state: { from: "/cart" },
-      });
+      navigate("/account", {
+      state: { from: "/cart/user-info" },
+      }) 
     }
   }
 
@@ -93,46 +107,46 @@ export default function CartPage() {
       <div className="buySteps">
         <ul>
           <li>
-            <Link to='details' onClick={() => setBuySteps("cart")}>
+            <button onClick={() => handleCheckOut('details')} >
               <FontAwesomeIcon icon={faCheckCircle} color={"#4ECD82"} />
               Carrinho
-            </Link>
+            </button>
           </li>
           <li>
-            <Link to='user-info' onClick={() => setBuySteps("userData")}>
+            <button onClick={()=> handleCheckOut('/cart/details')}>
               <FontAwesomeIcon
                 icon={faCheckCircle}
-                color={(buySteps === "userData" || buySteps === "address" || buySteps === "payment") && "#4ECD82"}
+                color={(location.pathname === "/cart/user-info" || location.pathname === "/cart/user-address" || location.pathname === "/cart/payment") && "#4ECD82"}
               />
               Dados
-            </Link>
+            </button>
           </li>
           <li>
-            <Link to='user-address' onClick={() => setBuySteps("address")}>
+            <button onClick={() => handleCheckOut('/cart/user-info')}>
               <FontAwesomeIcon
                 icon={faCheckCircle}
-                color={(buySteps === "address" || buySteps === "payment") && "#4ECD82"}
+                color={(location.pathname === "/cart/user-address" || location.pathname === "/cart/payment") && "#4ECD82"}
               />
               Endereço
-            </Link>
+            </button>
           </li>
           <li>
-            <Link to='payment' onClick={() => setBuySteps("payment")} >
+            <button onClick={() => handleCheckOut('/cart/user-address')} >
               <FontAwesomeIcon
                 icon={faCheckCircle}
-                color={buySteps === "payment" && "#4ECD82"}
+                color={location.pathname === "/cart/payment" && "#4ECD82"}
               />
               Pagamento
-            </Link>
+            </button>
           </li>
         </ul>
       </div>
       <Container>
         <h3 className="cartTitle">
-          {buySteps === "cart" && "Carrinho"}
-          {buySteps === "userData" && "Dados"}
-          {buySteps === "address" && "Endereço"}
-          {buySteps === "payment" && "Pagamento"}
+          {location.pathname === "/cart/details" && "Carrinho"}
+          {location.pathname === "/cart/user-info" && "Dados"}
+          {location.pathname === "/cart/user-address" && "Endereço"}
+          {location.pathname === "/cart/payment" && "Pagamento"}
         </h3>
         <Content>
           {cartItems.length > 0 ? (
@@ -152,8 +166,8 @@ export default function CartPage() {
                 </div>
                 <button
                   disabled={!cartItems}
-                  onClick={() => handleCheckOut()}>
-                    Próximo
+                  onClick={() => handleCheckOut(location.pathname)}>
+                    {location.pathname === '/cart/details' || location.pathname === '/cart/user-info' || location.pathname === '/cart/user-address' ? 'Próximo' : 'Finalizar compra'}
                 </button>
               </SecondColumn>
             </>
