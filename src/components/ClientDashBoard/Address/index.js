@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -13,6 +14,8 @@ import { api } from '../../../axiosConfig/api.js'
 
 import InputMask from 'react-input-mask';
 
+import Loading from '../../../assets/loading.svg'
+
 const schema = yup.object({
   cep: yup.string().required("campo obrigatório"),
   addressee: yup.string().required("campo obrigatório"),
@@ -26,6 +29,7 @@ const schema = yup.object({
 });
 
 export default function Address({ data, user, token }) {
+  const [isLoading, setIsloading] = useState(false)
   const queryClient = useQueryClient()
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
@@ -34,6 +38,7 @@ export default function Address({ data, user, token }) {
   });
 
   const handleAddressUpdate = async (data) => {
+    setIsloading(true)
     const request = await api.patch(`/user/${user?.id}`, data, {
       headers: {
         Authorization: `Bearer ${token}`
@@ -42,6 +47,7 @@ export default function Address({ data, user, token }) {
 
     if(request.status === 200){
       queryClient.invalidateQueries('userData')
+      setIsloading(false)
       return toast.success('Endereço atualizado', {
         position: "top-right",
         autoClose: 3000
@@ -176,8 +182,12 @@ export default function Address({ data, user, token }) {
               {...register("reference")}
             />
           </label>
+          <div>
+
           <button type="submit">Salvar</button>
+          </div>
         </form>
+        {isLoading && <img className="loading" src={Loading} alt='loading' />}
       </Content>
     </AddressSection>
   );

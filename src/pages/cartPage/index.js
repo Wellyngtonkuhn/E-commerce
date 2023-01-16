@@ -155,15 +155,23 @@ export default function CartPage() {
                 <Outlet />
               </FirstColumn>
               <SecondColumn>
+
                 <div className="finalTotal">
-                  <p>Total</p>
-                  <p>
-                    {totalPrice().toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
-                  </p>
+                  <div>
+                    <p>Frete</p>
+                    <p>R$ 00,00</p>  
+                  </div>
+                  <div>
+                    <p>Total</p>
+                    <p>
+                      {totalPrice().toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                      })}
+                    </p>
+                  </div>
                 </div>
+
                 <button
                   disabled={!cartItems}
                   onClick={() => handleCheckOut(location.pathname)}>

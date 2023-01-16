@@ -44,6 +44,11 @@ export const Content = styled.div`
     }
   }
 
+  div{
+    display: flex;
+    flex-direction: column;
+  }
+
   button {
     font-size: 1rem;
     color: ${({ theme }) => theme.color.primaryColor};
@@ -64,6 +69,14 @@ export const Content = styled.div`
     font-weight: ${({ theme }) => theme.errorMessage.fontWeight};
     color: ${({ theme }) => theme.errorMessage.color};
   }
+
+  .loading{
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 100px;
+  }
   
   @media screen and (min-width: 768px) {
     width: 100%;
@@ -75,9 +88,19 @@ export const Content = styled.div`
       flex-wrap: wrap;
       gap: 1rem;
     }
+
+    div{
+      justify-content: center;
+      margin-bottom: -7px;
+    }
   }
 
   @media screen and (min-width: 1024px) {
     width: 80%;
+
+    .loading{
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 `;

@@ -76,6 +76,14 @@ export const Favorite = styled.section`
     }
   }
 
+  .loadingSvg{
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 100px;
+  }
+
   @media screen and (min-width: 425px) {
     .headTitles {
       justify-content: space-around;

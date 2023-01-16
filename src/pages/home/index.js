@@ -30,10 +30,10 @@ import { Carrera, Persol, Gucci, RayBan } from "../../assets/brands";
 import { Banner1, Banner2 } from "../../assets/banner";
 import SendImg from "../../assets/newsLetter/send.png";
 
+
 export default function Home() {
-  const { data, isLoading } = useQuery(
-    ["highlights"],
-    async () => {
+
+  const { data, isLoading } = useQuery(["highlights"], async () => {
       const request = await api.get("/products");
       return request.data;
     },

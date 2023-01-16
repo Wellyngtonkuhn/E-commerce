@@ -3,6 +3,14 @@ import styled from "styled-components";
 export const ProductsSection = styled.section`
   flex-basis: 100%;
   min-height: 15rem;
+
+  .loading{
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+  }
 `;
 
 export const Ul = styled.ul`

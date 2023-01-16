@@ -12,6 +12,7 @@ import { ChangePasswordSection, Content, Input } from "./style";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
+import Loading from '../../../assets/loading.svg'
 
 
 const schema = yup.object({
@@ -27,6 +28,7 @@ const schema = yup.object({
 
 export default function ChangePassword({ user, token }) {
   const [showPassword, setShowPassword] = useState('password')
+  const [isLoading, setIsloading] = useState(false)
 
   const {
     register,
@@ -39,6 +41,7 @@ export default function ChangePassword({ user, token }) {
   });
 
   const handleChangePassword = async ( password ) => {
+    setIsloading(true)
     const request = await api.patch(`/user/${user?.id}`, password, {
       headers: {
         Authorization: `Bearer ${token}`
@@ -46,6 +49,7 @@ export default function ChangePassword({ user, token }) {
     })
     
     if(request.status === 200){
+      setIsloading(false)
       toast.success('Senha atualizada', {
         position: "top-right",
         autoClose: 3000
@@ -91,6 +95,7 @@ export default function ChangePassword({ user, token }) {
             Salvar
           </button>
         </form>
+        {isLoading && <img className="loading" src={Loading} alt='loading' />}
       </Content>
     </ChangePasswordSection>
   );

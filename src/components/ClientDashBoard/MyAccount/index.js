@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { Content, Select, MyAccountSection } from "./style";
+import Loading from '../../../assets/loading.svg'
 import { api } from "../../../axiosConfig/api";
 
 import InputMask from 'react-input-mask';
@@ -27,6 +28,7 @@ const schema = yup.object({
 
 export default function MyAccount({ data, user, token }) {
   const [optionsSelect] = useState(["não informado", "masculino", "feminino"]);
+  const [isLoading, setIsloading] = useState(false)
   const queryClient = useQueryClient()
   const dispatch = useDispatch()
 
@@ -36,6 +38,7 @@ export default function MyAccount({ data, user, token }) {
   });
 
   const handleSaveUser = async (data) => {
+    setIsloading(true)
       const request = await api.patch(`/user/${user?.id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -43,6 +46,7 @@ export default function MyAccount({ data, user, token }) {
       })
 
      if(request.status === 200){
+      setIsloading(false)
       queryClient.invalidateQueries('userData')
       return toast.success('Usuário atualizado', {
         position: "top-right",
@@ -53,7 +57,7 @@ export default function MyAccount({ data, user, token }) {
 
   const handleDelete = async (id) => {
     const deleteUserAccount = window.confirm(`${user?.name} deseja excluir sua conta?`)
-
+    setIsloading(true)
       if(deleteUserAccount){
         const request = await api.delete(`user/${id}`, {
           headers: {
@@ -61,6 +65,7 @@ export default function MyAccount({ data, user, token }) {
           }
         })
         if(request.status === 200){
+          setIsloading(false)
           toast.success('Usuário deletado', {
             position: "top-right",
             autoClose: 3000
@@ -137,6 +142,7 @@ export default function MyAccount({ data, user, token }) {
             <button onClick={()=> handleDelete(user?.id)}>Excuir conta</button>
           </div>
         </form>
+        {isLoading && <img className="loading" src={Loading} alt='loading' />}
       </Content>
     </MyAccountSection>
   );

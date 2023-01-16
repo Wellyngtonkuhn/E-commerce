@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -11,8 +12,11 @@ import { api } from "../../../axiosConfig/api";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoadingSvg from '../../../assets/loading.svg'
 
 export default function Favorites() {
+  const [Loading, setloading] = useState(false)
+
   const { user, token } = useSelector((state) => state.user);
   const queryClient = useQueryClient();
 
@@ -26,12 +30,14 @@ export default function Favorites() {
   });
 
   const handleDeleteFavorite = async (favoriteId) => {
+    setloading(true)
     const deleteFavorite = await api.delete(`/favorites/${favoriteId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
     if (deleteFavorite.status === 200) {
+      setloading(false)
       queryClient.invalidateQueries(["favorites"]);
       return toast.success(`${deleteFavorite.data.message}`, {
         position: "top-right",
@@ -89,6 +95,7 @@ export default function Favorites() {
             </div>
           </FavoriteContent>
         ))}
+         {Loading && <img className="loadingSvg" src={LoadingSvg} alt='loading' />}
     </Favorite>
   );
 }

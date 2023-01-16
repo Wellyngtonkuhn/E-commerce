@@ -70,6 +70,14 @@ export const Content = styled.div`
     color: ${({ theme }) => theme.errorMessage.color};
   }
 
+  .loading{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+  }
+
   @media screen and (min-width: 768px) {
     width: 100%;
     margin: auto;

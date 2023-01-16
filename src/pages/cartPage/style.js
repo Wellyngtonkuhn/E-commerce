@@ -75,14 +75,15 @@ export const SecondColumn = styled.div`
   width: 100%;
   padding: 1rem 0;
 
-  div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
   .finalTotal {
     font-weight: 700;
+
+    div{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: .5rem;
+    }
   }
 
   button {

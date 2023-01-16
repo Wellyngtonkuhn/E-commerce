@@ -37,6 +37,21 @@ export const LoginRegisterSection = styled.section`
     font-weight: ${({ theme }) => theme.errorMessage.fontWeight};
     color: ${({ theme }) => theme.errorMessage.color};
   }
+
+  .loading{
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 100px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .loading{
+      top: 60%;
+      transform: translate(-50%, 0%);
+    }
+  }
 `;
 
 export const FormSection = styled.div`

@@ -13,6 +13,8 @@ import { addToken } from "../../redux/userSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 
+import Loading from '../../assets/loading.svg'
+
 const userLogin = yup.object({
   email: yup.string().email("email inválido").required("campo obrigatório"),
   password: yup
@@ -34,6 +36,7 @@ export default function Login() {
   
   const [showSignIn, setShowSingIn] = useState(true);
   const [showRegister, setshowRegister] = useState(false);
+  const [isLoading, setIsloading] = useState(false)
   const [userLocation, setUserLocation] = useState("");
   const [showPassword, setShowPassword] = useState('password')
 
@@ -47,8 +50,10 @@ export default function Login() {
 
 
   const handleLogin = async ({ email, password }) => {
+    setIsloading(true)
     await api.post("/login", { email, password })
       .then((res) => {
+        setIsloading(false)
         dispatch(addToken(res?.data));
           switch (userLocation) {
             case "/cart/user-info":
@@ -183,6 +188,7 @@ export default function Login() {
           </form>
         </FormSection>
       )}
+      {isLoading && <img className="loading" src={Loading} alt='loading' />}
     </LoginRegisterSection>
   );
 }

@@ -11,8 +11,11 @@ import { ProductsSection, Ul } from "./style";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import LoadingSvg from '../../../assets/loading.svg'
+
 export default function Products({ filter, data, isLoading }) {
   const [productData, setProductData] = useState([])
+  const [Loading, setloading] = useState(false)
   const { user, token } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
@@ -26,6 +29,7 @@ export default function Products({ filter, data, isLoading }) {
     };
 
     if (favorite.userId) {
+      setloading(true)
       const { data } = await api.post(`favorites`, favorite, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -33,6 +37,7 @@ export default function Products({ filter, data, isLoading }) {
       });
 
       if(data.message === "Ok"){
+        setloading(false)
         return toast.success(`${favorite.name} adicionado aos favoritos`, {
           position: "top-right",
           autoClose: 3000
@@ -111,6 +116,7 @@ export default function Products({ filter, data, isLoading }) {
           </div>
         )}
       </Ul>
+      {Loading && <img className="loading" src={LoadingSvg} alt='loading' />}
     </ProductsSection>
   );
 }
