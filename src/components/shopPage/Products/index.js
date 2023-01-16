@@ -116,7 +116,7 @@ export default function Products({ filter, data, isLoading }) {
           </div>
         )}
       </Ul>
-      {Loading && <img className="loading" src={LoadingSvg} alt='loading' />}
+      {Loading && <img className="loadingSvg" src={LoadingSvg} alt='loading' />}
     </ProductsSection>
   );
 }

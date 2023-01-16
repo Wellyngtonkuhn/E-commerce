@@ -4,7 +4,7 @@ export const ProductsSection = styled.section`
   flex-basis: 100%;
   min-height: 15rem;
 
-  .loading{
+  .loadingSvg {
     position: fixed;
     top: 55%;
     left: 50%;
