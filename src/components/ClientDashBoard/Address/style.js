@@ -71,10 +71,10 @@ export const Content = styled.div`
   }
 
   .loading{
-    position: absolute;
-    top: 75%;
+    position: fixed;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, 0);
+    transform: translate(-50%, -50%);
     width: 100px;
   }
   
@@ -97,10 +97,5 @@ export const Content = styled.div`
 
   @media screen and (min-width: 1024px) {
     width: 80%;
-
-    .loading{
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
   }
 `;

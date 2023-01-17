@@ -77,10 +77,10 @@ export const Favorite = styled.section`
   }
 
   .loadingSvg{
-    position: absolute;
-    top: 55%;
+    position: fixed;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, 0);
+    transform: translate(-50%, -50%);
     width: 100px;
   }
 

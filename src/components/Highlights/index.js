@@ -12,8 +12,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 
+import LoadingSvg from '../../assets/loading.svg'
+
 export default function Highlights({ title, span, data, isLoading }) {
   const [bestSeller, setBestSeller] = useState([]);
+  const [Loading, setloading] = useState(false)
   const { user, token } = useSelector((state) => state.user);
   const navigate = useNavigate()
 
@@ -36,12 +39,14 @@ export default function Highlights({ title, span, data, isLoading }) {
     };
 
     if (favorite.userId) {
+      setloading(true)
       const { data } = await api.post(`favorites`, favorite, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       if(data.message === "Ok"){
+        setloading(false)
         return toast.success(`${favorite.name} adicionado aos favoritos`, {
           position: "top-right",
           autoClose: 3000
@@ -125,6 +130,7 @@ export default function Highlights({ title, span, data, isLoading }) {
             </ul>
           </Content>
         </Container>
+        {Loading && <img className="loadingSvg" src={LoadingSvg} alt='loading' />}
       </HighlightsSection>
     </>
   );
