@@ -1,14 +1,17 @@
 
 import { useEffect } from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { handleCheckoutTax } from "../../../redux/checkout"
+
 import { useNavigate } from "react-router-dom"
 import { api } from "../../../axiosConfig/api"
 
 
-export default function Payment({ token }) {
 
-  const { userCheckoutInfo, userCheckoutAddress } = useSelector(state => state.checkout)
+export default function Payment({ token }) {
+  const { userCheckoutInfo, userCheckoutAddress, deliveryTax } = useSelector(state => state.checkout)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const args = {
     sCepDestino: userCheckoutAddress?.cep
@@ -22,32 +25,23 @@ export default function Payment({ token }) {
     nVlDiametro: 0
   }
 
-  
-
   useEffect(() => {
     if(!token) navigate("/account", {
       state: { from: "/cart/payment" },
     }) 
   }, [token])
 
-  /*
-  useEffect( async () => {
-      const request = await api.post(`/checkout/delivery-time`, args, {
+  useEffect(() => {
+     api.post(`/checkout/delivery-time`, args, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       })
-      console.log(request)
-
-  }, [args])
-  */
-
-
-
-
-  //console.log(userCheckoutInfo)
-  //console.log(userCheckoutAddress)
+      .then(res => dispatch(handleCheckoutTax(res.data.response)))
+      .catch(err => console.log(err)) 
+  }, [])
   
+
   return (
 
     <div>Payment em Desenvolvimeto</div>

@@ -5,6 +5,7 @@ const CheckoutSlice = createSlice({
   initialState: {
     userCheckoutInfo: [],
     userCheckoutAddress: [],
+    deliveryTax: ''
   },
   reducers: {
     addUserInfo(state, action) {
@@ -19,9 +20,15 @@ const CheckoutSlice = createSlice({
         userCheckoutAddress: action.payload,
       };
     },
+    handleCheckoutTax(state, action){
+      return{
+        ...state,
+        deliveryTax: action.payload
+      }
+    }
   },
 });
 
-export const { addUserInfo, addUserAddrees } = CheckoutSlice.actions;
+export const { addUserInfo, addUserAddrees, handleCheckoutTax } = CheckoutSlice.actions;
 
 export default CheckoutSlice.reducer;

@@ -86,6 +86,11 @@ export const SecondColumn = styled.div`
     }
   }
 
+  .deliveryTime{
+    font-weight: 500;
+    font-size: .9rem;
+  }
+
   button {
     width: 100%;
     font-size: .95rem;

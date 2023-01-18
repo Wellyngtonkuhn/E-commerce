@@ -1,4 +1,4 @@
-import { Link, useNavigate, Outlet, useLocation } from "react-router-dom";
+import { useNavigate, Outlet, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { api } from "../../axiosConfig/api.js";
 import { clearCart } from "../../redux/cartSlice";
@@ -13,10 +13,10 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 
 export default function CartPage() {
-
+  
   const { cartItems } = useSelector((state) => state.cart);
-  const { userCheckoutInfo, userCheckoutAddress } = useSelector((state) => state.checkout);
-  const { user, token } = useSelector((state) => state.user);
+  const { userCheckoutInfo, userCheckoutAddress, deliveryTax } = useSelector((state) => state.checkout);
+  const { token } = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,12 +27,16 @@ export default function CartPage() {
       const totalItem = item.preco * item.itemQuantity;
       return totalItem;
     });
-    const finalTotal = totalProduct.reduce((acc, curr) => {
+    const totalCart = totalProduct.reduce((acc, curr) => {
       return acc + curr;
     }, 0);
-
-    return Number(finalTotal);
+    
+    const totalTax = deliveryTax[0]?.Valor.replace(',','.')
+    const total = totalTax ? Number(totalTax) + totalCart : totalCart
+   
+    return Number(total);
   };
+
 
   const handleCheckOutTeste = async (user, token) => {
     const order = {
@@ -151,33 +155,36 @@ export default function CartPage() {
         <Content>
           {cartItems.length > 0 ? (
             <>
-              <FirstColumn>
-                <Outlet />
-              </FirstColumn>
-              <SecondColumn>
-
-                <div className="finalTotal">
-                  <div>
-                    <p>Frete</p>
-                    <p>R$ 00,00</p>  
-                  </div>
-                  <div>
-                    <p>Total</p>
-                    <p>
-                      {totalPrice().toLocaleString("pt-BR", {
-                        style: "currency",
-                        currency: "BRL",
-                      })}
-                    </p>
-                  </div>
+            <FirstColumn>
+              <Outlet />
+            </FirstColumn>
+            
+            <SecondColumn>
+              <div className="finalTotal">
+                <div>
+                  <p>Frete</p>
+                  <p>R$ {deliveryTax ? deliveryTax?.map(item => item.Valor) : '00,00'}</p>  
                 </div>
+                <div>
+                  {deliveryTax && <p className="deliveryTime">Entrega prevista em {deliveryTax[0]?.PrazoEntrega} dias</p>}
+                </div>
+                <div>
+                  <p>Total</p>
+                  <p>
+                    {totalPrice().toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
+                  </p>
+                </div>
+              </div>
 
-                <button
-                  disabled={!cartItems}
-                  onClick={() => handleCheckOut(location.pathname)}>
-                    {location.pathname === '/cart/details' || location.pathname === '/cart/user-info' || location.pathname === '/cart/user-address' ? 'Próximo' : 'Finalizar compra'}
-                </button>
-              </SecondColumn>
+              <button
+                disabled={!cartItems}
+                onClick={() => handleCheckOut(location.pathname)}>
+                  {location.pathname === '/cart/details' || location.pathname === '/cart/user-info' || location.pathname === '/cart/user-address' ? 'Próximo' : 'Finalizar compra'}
+              </button>
+            </SecondColumn>
             </>
           ) : (
             <GoToShopping />
