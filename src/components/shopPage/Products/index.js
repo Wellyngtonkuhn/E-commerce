@@ -15,11 +15,11 @@ import LoadingSvg from '../../../assets/loading.svg'
 
 export default function Products({ filter, data, isLoading }) {
   const [productData, setProductData] = useState([])
-  const [Loading, setloading] = useState(false)
+  const [loading, setLoading] = useState(false)
   const { user, token } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
-  const handleFavorite = async (product) => {
+  const handleFavorite = (product) => {
     const favorite = {
       userId: user?.id,
       productId: product?._id,
@@ -28,27 +28,29 @@ export default function Products({ filter, data, isLoading }) {
       price: product?.preco,
     };
 
-    if (favorite.userId) {
-      setloading(true)
-      const { data } = await api.post(`favorites`, favorite, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if(data.message === "Ok"){
-        setloading(false)
-        return toast.success(`${favorite.name} adicionado aos favoritos`, {
-          position: "top-right",
-          autoClose: 3000
+    if(favorite.userId){  
+      setLoading(true)
+        api.post('favorites', favorite, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         })
-      }
-    } else {
+        .then(() => {
+          setLoading(false)
+          return toast.success(`${favorite.name} adicionado aos favoritos`, {
+            position: "top-right",
+            autoClose: 3000
+          })
+        })
+        .catch(({ response }) => {
+          setLoading(false)
+          return alert(response?.data?.message)
+        })
+    }else {
       return navigate("/account", {
-        state: { from: "/shop" },
-      });
-    }
-  };
+      state: { from: "/shop" },
+    })
+  }}
 
 // Finalizar o filtro
   useEffect(() => {
@@ -116,7 +118,7 @@ export default function Products({ filter, data, isLoading }) {
           </div>
         )}
       </Ul>
-      {Loading && <img className="loadingSvg" src={LoadingSvg} alt='loading' />}
+      {loading && <img className="loadingSvg" src={LoadingSvg} alt='loading' />}
     </ProductsSection>
   );
 }

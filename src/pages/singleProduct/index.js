@@ -1,10 +1,18 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams , useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { api } from '../../axiosConfig/api.js'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/cartSlice";
 import RenderOnTop from '../../components/RenderOnTop/'
+
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import LoadingSvg from '../../assets/loading.svg'
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
 
 import {
   FirstColumn,
@@ -16,8 +24,11 @@ import { Container } from "../../styles/GlobalStyles";
 
 export default function SingleProduct() {
   const [quantidade, setQuantidade] = useState(1);
+  const [loading, setLoading] = useState(false)
+  const { user, token } = useSelector(state => state.user)
   const { _id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const { data, isLoading } = useQuery(["product"], async () => {
     const request = await api.get(`/products/${_id}`);
@@ -39,6 +50,39 @@ export default function SingleProduct() {
   const handleAddToCard = (data, quantidade) => {
     dispatch(addToCart([data, quantidade]));
   };
+
+  const handleFavorite = (product) => {
+    const favorite = {
+      userId: user?.id,
+      productId: product?._id,
+      img: product?.url,
+      name: product?.nome,
+      price: product?.preco,
+    };
+
+    if(favorite.userId){  
+      setLoading(true)
+        api.post('favorites', favorite, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(() => {
+          setLoading(false)
+          return toast.success(`${favorite.name} adicionado aos favoritos`, {
+            position: "top-right",
+            autoClose: 3000
+          })
+        })
+        .catch(({ response }) => {
+          setLoading(false)
+          return alert(response?.data?.message)
+        })
+    }else {
+      return navigate("/account", {
+      state: { from: `/shop/${product.nome}/${product._id}` },
+    })
+  }}
 
   return (
     <SingleProductSection>
@@ -154,10 +198,15 @@ export default function SingleProduct() {
                   <button onClick={() => handleAddToCard(data, quantidade)}>
                     Adicionar ao carrinho
                   </button>
+                  <button onClick={() =>handleFavorite(data)}>
+                    <FontAwesomeIcon icon={faHeart} />
+                  </button>
+
                 </div>
               </>
             )}
           </SecondColumn>
+      {loading && <img className="loadingSvg" src={LoadingSvg} alt='loading' />}
         </Content>
       </Container>
       <RenderOnTop />

@@ -9,6 +9,14 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
 
+  .loadingSvg {
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+  }
+
   @media screen and (min-width: 768px) {
     flex-direction: row;
   }
@@ -187,6 +195,7 @@ export const SecondColumn = styled.div`
 
   .productBuyButton {
     width: 100%;
+    display: flex;
     text-align: center;
 
     button {

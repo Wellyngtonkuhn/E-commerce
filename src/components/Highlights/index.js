@@ -1,25 +1,12 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { api } from "../../axiosConfig/api";
+import { Link } from "react-router-dom";
 
 import { HighlightsSection, Content } from "./style";
 import { Container } from "../../styles/GlobalStyles";
 
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
-
-import LoadingSvg from '../../assets/loading.svg'
-
-export default function Highlights({ title, span, data, isLoading }) {
+export default function Highlights({ title, span, data }) {
   const [bestSeller, setBestSeller] = useState([]);
-  const [Loading, setloading] = useState(false)
-  const { user, token } = useSelector((state) => state.user);
-  const navigate = useNavigate()
-
 
   const handleBestSeller = async (data) => {
     const bestSeller = await data?.sort((a, b) => {
@@ -29,37 +16,7 @@ export default function Highlights({ title, span, data, isLoading }) {
     return setBestSeller(bestSeller);
   };
 
-  const handleFavorite = async (product) => {
-    const favorite = {
-      userId: user?.id,
-      productId: product?._id,
-      img: product?.url,
-      name: product?.nome,
-      price: product?.preco,
-    };
-
-    if (favorite.userId) {
-      setloading(true)
-      const { data } = await api.post(`favorites`, favorite, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if(data.message === "Ok"){
-        setloading(false)
-        return toast.success(`${favorite.name} adicionado aos favoritos`, {
-          position: "top-right",
-          autoClose: 3000
-        });
-      }
-    } else {
-      return navigate("/account", {
-        state: { from: "/" },
-      });
-    }
-  };
-
- handleBestSeller(data);
+  handleBestSeller(data);
 
  return (
     <>
@@ -73,7 +30,7 @@ export default function Highlights({ title, span, data, isLoading }) {
             <ul>
               {bestSeller &&
                 bestSeller.slice(0, 4).map((item) => (
-                  <li key={item.id}>
+                  <li key={item._id}>
                     <Link to={`/shop/${item.nome}/${item._id}`}><img src={item.url} alt="bestSeller" /></Link>
                     <h3><Link to={`/shop/${item.nome}/${item._id}`}>{item.nome}</Link></h3>
                     <p>
@@ -88,13 +45,6 @@ export default function Highlights({ title, span, data, isLoading }) {
                         to={`/shop/${item.nome}/${item._id}`}>
                         Comprar
                       </Link>
-
-                      <button
-                        className="btn-buy"
-                        onClick={() => handleFavorite(item)}
-                      >
-                        <FontAwesomeIcon icon={faHeart} />
-                      </button>
                     </div>
                   </li>
                 ))}
@@ -130,7 +80,6 @@ export default function Highlights({ title, span, data, isLoading }) {
             </ul>
           </Content>
         </Container>
-        {Loading && <img className="loadingSvg" src={LoadingSvg} alt='loading' />}
       </HighlightsSection>
     </>
   );

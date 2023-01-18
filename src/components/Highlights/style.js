@@ -19,14 +19,6 @@ export const HighlightsSection = styled.section`
       font-size: 1.5rem;
     }
   }
-
-  .loadingSvg {
-    position: fixed;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100px;
-  }
 `;
 
 export const Content = styled.div`
