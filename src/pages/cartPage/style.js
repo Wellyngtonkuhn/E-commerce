@@ -91,11 +91,12 @@ export const SecondColumn = styled.div`
     font-size: .9rem;
   }
 
-  button {
+  button, a {
     width: 100%;
     font-size: .95rem;
     font-weight: 700;
     text-transform: uppercase;
+    text-align: center;
     color: ${({ theme }) => theme.color.primaryColor};
     border: 1px solid ${({ theme }) => theme.color.primaryColor};
     background-color: transparent;
@@ -103,7 +104,7 @@ export const SecondColumn = styled.div`
     transition: all ease 0.3s;
   }
 
-  button:hover {
+  button, a:hover {
     background-color: ${({ theme }) => theme.color.primaryColor};
     color: #fff;
     cursor: pointer;

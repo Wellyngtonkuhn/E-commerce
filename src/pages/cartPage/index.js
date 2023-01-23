@@ -1,7 +1,6 @@
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { api } from "../../axiosConfig/api.js";
-import { clearCart } from "../../redux/cartSlice";
 import RenderOnTop from "../../components/RenderOnTop/";
 import GoToShopping from "../../components/buttonToShop/index.js";
 
@@ -10,15 +9,14 @@ import { Container } from "../../styles/GlobalStyles";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
 
 
 export default function CartPage() {
-  
+  const [buyUrl, setBuyUrl] = useState('')
   const { cartItems } = useSelector((state) => state.cart);
   const { userCheckoutInfo, userCheckoutAddress, deliveryTax } = useSelector((state) => state.checkout);
-  const { token } = useSelector((state) => state.user);
-
-  const dispatch = useDispatch();
+  const { user, token } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const location = useLocation()
 
@@ -37,8 +35,39 @@ export default function CartPage() {
     return Number(total);
   };
 
+    // Path do checkout
+    const handleCheckOut = (path) => {
+      if(token){
+        switch (path) {
+          case "details":
+            navigate('details')
+            break
+          case "/cart/details":
+            navigate('user-info')
+            break
+          case '/cart/user-info':
+            if(userCheckoutInfo.length === 0){
+              return alert('Preencha e salve os dados para prosseguir')
+            }
+              navigate('user-address')
+            break
+          case '/cart/user-address':
+            if(userCheckoutAddress.length === 0){
+              return alert('Preencha e salve os dados para prosseguir')
+            }
+            navigate('payment')
+            break
+          default:
+            break;
+        }
+      }else{
+        navigate("/account", {
+        state: { from: "/cart/user-info" },
+        }) 
+      }
+    }
 
-  const handleCheckOutTeste = async (user, token) => {
+  const handleCheckOutPayment = async () => {
     const order = {
       userId: user.id,
       product: cartItems.map((item) => {
@@ -50,18 +79,20 @@ export default function CartPage() {
         };
       }),
       totalPrice: totalPrice(),
+      deliveryTax: deliveryTax[0]?.Valor.replace(',','.'),
       shipped: "05/12/2022",
       orderStatus: "processing",
       paymentStatus: "approved",
     };
 
     if (token !== "") {
-      const { data } = await api.post("/checkout", order, {
+      const request = await api.post("/checkout", order, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      return handleCongrats(data);
+      return setBuyUrl(request)
+      
     } else {
       return navigate("/account", {
         state: { from: "/cart" },
@@ -69,42 +100,10 @@ export default function CartPage() {
     }
   };
 
-  const handleCongrats = (data) => {
-    dispatch(clearCart());
-    navigate("/congrats", { state: { data: data } });
-  };
+  useEffect(() => {
+    handleCheckOutPayment()
+  },[cartItems, deliveryTax])
 
-  // Certo
-  const handleCheckOut = (path) => {
-    if(token){
-      switch (path) {
-        case "details":
-          navigate('details')
-          break
-        case "/cart/details":
-          navigate('user-info')
-          break
-        case '/cart/user-info':
-          if(userCheckoutInfo.length === 0){
-            return alert('Preencha e salve os dados para prosseguir')
-          }
-            navigate('user-address')
-          break
-        case '/cart/user-address':
-          if(userCheckoutAddress.length === 0){
-            return alert('Preencha e salve os dados para prosseguir')
-          }
-          navigate('payment')
-          break
-        default:
-          break;
-      }
-    }else{
-      navigate("/account", {
-      state: { from: "/cart/user-info" },
-      }) 
-    }
-  }
 
   return (
     <CartSection>
@@ -177,13 +176,17 @@ export default function CartPage() {
                     })}
                   </p>
                 </div>
-              </div>
-
-              <button
-                disabled={!cartItems}
-                onClick={() => handleCheckOut(location.pathname)}>
-                  {location.pathname === '/cart/details' || location.pathname === '/cart/user-info' || location.pathname === '/cart/user-address' ? 'Próximo' : 'Finalizar compra'}
-              </button>
+              </div>  
+                {location.pathname === '/cart/payment' ? (
+                  <a href={buyUrl?.data?.url}>Finalizar Compra</a>
+                ): (
+                  <button
+                    disabled={!cartItems}
+                    onClick={() => handleCheckOut(location.pathname)}>
+                      Próximo
+                  </button>     
+                )}              
+                
             </SecondColumn>
             </>
           ) : (
