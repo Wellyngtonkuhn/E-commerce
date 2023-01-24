@@ -35,7 +35,6 @@ export default function CartPage() {
     return Number(total);
   };
 
-
   const handleCheckOutPath = (path) => {
     if(token){
       switch (path) {
@@ -92,18 +91,12 @@ export default function CartPage() {
         },
       });
       return setBuyUrl(request)
-      
-    } else {
-      return navigate("/account", {
-        state: { from: "/cart" },
-      });
     }
   };
 
   useEffect(() => {
     handleCheckOutPayment()
   },[cartItems, deliveryTax])
-
 
   return (
     <CartSection>
@@ -162,7 +155,7 @@ export default function CartPage() {
               <div className="finalTotal">
                 <div>
                   <p>Frete</p>
-                  <p>R$ {deliveryTax ? deliveryTax?.map(item => item.Valor) : '00,00'}</p>
+                  <p>R$ {deliveryTax?.length !== 0 ? deliveryTax?.map(item => item.Valor) : '00,00'}</p>
                 </div>
                 <div>
                   {deliveryTax && <p className="deliveryTime">Entrega prevista em {deliveryTax[0]?.PrazoEntrega} dias</p>}

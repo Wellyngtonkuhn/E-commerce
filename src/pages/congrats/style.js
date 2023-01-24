@@ -3,12 +3,16 @@ import styled from "styled-components";
 export const CongratsSection = styled.section`
   width: 100%;
   height: 50vh;
-  margin-top: 10rem;
+  margin-top: 8rem;
 `;
 
 export const Content = styled.div`
   width: 95%;
+  height: 100%;
   margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   div {
     display: flex;
