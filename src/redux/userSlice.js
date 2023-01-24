@@ -15,7 +15,7 @@ const UserSlice = createSlice({
       Cookies.set("token", payload.token, { expires: 1 });
       localStorage.setItem("user", JSON.stringify(payload.user));
     },
-    removeToken(state, action) {
+    removeToken(state) {
       state.token = "";
       state.user = [];
 

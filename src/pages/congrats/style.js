@@ -7,12 +7,18 @@ export const CongratsSection = styled.section`
 `;
 
 export const Content = styled.div`
-  width: 100%;
+  width: 95%;
   margin: auto;
 
   div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+
     h3 {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: 700;
       color: ${({ theme }) => theme.color.primaryColor};
       text-align: center;
@@ -22,7 +28,7 @@ export const Content = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: .3rem;
+      gap: 0.3rem;
       font-size: 1rem;
       line-height: 22px;
 
@@ -32,9 +38,42 @@ export const Content = styled.div`
       }
     }
 
+    .loading {
+      position: fixed;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px;
+    }
+
     .approved {
-    color: green;
-    font-weight: 700;
-  }
+      color: green;
+      font-weight: 700;
+    }
+
+    a {
+      width: 100%;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      text-align: center;
+      color: ${({ theme }) => theme.color.primaryColor};
+      border: 1px solid ${({ theme }) => theme.color.primaryColor};
+      background-color: transparent;
+      padding: 0.6rem 0;
+      transition: all ease 0.3s;
+    }
+
+    a:hover {
+      background-color: ${({ theme }) => theme.color.primaryColor};
+      color: #fff;
+      cursor: pointer;
+    }
+
+    @media screen and (min-width: 425px) {
+      a {
+        width: 21rem;
+      }
+    }
   }
 `;

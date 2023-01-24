@@ -4,8 +4,8 @@ const CheckoutSlice = createSlice({
   name: "checkout",
   initialState: {
     userCheckoutInfo: [],
-    userCheckoutAddress: [],
-    deliveryTax: ''
+    userCheckoutAddress: JSON.parse(localStorage.getItem("userCheckoutAddress")) || [],
+    deliveryTax: JSON.parse(localStorage.getItem("deliveryTax")) || [],
   },
   reducers: {
     addUserInfo(state, action) {
@@ -14,21 +14,24 @@ const CheckoutSlice = createSlice({
         userCheckoutInfo: action.payload,
       };
     },
-    addUserAddrees(state, action) {
-      return {
-        ...state,
-        userCheckoutAddress: action.payload,
-      };
+    addUserAddrees(state, { payload }) {
+      state.userCheckoutAddress = payload
+      localStorage.setItem("userCheckoutAddress", JSON.stringify(payload));
     },
-    handleCheckoutTax(state, action){
-      return{
-        ...state,
-        deliveryTax: action.payload
-      }
+    handleCheckoutTax(state, { payload }){
+      state.deliveryTax = payload
+      localStorage.setItem("deliveryTax", JSON.stringify(payload));
+    },
+    handleClearLocalStorageOrder(state){
+      state.userCheckoutAddress = [];
+      state.deliveryTax = [];
+
+      localStorage.removeItem("userCheckoutAddress");
+      localStorage.removeItem("deliveryTax");
     }
   },
 });
 
-export const { addUserInfo, addUserAddrees, handleCheckoutTax } = CheckoutSlice.actions;
+export const { addUserInfo, addUserAddrees, handleCheckoutTax, handleClearLocalStorageOrder } = CheckoutSlice.actions;
 
 export default CheckoutSlice.reducer;

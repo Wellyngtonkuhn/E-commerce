@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 
 export default function CartPage() {
-  const [buyUrl, setBuyUrl] = useState('')
+  const [buyUrl, setBuyUrl] = useState([])
   const { cartItems } = useSelector((state) => state.cart);
   const { userCheckoutInfo, userCheckoutAddress, deliveryTax } = useSelector((state) => state.checkout);
   const { user, token } = useSelector((state) => state.user);
@@ -35,37 +35,37 @@ export default function CartPage() {
     return Number(total);
   };
 
-    // Path do checkout
-    const handleCheckOut = (path) => {
-      if(token){
-        switch (path) {
-          case "details":
-            navigate('details')
-            break
-          case "/cart/details":
-            navigate('user-info')
-            break
-          case '/cart/user-info':
-            if(userCheckoutInfo.length === 0){
-              return alert('Preencha e salve os dados para prosseguir')
-            }
-              navigate('user-address')
-            break
-          case '/cart/user-address':
-            if(userCheckoutAddress.length === 0){
-              return alert('Preencha e salve os dados para prosseguir')
-            }
-            navigate('payment')
-            break
-          default:
-            break;
-        }
-      }else{
-        navigate("/account", {
-        state: { from: "/cart/user-info" },
-        }) 
+
+  const handleCheckOutPath = (path) => {
+    if(token){
+      switch (path) {
+        case "details":
+          navigate('details')
+          break
+        case "/cart/details":
+          navigate('user-info')
+          break
+        case '/cart/user-info':
+          if(userCheckoutInfo.length === 0){
+            return alert('Preencha e salve os dados para prosseguir')
+          }
+            navigate('user-address')
+          break
+        case '/cart/user-address':
+          if(userCheckoutAddress.length === 0){
+            return alert('Preencha e salve os dados para prosseguir')
+          }
+          navigate('payment')
+          break
+        default:
+          break;
       }
+    }else{
+      navigate("/account", {
+      state: { from: "/cart/user-info" },
+      }) 
     }
+  }
 
   const handleCheckOutPayment = async () => {
     const order = {
@@ -110,13 +110,13 @@ export default function CartPage() {
       <div className="buySteps">
         <ul>
           <li>
-            <button onClick={() => handleCheckOut('details')} >
+            <button onClick={() => handleCheckOutPath('details')} >
               <FontAwesomeIcon icon={faCheckCircle} color={"#4ECD82"} />
               Carrinho
             </button>
           </li>
           <li>
-            <button onClick={()=> handleCheckOut('/cart/details')}>
+            <button onClick={()=> handleCheckOutPath('/cart/details')}>
               <FontAwesomeIcon
                 icon={faCheckCircle}
                 color={(location.pathname === "/cart/user-info" || location.pathname === "/cart/user-address" || location.pathname === "/cart/payment") && "#4ECD82"}
@@ -125,7 +125,7 @@ export default function CartPage() {
             </button>
           </li>
           <li>
-            <button onClick={() => handleCheckOut('/cart/user-info')}>
+            <button onClick={() => handleCheckOutPath('/cart/user-info')}>
               <FontAwesomeIcon
                 icon={faCheckCircle}
                 color={(location.pathname === "/cart/user-address" || location.pathname === "/cart/payment") && "#4ECD82"}
@@ -134,7 +134,7 @@ export default function CartPage() {
             </button>
           </li>
           <li>
-            <button onClick={() => handleCheckOut('/cart/user-address')} >
+            <button onClick={() => handleCheckOutPath('/cart/user-address')} >
               <FontAwesomeIcon
                 icon={faCheckCircle}
                 color={location.pathname === "/cart/payment" && "#4ECD82"}
@@ -162,7 +162,7 @@ export default function CartPage() {
               <div className="finalTotal">
                 <div>
                   <p>Frete</p>
-                  <p>R$ {deliveryTax ? deliveryTax?.map(item => item.Valor) : '00,00'}</p>  
+                  <p>R$ {deliveryTax ? deliveryTax?.map(item => item.Valor) : '00,00'}</p>
                 </div>
                 <div>
                   {deliveryTax && <p className="deliveryTime">Entrega prevista em {deliveryTax[0]?.PrazoEntrega} dias</p>}
@@ -182,7 +182,7 @@ export default function CartPage() {
                 ): (
                   <button
                     disabled={!cartItems}
-                    onClick={() => handleCheckOut(location.pathname)}>
+                    onClick={() => handleCheckOutPath(location.pathname)}>
                       Próximo
                   </button>     
                 )}              

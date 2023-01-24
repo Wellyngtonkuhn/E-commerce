@@ -44,7 +44,7 @@ export default function Payment({ token }) {
   return (
     <>
     <h5 style={{marginBottom: '1rem'}}>Revise sua compra antes de prosseguir para o pagamento</h5>
-    <h5 style={{marginBottom: '1rem'}}>Na próxima tela você encontrará informações para concluir a compra em mode de teste</h5>
+    <h5 style={{marginBottom: '1rem'}}>Na próxima tela você encontrará informações para concluir a compra em modo de teste</h5>
       <Cart cartItems={cartItems} />
     </>
   );
