@@ -78,7 +78,7 @@ export const Ul = styled.ul`
   }
 
   @media screen and (min-width: 425px) {
-    justify-content: space-between;
+    justify-content: flex-start;
     li h3 {
       width: 35ch;
     }
@@ -87,7 +87,6 @@ export const Ul = styled.ul`
   @media screen and (min-width: 552px) {
     flex-basis: 80%;
     gap: 2rem;
-    justify-content: space-around;
 
     li {
       margin-bottom: unset;
@@ -107,8 +106,20 @@ export const Ul = styled.ul`
     }
   }
 
+  @media screen and (min-width: 674px) {
+    justify-content: space-around;
+    margin-left: 5rem;
+    gap: 3rem;
+  }
+
+  @media screen and (min-width: 768px) {
+    justify-content: space-around;
+    gap: 2rem;
+  }
+
   @media screen and (min-width: 1024px) {
-    justify-content: space-between;
+    justify-content: flex-start;
+    margin-left: unset;
     li {
       width: 22%;
 
@@ -119,7 +130,6 @@ export const Ul = styled.ul`
   }
 
   @media screen and (min-width: 1440px) {
-    justify-content: space-between;
     li {
       width: 21%;
 

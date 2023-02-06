@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { api } from "../../../axiosConfig/api";
@@ -13,12 +14,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import LoadingSvg from '../../../assets/loading.svg'
 
-export default function Products({ filter, data, isLoading }) {
-  const [productData, setProductData] = useState([])
+export default function Products({ filter }) {
   const [loading, setLoading] = useState(false)
   const { user, token } = useSelector((state) => state.user);
   const navigate = useNavigate();
 
+  const { data, isLoading } = useQuery(["data"],
+  async () => {
+    const request = await api.get('/products');
+    return request.data;
+  },
+  {
+    staleTime: 10000 * 60,
+  }
+);
+
+// Adiciona um novo favorito
   const handleFavorite = (product) => {
     const favorite = {
       userId: user?.id,
@@ -52,17 +63,23 @@ export default function Products({ filter, data, isLoading }) {
     })
   }}
 
-// Finalizar o filtro
-  useEffect(() => {
-    const newData = data?.filter(item => item?.marca.includes(filter))
-    setProductData(newData)
-  },[filter])
+// Filtra os produtos
+const handleFilter = () => {
+  const newDataFiltered = data?.filter(item =>{
+    if(filter.length === 0){
+      return data
+    } else{
+     return filter.includes(item.marca)
+    }
+  })
+  return newDataFiltered
+}
 
   return (
     <ProductsSection>
       <Ul>
         {data &&
-          data.map((item) => (
+          handleFilter().map((item) => (
             <li key={item._id}>
                <Link to={`/shop/${item.nome}/${item._id}`}><img src={item.url} alt={item.nome} /></Link>
               <h3>

@@ -1,17 +1,8 @@
 import { AsideContent, AsideSection } from "./style";
 
-export default function Aside({ brands, setFilter, filter }) {
-  const handleToogleCheckbox = (name) => {
-    const currName = filter?.find((e) => e === name);
-    let newFilter = [...filter];
+export default function Aside({ brands, filter, handleToogleCheckbox }) {
 
-    if (currName === undefined) {
-      newFilter.push(name);
-    } else {
-      newFilter = newFilter.filter((item) => item !== currName);
-    }
-    setFilter(newFilter);
-  };
+
 
   return (
     <AsideSection>

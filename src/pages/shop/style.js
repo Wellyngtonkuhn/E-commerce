@@ -13,7 +13,6 @@ export const Content = styled.section`
 
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
 
   @media screen and (min-width: 674px) {
     flex-direction: row;
@@ -22,7 +21,11 @@ export const Content = styled.section`
 
 export const MobileFilter = styled.div`
   display: flex;
-  justify-content: end;
+  flex-direction: column;
+  align-items: flex-end;
+  position: fixed;
+  top: 9.5rem;
+  right: 1.519rem;
 
   button {
     font-size: 1rem;
@@ -37,7 +40,39 @@ export const MobileFilter = styled.div`
 
   button:hover {
     background-color: ${({ theme }) => theme.color.primaryColor};
+    box-shadow: 1px 1px 5px #0000008f;
     color: #fff;
+  }
+
+  .mobileFilter{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    width: 7.5rem;
+    margin-top: .5rem;
+    padding: .3rem;
+    background-color: ${({ theme }) => theme.backgroundColor};
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px #0000008f;
+    
+    h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 24px;
+    text-transform: uppercase;
+    color: ${({ theme }) => theme.color.primaryColor};
+  }
+
+    label{
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 1rem;
+      color: ${({ theme }) => theme.color.primaryColor};
+      font-size: 1.2rem;
+      color: #212121;
+    }
   }
 
   @media screen and (min-width: 674px) {
