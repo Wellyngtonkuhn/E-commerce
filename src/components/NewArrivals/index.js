@@ -1,25 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { HighlightsSection, Content } from "./style";
 import { Container } from "../../styles/GlobalStyles";
 
 
-export default function Highlights({ title, span, data }) {
-  const [bestSeller, setBestSeller] = useState([]);
+export default function NewArrivals({ title, span, data }) {
 
-  const handleBestSeller = async (data) => {
-    const bestSeller = await data?.sort((a, b) => {
-      return b.unidadesVendidas - a.unidadesVendidas;
-    });
+  const [newArrival, setNewArrival] = useState([]);
 
-    return setBestSeller(bestSeller);
+  const handleNewArrivals = (data) => {
+    const newData = data ? [...data] : []
+    const newProducts = newData?.reverse().slice(0, 4)
+    return setNewArrival(newProducts)
   };
 
   useEffect(() => {
-    handleBestSeller(data);
+    handleNewArrivals(data);
   }, [data])
-
+  
  return (
     <>
       <HighlightsSection>
@@ -30,10 +29,10 @@ export default function Highlights({ title, span, data }) {
               <span>{span}</span>
             </h3>
             <ul>
-              {bestSeller &&
-                bestSeller.slice(0, 4).map((item) => (
+              {newArrival &&
+                newArrival.map((item) => (
                   <li key={item._id}>
-                    <Link to={`/shop/${item.nome}/${item._id}`}><img src={item.url} alt="bestSeller" /></Link>
+                    <Link to={`/shop/${item.nome}/${item._id}`}><img src={item.url} alt="newArrival" /></Link>
                     <h3><Link to={`/shop/${item.nome}/${item._id}`}>{item.nome}</Link></h3>
                     <p>
                       {item.preco.toLocaleString("pt-BR", {
@@ -51,7 +50,7 @@ export default function Highlights({ title, span, data }) {
                   </li>
                 ))}
 
-              {!bestSeller && (
+              {!newArrival && (
                 <div className="loadingContent">
                   <li className="loading">
                     <div></div>

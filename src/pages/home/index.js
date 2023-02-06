@@ -15,6 +15,7 @@ import {
 import { Container } from "../../styles/GlobalStyles";
 
 import Highlights from "../../components/Highlights";
+import NewArrivals from "../../components/NewArrivals";
 import RenderOnTop from "../../components/RenderOnTop";
 
 import { Head1, Head2 } from "../../assets/head/";
@@ -33,7 +34,7 @@ import SendImg from "../../assets/newsLetter/send.png";
 
 export default function Home() {
 
-  const { data, isLoading } = useQuery(["highlights"], async () => {
+  const { data, isLoading } = useQuery(["products"], async () => {
       const request = await api.get("/products");
       return request.data;
     },
@@ -102,6 +103,13 @@ export default function Home() {
         <Highlights
           title="Best"
           span="sellers"
+          data={data}
+          isLoading={isLoading}
+        />
+
+        <NewArrivals
+          title="New"
+          span="arrivals"
           data={data}
           isLoading={isLoading}
         />

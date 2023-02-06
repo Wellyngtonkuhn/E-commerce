@@ -1,10 +1,10 @@
 import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
 
-import { useQueryClient } from "@tanstack/react-query";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
