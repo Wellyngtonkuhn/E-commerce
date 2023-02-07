@@ -1,8 +1,7 @@
+
 import { AsideContent, AsideSection } from "./style";
 
-export default function Aside({ brands, filter, handleToogleCheckbox }) {
-
-
+export default function Aside({ brands, filter, handleToogleCheckbox, setFilterByPrice }) {
 
   return (
     <AsideSection>
@@ -40,21 +39,31 @@ export default function Aside({ brands, filter, handleToogleCheckbox }) {
           </div>
         </div>
 
-        <div>
+        <form>
           <h3>Preço</h3>
           <div className="checkbox">
             <label>
-              <input type="checkbox" />
-              Até R$ 350
+              <input 
+                type="radio" 
+                name="price" 
+                value= 'menorPreco' 
+                onChange={(e) => setFilterByPrice(e.target.value)} 
+              />
+              Menor preço
             </label>
           </div>
           <div className="checkbox">
             <label>
-              <input type="checkbox" />
-              Até R$ 500
+              <input 
+                type="radio" 
+                name="price"
+                value='mariorPreco' 
+                onChange={(e) => setFilterByPrice(e.target.value)} 
+              />
+              Maior preço
             </label>
           </div>
-        </div>
+        </form>
       </AsideContent>
     </AsideSection>
   );

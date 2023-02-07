@@ -78,7 +78,7 @@ export const Ul = styled.ul`
   }
 
   @media screen and (min-width: 425px) {
-    justify-content: flex-start;
+    justify-content: space-evenly;
     li h3 {
       width: 35ch;
     }

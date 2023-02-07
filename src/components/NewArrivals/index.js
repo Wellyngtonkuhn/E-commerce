@@ -18,7 +18,7 @@ export default function NewArrivals({ title, span, data }) {
   useEffect(() => {
     handleNewArrivals(data);
   }, [data])
-  
+ 
  return (
     <>
       <HighlightsSection>
@@ -50,7 +50,7 @@ export default function NewArrivals({ title, span, data }) {
                   </li>
                 ))}
 
-              {!newArrival && (
+              {newArrival.length === 0 && (
                 <div className="loadingContent">
                   <li className="loading">
                     <div></div>

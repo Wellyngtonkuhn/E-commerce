@@ -1,5 +1,6 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "../../axiosConfig/api";
 import { MainShop, Content, MobileFilter } from "./style";
 import { Container } from "../../styles/GlobalStyles";
 
@@ -16,6 +17,17 @@ export default function Shop() {
   ]);
   const [filter, setFilter] = useState([]);
   const [showMobileFilter, setShowMobileFilter] = useState(false);
+  const [ filterByPrice, setFilterByPrice ] = useState('')
+
+  const { data, isLoading, isError } = useQuery(["data"], async () => {
+    const request = await api.get('/products');
+    return request.data;
+  },
+  {
+    staleTime: 10000 * 60,
+  }
+);
+
 
   const handleToogleCheckbox = (name) => {
     const currName = filter?.find((e) => e === name);
@@ -28,7 +40,23 @@ export default function Shop() {
     }
     setFilter(newFilter);
   };
-  console.log(showMobileFilter);
+
+  // Filtra os produtos
+  const handleFilter = () => {
+    const newDataFiltered = data?.filter(item =>{
+      if(filter.length === 0){
+        return data
+      } else{
+      return filter.includes(item.marca)
+      }
+    })
+    return newDataFiltered
+  }
+
+useEffect(() => {
+  if(isError) alert('Atualize a página para carregar os produtos')
+}, [isError])
+
   return (
     <MainShop>
       <Container>
@@ -39,7 +67,10 @@ export default function Shop() {
             </button>
             {showMobileFilter && (
               <div className="mobileFilter">
-                <h3>Marcas</h3>
+                <div>
+                  <h3>Marcas</h3>
+                  <button onClick={() => setShowMobileFilter(false)}>X</button>
+                </div>
                 {brands.map((item) => {
                   return (
                     <label key={item.id}>
@@ -61,8 +92,9 @@ export default function Shop() {
             brands={brands}
             filter={filter}
             handleToogleCheckbox={handleToogleCheckbox}
+            setFilterByPrice={setFilterByPrice}
           />
-          <Products filter={filter} />
+          <Products data={data} isLoading={isLoading} handleFilter={handleFilter}/>
         </Content>
       </Container>
       <RenderOnTop />

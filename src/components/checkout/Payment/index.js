@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { handleCheckoutTax } from "../../../redux/checkout";
-import Cart from '../Cart'
 
 import { useNavigate } from "react-router-dom";
 import { api } from "../../../axiosConfig/api";
+import { PaymentSection } from "./style";
 
 export default function Payment({ token }) {
-  const { cartItems } = useSelector((state) => state.cart);
   const { userCheckoutAddress } = useSelector((state) => state.checkout);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -42,10 +41,15 @@ export default function Payment({ token }) {
   }, []);
 
   return (
-    <>
-    <h5 style={{marginBottom: '1rem'}}>Revise sua compra antes de prosseguir para o pagamento</h5>
-    <h5 style={{marginBottom: '1rem'}}>Na próxima tela você encontrará informações para concluir a compra em modo de teste</h5>
-      <Cart cartItems={cartItems} />
-    </>
+      <PaymentSection>
+        <h3>Utilize um dos cartões para testar a aplicação</h3>
+          <div className="approved payment">
+            <h4>Pagamento bem sucedido</h4>
+            <p>Número: <span>4242 4242 4242 4242</span></p>
+            <p>Validade: <span>11/31</span></p>
+            <p>Cvc: <span>415</span></p>
+          </div>
+      </PaymentSection>
+
   );
 }

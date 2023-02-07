@@ -2,9 +2,13 @@ import styled from "styled-components";
 
 export const MainShop = styled.main`
   width: 100%;
-  margin-top: 11rem;
+  margin-top: 12rem;
   margin-bottom: 3rem;
   padding: 0 1rem;
+
+  @media screen and (min-width:674){
+    margin-top: 11rem;
+  }
 `;
 
 export const Content = styled.section`
@@ -26,6 +30,7 @@ export const MobileFilter = styled.div`
   position: fixed;
   top: 9.5rem;
   right: 1.519rem;
+  width: 88%;
 
   button {
     font-size: 1rem;
@@ -48,12 +53,12 @@ export const MobileFilter = styled.div`
     display: flex;
     flex-direction: column;
     gap: .5rem;
-    width: 7.5rem;
+    width: 100%;
     margin-top: .5rem;
     padding: .3rem;
     background-color: ${({ theme }) => theme.backgroundColor};
     border-radius: 5px;
-    box-shadow: 1px 1px 5px #0000008f;
+    box-shadow: 1px 1px 5px #00000033;
     
     h3 {
     font-size: 1rem;
@@ -62,6 +67,15 @@ export const MobileFilter = styled.div`
     line-height: 24px;
     text-transform: uppercase;
     color: ${({ theme }) => theme.color.primaryColor};
+  }
+
+  div:nth-child(1){
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    button{
+      border-radius: 0 5px 0 0;
+    }
   }
 
     label{

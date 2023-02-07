@@ -30,11 +30,12 @@ import { Carrera, Persol, Gucci, RayBan } from "../../assets/brands";
 
 import { Banner1, Banner2 } from "../../assets/banner";
 import SendImg from "../../assets/newsLetter/send.png";
+import { useEffect } from "react";
 
 
 export default function Home() {
 
-  const { data, isLoading } = useQuery(["products"], async () => {
+  const { data, isLoading, isError } = useQuery(["products"], async () => {
       const request = await api.get("/products");
       return request.data;
     },
@@ -43,6 +44,10 @@ export default function Home() {
     }
   );
 
+    useEffect(() => {
+        if(isError) alert('Atualize a página para carregar os produtos')
+    }, [isError])
+    
   return (
     <>
       <MainHome>
