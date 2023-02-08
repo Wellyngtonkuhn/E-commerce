@@ -114,7 +114,14 @@ export const OrderContent = styled.div`
     justify-content: space-between;
 
     .firstCollumn {
+      display: flex;
+      gap: 1rem;
       width: 80%;
+
+      div img {
+        width: 120px;
+        height: 120px;
+      }
 
       h4 {
         font-size: 0.9rem;
@@ -132,6 +139,10 @@ export const OrderContent = styled.div`
       }
 
       @media screen and (min-width: 768px) {
+        div img {
+          width: 130px;
+          height: 120px;
+        }
         h3 {
           font-size: 1rem;
         }

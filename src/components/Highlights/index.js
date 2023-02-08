@@ -18,9 +18,7 @@ export default function Highlights({ title, span, data }) {
 
   useEffect(() => {
     handleBestSeller(data);
-  }, [bestSeller])
-
-  console.log(data)
+  }, [data])
 
  return (
     <>
