@@ -30,15 +30,14 @@ export default function Payment({ token }) {
   }, [token]);
 
   useEffect(() => {
-    api
-      .post(`/checkout/delivery-time`, args, {
+    api.post(`/checkout/delivery-time`, args, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => dispatch(handleCheckoutTax(res.data.response)))
       .catch((err) => console.log(err));
-  }, []);
+  }, [args, token,]);
 
   return (
       <PaymentSection>

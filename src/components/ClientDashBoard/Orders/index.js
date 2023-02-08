@@ -17,6 +17,7 @@ export default function Orders() {
     return request.data;
   });
 
+
   return (
     <Order>
       <h3>Pedidos</h3>
@@ -34,7 +35,7 @@ export default function Orders() {
       {data?.length === 0 && <GotoShopping />}
 
       {data &&
-        data.map((item) => (
+        data?.reverse().map((item) => (
           <OrderContent key={item._id}>
             <div className="firsRow">
               <div className="firstCollumn">

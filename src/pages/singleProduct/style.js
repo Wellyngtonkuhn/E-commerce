@@ -72,7 +72,8 @@ export const FirstColumn = styled.div`
 
   @media screen and (min-width: 768px) {
     div {
-      position: fixed;
+      position: sticky;
+      top: 25%;
     }
   }
 `;

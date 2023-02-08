@@ -13,7 +13,8 @@ export const AsideSection = styled.aside`
 `;
 
 export const AsideContent = styled.div`
-  position: fixed;
+  /* position: sticky;
+  top: 25%; */
   padding: 1rem;
 
   h3 {
