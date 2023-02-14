@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 
 import { Provider } from "react-redux";
@@ -14,8 +14,9 @@ import { GlobalStyles } from "./styles/GlobalStyles";
 
 const client = new QueryClient();
 
-
-const stripePromise = loadStripe('pk_test_51MRzSNEbu03lGNpWijTe8raSGZb8iRsPxtsgkiWM2hOCGz00sDLrDhcqqPXZd8LFicT03zmFKi4FsOuMKHRC2Xz6006xudfQCO')
+const stripePromise = loadStripe(
+  "pk_test_51MRzSNEbu03lGNpWijTe8raSGZb8iRsPxtsgkiWM2hOCGz00sDLrDhcqqPXZd8LFicT03zmFKi4FsOuMKHRC2Xz6006xudfQCO"
+);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -24,7 +25,9 @@ root.render(
       <GlobalStyles />
       <Provider store={store}>
         <Elements stripe={stripePromise}>
-          <App />
+          <Suspense>
+            <App />
+          </Suspense>
         </Elements>
       </Provider>
     </QueryClientProvider>
