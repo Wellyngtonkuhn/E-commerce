@@ -61,7 +61,7 @@ export default function Home() {
               </div>
               <div>
                 <h2>Men</h2>
-                <img src={Head2} alt="Head 1" />
+                <img src={Head2} alt="Head 1"/>
                 <p>Dioptric | Sunglasses</p>
               </div>
             </HeadContent>
@@ -127,19 +127,19 @@ export default function Home() {
               </h3>
               <ul>
                 <li>
-                  <img src={RayBan} alt="rayban" />
+                  <img src={RayBan} alt="rayban" loading="lazy" />
                   <h3>345 Products</h3>
                 </li>
                 <li>
-                  <img src={Carrera} alt="carrera" />
+                  <img src={Carrera} alt="carrera" loading="lazy" />
                   <h3>231 Products</h3>
                 </li>
                 <li>
-                  <img src={Persol} alt="persol" />
+                  <img src={Persol} alt="persol" loading="lazy" />
                   <h3>172 Products</h3>
                 </li>
                 <li>
-                  <img src={Gucci} alt="gucci" />
+                  <img src={Gucci} alt="gucci" loading="lazy" />
                   <h3>112 Products</h3>
                 </li>
               </ul>
@@ -157,21 +157,21 @@ export default function Home() {
               <div>
                 <ul className="cards">
                   <li className="card">
-                    <img src={Banner1} alt="imagem" />
+                    <img src={Banner1} alt="imagem" loading="lazy" />
                     <div>
                       <p>Morbi faucibus elementum sodales</p>
                       <a href="#">Learn more</a>
                     </div>
                   </li>
                   <li className="card">
-                    <img src={Banner2} alt="imagem" />
+                    <img src={Banner2} alt="imagem" loading="lazy" />
                     <div>
                       <p>Morbi faucibus elementum sodales</p>
                       <a href="#">Learn more</a>
                     </div>
                   </li>
                   <li className="card">
-                    <img src={Banner1} alt="imagem" />
+                    <img src={Banner1} alt="imagem" loading="lazy" />
                     <div>
                       <p>Morbi faucibus elementum sodales</p>
                       <a href="#">Learn more</a>
@@ -191,7 +191,7 @@ export default function Home() {
                     <input type="text" placeholder="email@email.com" />
 
                     <a type="submit">
-                      <img src={SendImg} alt="botao-enviar" />
+                      <img src={SendImg} alt="botao-enviar" loading="lazy"/>
                     </a>
                   </form>
                 </div>

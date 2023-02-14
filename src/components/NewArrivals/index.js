@@ -32,7 +32,7 @@ export default function NewArrivals({ title, span, data }) {
               {newArrival &&
                 newArrival.map((item) => (
                   <li key={item._id}>
-                    <Link to={`/shop/${item.nome}/${item._id}`}><img src={item.url} alt="newArrival" /></Link>
+                    <Link to={`/shop/${item.nome}/${item._id}`}><img src={item.url} alt="newArrival" loading="lazy" /></Link>
                     <h3><Link to={`/shop/${item.nome}/${item._id}`}>{item.nome}</Link></h3>
                     <p>
                       {item.preco.toLocaleString("pt-BR", {

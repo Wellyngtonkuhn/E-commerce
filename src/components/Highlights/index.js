@@ -33,7 +33,7 @@ export default function Highlights({ title, span, data }) {
               {bestSeller &&
                 bestSeller.slice(0, 4).map((item) => (
                   <li key={item._id}>
-                    <Link to={`/shop/${item.nome}/${item._id}`}><img src={item.url} alt="bestSeller" /></Link>
+                    <Link to={`/shop/${item.nome}/${item._id}`}><img src={item.url} alt="bestSeller" loading="lazy" /></Link>
                     <h3><Link to={`/shop/${item.nome}/${item._id}`}>{item.nome}</Link></h3>
                     <p>
                       {item.preco.toLocaleString("pt-BR", {

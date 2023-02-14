@@ -14,12 +14,12 @@ export default function Footer() {
       <Container>
         <Content>
           <div>
-            <img src={Logo} alt="eyewear" />
+            <img src={Logo} alt="eyewear" loading="lazy" />
           </div>
           <div>
-            <img src={MercadoPago} alt="safetyAcquisition" />
-            <img src={TrustImg} alt="trust" />
-            <img src={PrisgarantImg} alt="prisgarant" />
+            <img src={MercadoPago} alt="safetyAcquisition" loading="lazy" />
+            <img src={TrustImg} alt="trust" loading="lazy" />
+            <img src={PrisgarantImg} alt="prisgarant" loading="lazy"/>
           </div>
         </Content>
       </Container>
