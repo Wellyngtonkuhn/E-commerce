@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../axiosConfig/api";
 import { MainShop, Content, MobileFilter } from "./style";
@@ -7,6 +8,7 @@ import { Container } from "../../styles/GlobalStyles";
 import Aside from "../../components/shopPage/Aside";
 import Products from "../../components/shopPage/Products";
 import RenderOnTop from "../../components/RenderOnTop";
+import { addUserClick } from "../../redux/userClick";
 
 export default function Shop() {
   const [brands] = useState([
@@ -18,6 +20,9 @@ export default function Shop() {
   const [filter, setFilter] = useState([]);
   const [showMobileFilter, setShowMobileFilter] = useState(false);
   const [ filterByPrice, setFilterByPrice ] = useState('')
+
+  const dispatch = useDispatch()
+  const showMenuMobile = useSelector(state => state.showMobile.show)
 
   const { data, isLoading, isError } = useQuery(["data"], async () => {
     const request = await api.get('/products');
@@ -58,7 +63,7 @@ useEffect(() => {
 }, [isError])
 
   return (
-    <MainShop>
+    <MainShop onClick={e => showMenuMobile && dispatch(addUserClick(e.isTrusted))}>
       <Container>
         <Content>
           <MobileFilter>

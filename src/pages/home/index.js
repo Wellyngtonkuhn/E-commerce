@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
 import { api } from '../../axiosConfig/api.js' 
 
@@ -30,10 +32,13 @@ import { Carrera, Persol, Gucci, RayBan } from "../../assets/brands";
 
 import { Banner1, Banner2 } from "../../assets/banner";
 import SendImg from "../../assets/newsLetter/send.png";
-import { useEffect } from "react";
+
+import { addUserClick } from "../../redux/userClick.js";
 
 
 export default function Home() {
+  const dispatch = useDispatch()
+  const showMenuMobile = useSelector(state => state.showMobile.show)
 
   const { data, isLoading, isError } = useQuery(["products"], async () => {
       const request = await api.get("/products");
@@ -50,7 +55,7 @@ export default function Home() {
     
   return (
     <>
-      <MainHome>
+      <MainHome onClick={e => showMenuMobile && dispatch(addUserClick(e.isTrusted))}>
         <HeadSection>
           <Container>
             <HeadContent>

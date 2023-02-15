@@ -10,6 +10,7 @@ import RenderOnTop from "../../components/RenderOnTop";
 import { api } from '../../axiosConfig/api.js'
 
 import Loading from '../../assets/loading.svg'
+import { addUserClick } from "../../redux/userClick";
 
 export default function Congrats() {
   const [ order, setOrder ] = useState([]);
@@ -17,6 +18,7 @@ export default function Congrats() {
   const { cartItems } = useSelector(state => state.cart)
   const { user, token } = useSelector(state => state.user)
   const { userCheckoutAddress, deliveryTax } = useSelector((state) => state.checkout);
+  const showMenuMobile = useSelector(state => state.showMobile.show)
   const [ searchParams ] = useSearchParams()
   const dispatch = useDispatch()
   const sessionID = searchParams.get('sessionID')
@@ -73,7 +75,7 @@ export default function Congrats() {
   console.log(order)
 
   return (
-    <CongratsSection>
+    <CongratsSection onClick={e => showMenuMobile && dispatch(addUserClick(e.isTrusted))}>
       <Container>
         <Content>
           <div>

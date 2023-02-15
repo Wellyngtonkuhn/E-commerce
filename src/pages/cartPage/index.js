@@ -1,5 +1,5 @@
 import { useNavigate, Outlet, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { api } from "../../axiosConfig/api.js";
 import RenderOnTop from "../../components/RenderOnTop/";
 import GoToShopping from "../../components/buttonToShop/index.js";
@@ -10,6 +10,7 @@ import { Container } from "../../styles/GlobalStyles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
+import { addUserClick } from "../../redux/userClick.js";
 
 
 export default function CartPage() {
@@ -17,8 +18,10 @@ export default function CartPage() {
   const { cartItems } = useSelector((state) => state.cart);
   const { userCheckoutInfo, userCheckoutAddress, deliveryTax } = useSelector((state) => state.checkout);
   const { user, token } = useSelector((state) => state.user);
+  const showMenuMobile = useSelector(state => state.showMobile.show)
   const navigate = useNavigate();
   const location = useLocation()
+  const dispatch = useDispatch()
 
   const totalPrice = () => {
     const totalProduct = cartItems.map((item) => {
@@ -99,7 +102,7 @@ export default function CartPage() {
   },[cartItems, deliveryTax])
 
   return (
-    <CartSection>
+    <CartSection onClick={e => showMenuMobile && dispatch(addUserClick(e.isTrusted))}>
       <div className="buySteps">
         <ul>
           <li>

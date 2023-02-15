@@ -6,19 +6,18 @@ import { Container } from "../../styles/GlobalStyles";
 
 
 export default function NewArrivals({ title, span, data }) {
-
   const [newArrival, setNewArrival] = useState([]);
 
-  const handleNewArrivals = (data) => {
+  const handleNewArrivals = () => {
     const newData = data ? [...data] : []
     const newProducts = newData?.reverse().slice(0, 4)
     return setNewArrival(newProducts)
-  };
+}
 
-  useEffect(() => {
-    handleNewArrivals(data);
-  }, [data])
- 
+useEffect(() => {
+  handleNewArrivals(data)
+}, [data])
+
  return (
     <>
       <HighlightsSection>
