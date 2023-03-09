@@ -1,5 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
+import { Analytics } from '@vercel/analytics/react'
 
 import { theme } from "./styles/GlobalStyles";
 import { ToastContainer } from "react-toastify";
@@ -19,6 +20,7 @@ function App() {
           <Rotas />
           <Footer />
           <ToastContainer />
+          <Analytics />
         </BrowserRouter>
       </ThemeProvider>
     </>
