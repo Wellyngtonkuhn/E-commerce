@@ -34,8 +34,7 @@ export default function SingleProduct() {
     const request = await api.get(`/products/${_id}`);
     return request.data;
   });
-
- 
+  
   const handleAddQTD = (qtd) => {
     if (quantidade < qtd) {
       setQuantidade(quantidade + 1);
