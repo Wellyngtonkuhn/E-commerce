@@ -8,6 +8,7 @@
     - Redux
     - StyledComponents
     - React hook form / yup
+    - Git teste
 
 ### Stacks back-end:
     - Node
