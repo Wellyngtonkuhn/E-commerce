@@ -117,12 +117,12 @@ export default function Home() {
           isLoading={isLoading}
         />
 
-        {/* <NewArrivals
+        <NewArrivals
           title="New"
           span="arrivals"
           data={data}
           isLoading={isLoading}
-        /> */}
+        />
 
         <BrandsSection>
           <Container>
