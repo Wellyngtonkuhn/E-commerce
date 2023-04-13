@@ -1,22 +1,22 @@
 import { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
 
-
-// import Home from "../pages/home";
-// import Shop from "../pages/shop";
-// import SingleProduct from "../pages/singleProduct";
-// import AccountPage from "../pages/account";
-// import CartPage from "../pages/cartPage";
-// import Congrats from "../pages/congrats";
-
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../axiosConfig/api";
 import { useSelector } from "react-redux";
+
+import Orders from "../components/ClientDashBoard/Orders";
+import Favorites from '../components/ClientDashBoard/Favorites'
+import MyAccount from "../components/ClientDashBoard/MyAccount";
+import Address from "../components/ClientDashBoard/Address";
+import ChangePassword from "../components/ClientDashBoard/ChangePassword";
 
 import UserData from "../components/checkout/UserData";
 import Cart from "../components/checkout/Cart";
 import Payment from "../components/checkout/Payment";
 import UserAddress from "../components/checkout/UserAddress";
+import ProtectedRoutes from "./ProtectedRoutes";
+import Login from "../components/login";
 
 const Home = lazy(() => import("../pages/home"))
 const Shop = lazy(() => import("../pages/shop"))
@@ -50,7 +50,16 @@ export default function Rotas() {
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/shop/:product/:_id" element={<SingleProduct />} />
-        <Route path="/account" element={<AccountPage />} />
+
+        <Route path="/account/" element={<ProtectedRoutes>
+            <AccountPage />
+          </ProtectedRoutes>}>            
+            <Route path="orders" element={<Orders />} />
+            <Route path="favorites" element={<Favorites />} />
+            <Route path="my-account" element={<MyAccount />} />
+            <Route path="address" element={<Address />} />
+            <Route path="change-password" element={<ChangePassword />} />
+        </Route>
 
         <Route path="/cart" element={<CartPage />}>
           <Route path="details" element={<Cart cartItems={cartItems}/>} />
@@ -60,6 +69,8 @@ export default function Rotas() {
         </Route>
         
         <Route path="/congrats" element={<Congrats />} />
+
+        <Route path="/login" element={<Login />} />
       </Routes>
     </>
   );

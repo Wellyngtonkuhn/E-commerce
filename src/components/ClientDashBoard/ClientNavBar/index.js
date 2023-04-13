@@ -13,25 +13,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { MenuContent, MenuContentMobile } from "./style";
 import { removeToken } from "../../../redux/userSlice";
 
-export default function ClientNavBar({ showMenuMobile, setShowMenuMobile, setshowMenuClientContent }) {
+export default function ClientNavBar({ showMenuMobileDashBoard, setShowMenuMobileDashBoard }) {
   const dispatch = useDispatch()
+
+  const handleCloseDashBoarMenu = () => {
+    return setShowMenuMobileDashBoard(false)
+  }
 
   const handleLogOut = () => {
     dispatch(removeToken())
   };
 
-  const handleMobileMenu = (path) => {
-    setshowMenuClientContent(path);
-    setShowMenuMobile(false);
-  };
-
   return (
     <>
-      {showMenuMobile ? (
+      {showMenuMobileDashBoard ? (
         <MenuContentMobile>
           <ul>
             <li>
-              <Link onClick={() => handleMobileMenu("orders")}>
+              <Link to='orders' onClick={() => handleCloseDashBoarMenu()}>
                 <div>
                   <FontAwesomeIcon icon={faCartFlatbedSuitcase} />
                   Pedidos
@@ -40,7 +39,7 @@ export default function ClientNavBar({ showMenuMobile, setShowMenuMobile, setsho
               </Link>
             </li>
             <li>
-              <Link onClick={() => handleMobileMenu("favorites")}>
+              <Link to='favorites' onClick={() => handleCloseDashBoarMenu()}>
                 <div>
                   <FontAwesomeIcon icon={faHeart} />
                   Favoritos
@@ -49,7 +48,7 @@ export default function ClientNavBar({ showMenuMobile, setShowMenuMobile, setsho
               </Link>
             </li>
             <li>
-              <Link onClick={() => handleMobileMenu("myAccount")}>
+              <Link to='my-account' onClick={() => handleCloseDashBoarMenu()}>
                 <div>
                   <FontAwesomeIcon icon={faUser} />
                   Minha conta
@@ -58,7 +57,7 @@ export default function ClientNavBar({ showMenuMobile, setShowMenuMobile, setsho
               </Link>
             </li>
             <li>
-              <Link onClick={() => handleMobileMenu("address")}>
+              <Link to='address' onClick={() => handleCloseDashBoarMenu()}>
                 <div>
                   <FontAwesomeIcon icon={faHouse} />
                   Endereço
@@ -67,7 +66,7 @@ export default function ClientNavBar({ showMenuMobile, setShowMenuMobile, setsho
               </Link>
             </li>
             <li>
-              <Link onClick={() => handleMobileMenu("changePassword")}>
+              <Link to='change-password' onClick={() => handleCloseDashBoarMenu()}>
                 <div>
                   <FontAwesomeIcon icon={faLock} />
                   Mudar senha
@@ -90,7 +89,7 @@ export default function ClientNavBar({ showMenuMobile, setShowMenuMobile, setsho
         <MenuContent>
           <ul>
             <li>
-              <Link onClick={() => setshowMenuClientContent("orders")}>
+              <Link to='orders'>
                 <div>
                   <FontAwesomeIcon icon={faCartFlatbedSuitcase} />
                   Pedidos
@@ -100,7 +99,7 @@ export default function ClientNavBar({ showMenuMobile, setShowMenuMobile, setsho
             </li>
 
             <li>
-              <Link onClick={() => setshowMenuClientContent("favorites")}>
+              <Link to='favorites'>
                 <div>
                   <FontAwesomeIcon icon={faHeart} />
                   Favoritos
@@ -109,7 +108,7 @@ export default function ClientNavBar({ showMenuMobile, setShowMenuMobile, setsho
               </Link>
             </li>
             <li>
-              <Link onClick={() => setshowMenuClientContent("myAccount")}>
+              <Link to='my-account'>
                 <div>
                   <FontAwesomeIcon icon={faUser} />
                   Minha conta
@@ -118,7 +117,7 @@ export default function ClientNavBar({ showMenuMobile, setShowMenuMobile, setsho
               </Link>
             </li>
             <li>
-              <Link onClick={() => setshowMenuClientContent("address")}>
+              <Link to='address'>
                 <div>
                   <FontAwesomeIcon icon={faHouse} />
                   Endereço
@@ -127,7 +126,7 @@ export default function ClientNavBar({ showMenuMobile, setShowMenuMobile, setsho
               </Link>
             </li>
             <li>
-              <Link onClick={() => setshowMenuClientContent("changePassword")}>
+              <Link to='change-password'>
                 <div>
                   <FontAwesomeIcon icon={faLock} />
                   Mudar senha

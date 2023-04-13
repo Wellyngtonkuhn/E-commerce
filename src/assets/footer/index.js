@@ -1,5 +1,5 @@
 import TrustImg from './trust.png'
 import PrisgarantImg from './prisgarant.png'
-import MercadoPago from './mercadoPago.png'
+import Stripe from './stripe.png'
 
-export { TrustImg, PrisgarantImg, MercadoPago}
+export { TrustImg, PrisgarantImg, Stripe}

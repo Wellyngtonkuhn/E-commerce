@@ -3,15 +3,16 @@ import styled from "styled-components";
 export const MenuContentMobile = styled.div`
   width: 100%;
   min-height: 100vh;
-
   display: flex;
   flex-direction: column;
   align-items: center;
 
   position: fixed;
   left: 0;
-  top: 13rem;
-  padding-top: 30%;
+  right: 0;
+  top: 12.2rem;
+  padding-top: 30%; 
+  z-index: 1;
 
   background-color: ${({ theme }) => theme.backgroundColor};
 

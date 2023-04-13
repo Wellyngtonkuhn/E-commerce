@@ -9,7 +9,7 @@ const UserSlice = createSlice({
   },
   reducers: {
     addToken(state, { payload }) {
-      state.token = payload.token;
+      state.token = payload.token 
       state.user = payload.user;
 
       Cookies.set("token", payload.token, { expires: 1 });

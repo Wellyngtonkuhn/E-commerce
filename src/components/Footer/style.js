@@ -20,9 +20,14 @@ export const Content = styled.div`
     flex-direction: column;
   }
 
+  .footerLogo{
+    height: 75px;
+  }
+
   img {
     width: 200px;
-    padding: 2rem 0;
+    height: 185px;
+    padding: 1rem 0;
   }
 
   @media screen and (min-width: 768px) {
