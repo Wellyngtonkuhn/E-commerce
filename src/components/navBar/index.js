@@ -60,7 +60,7 @@ export default function NavBar() {
                 <Link to="/shop">Shop now</Link>
               </li>
               <li>
-                <Link to="/account">My account</Link>
+                <Link to="/account/orders">My account</Link>
               </li>
             </ul>
           </Menu>
@@ -103,7 +103,7 @@ export default function NavBar() {
               </Link>
             </li>
             <li>
-              <Link onClick={handleCloseMenuMobile} to="/account">
+              <Link onClick={handleCloseMenuMobile} to="/account/orders">
                 Minha Conta
               </Link>
             </li>

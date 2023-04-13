@@ -5,6 +5,7 @@ export const LoginRegisterSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 8rem;
 
   .buttonDivLoginRegister {
     width: 100%;
@@ -49,7 +50,7 @@ export const LoginRegisterSection = styled.section`
 
 export const FormSection = styled.div`
   width: 90%;
-  padding: 2rem;
+  padding: 0 2rem 2rem 2rem;
   display: flex;
   align-items: center;
 

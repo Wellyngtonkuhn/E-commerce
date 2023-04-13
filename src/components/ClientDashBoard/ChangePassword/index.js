@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
+import { useSelector } from "react-redux";
+
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -26,9 +28,10 @@ const schema = yup.object({
     .required("campo obrigatório"),
 });
 
-export default function ChangePassword({ user, token }) {
+export default function ChangePassword() {
   const [showPassword, setShowPassword] = useState('password')
   const [isLoading, setIsloading] = useState(false)
+  const { user, token } = useSelector((state) => state.user);
 
   const {
     register,
@@ -66,14 +69,12 @@ export default function ChangePassword({ user, token }) {
         <form onSubmit={handleSubmit(handleChangePassword)}>
           <label>
             Nova senha
-           
               <Input
                 autoFocus
                 type={showPassword}
                 placeholder="digite a nova senha"
                 {...register("password")}
               />
-
             <p className="errorMessageform">{errors.password?.message}</p>
           </label>
           <label>

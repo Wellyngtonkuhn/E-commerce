@@ -3,7 +3,7 @@ import { Content, DevSection, FooterSection } from "./style";
 import { Container } from "../../styles/GlobalStyles";
 
 import { Logo } from "../../assets/header/index";
-import { TrustImg, PrisgarantImg, MercadoPago } from "../../assets/footer";
+import { TrustImg, PrisgarantImg, Stripe } from "../../assets/footer";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
@@ -19,10 +19,10 @@ export default function Footer() {
       <Container>
         <Content>
           <div>
-            <img src={Logo} alt="eyewear" loading="lazy" />
+            <img className="footerLogo" src={Logo} alt="eyewear" loading="lazy" />
           </div>
           <div>
-            <img src={MercadoPago} alt="safetyAcquisition" loading="lazy" />
+            <img src={Stripe} alt="safetyAcquisition" loading="lazy" />
             <img src={TrustImg} alt="trust" loading="lazy" />
             <img src={PrisgarantImg} alt="prisgarant" loading="lazy"/>
           </div>

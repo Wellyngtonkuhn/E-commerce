@@ -67,10 +67,11 @@ export default function Login() {
             case "/":
               return navigate("/");
             default:
-              break;
+              return navigate("/account/orders");
           }
       })
-      .catch((err) => alert(err?.response?.data?.message));
+      .catch((err) => alert(err?.response?.data?.message))
+      .finally(() => setIsloading(false))
   };
 
   const handleRegister = async ({ name, email, password }) => {
@@ -91,7 +92,7 @@ export default function Login() {
             case "/":
               return navigate("/");
             default:
-              break;
+              return navigate("/account/orders");
           }    
       })
       .catch((err) => alert(err?.response?.data?.message));

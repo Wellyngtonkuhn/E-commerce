@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
-import { useDispatch } from "react-redux";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { useDispatch, useSelector } from "react-redux";
 import { removeToken } from "../../../redux/userSlice";
 
 import { useForm } from "react-hook-form";
-
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
@@ -17,7 +17,6 @@ import { api } from "../../../axiosConfig/api";
 
 import InputMask from 'react-input-mask';
 
-
 const schema = yup.object({
   name: yup.string().required('campo obrigatório'),
   email: yup.string().email('email inválido').required('campo obrigatório'),
@@ -26,11 +25,28 @@ const schema = yup.object({
   genre: yup.string().required('campo obrigatório'),
 })
 
-export default function MyAccount({ data, user, token }) {
+export default function MyAccount() {
+
   const [optionsSelect] = useState(["não informado", "masculino", "feminino"]);
   const [isLoading, setIsloading] = useState(false)
   const queryClient = useQueryClient()
   const dispatch = useDispatch()
+  const { user, token } = useSelector((state) => state.user);
+
+  const { data } = useQuery(['userData', user?.id], async () => {
+    if(user?.id){
+      const request = await api.get(`/user/${user?.id}` ,{
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return request.data
+    }
+    return null
+  },{
+    staleTime: (1000 * 60) * 60 // 1 hora 
+  })
+
 
   const { register, handleSubmit, formState:{errors} } = useForm({
     mode:'onBlur',
@@ -75,6 +91,7 @@ export default function MyAccount({ data, user, token }) {
         }
       return null
   }
+
    
   return (
     <MyAccountSection>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -15,6 +15,7 @@ import { api } from '../../../axiosConfig/api.js'
 import InputMask from 'react-input-mask';
 
 import Loading from '../../../assets/loading.svg'
+import { useSelector } from "react-redux";
 
 const schema = yup.object({
   cep: yup.string().required("campo obrigatório"),
@@ -28,9 +29,26 @@ const schema = yup.object({
   state: yup.string().required("campo obrigatório"),
 });
 
-export default function Address({ data, user, token }) {
+export default function Address() {
+  
   const [isLoading, setIsloading] = useState(false)
+  const { user, token } = useSelector((state) => state.user);
   const queryClient = useQueryClient()
+
+  const { data } = useQuery(['userData', user?.id], async () => {
+    if(user?.id){
+      const request = await api.get(`/user/${user?.id}` ,{
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return request.data
+    }
+    return null
+  },{
+    staleTime: (1000 * 60) * 60 // 1 hora 
+  })
+
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     mode: "onBlur",
