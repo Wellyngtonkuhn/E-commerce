@@ -1,21 +1,22 @@
-import { useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { faEye, faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { Favorite, FavoriteContent } from "./style";
 
 import GotoShopping from '../../buttonToShop/index.js'
+
 import { api } from "../../../axiosConfig/api";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 import LoadingSvg from '../../../assets/loading.svg'
 
 export default function Favorites() {
-  const [Loading, setloading] = useState(false)
 
   const { user, token } = useSelector((state) => state.user);
   const queryClient = useQueryClient();
@@ -27,26 +28,36 @@ export default function Favorites() {
       },
     });
     return request.data;
+  },{
+    refetchOnWindowFocus: false
   });
 
-  const handleDeleteFavorite = async (favoriteId) => {
-    setloading(true)
-    const deleteFavorite = await api.delete(`/favorites/${favoriteId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if (deleteFavorite.status === 200) {
-      setloading(false)
-      queryClient.invalidateQueries(["favorites"]);
-      return toast.success(`${deleteFavorite.data.message}`, {
+
+  const handleDeleteMutation = useMutation({
+    mutationFn: (id) => {
+      const response = api.delete(`/favorites/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return response
+    },
+    onSuccess: ({ data }, variables) => {
+      queryClient.setQueryData(['favorites'], (favorites) => {
+       return favorites.filter(favorite => favorite._id != variables)
+      })
+      toast.success(`${data?.message}`, {
         position: "top-right",
         autoClose: 3000,
       });
-    } else {
-      return alert(deleteFavorite.data.message);
+    },
+    onError: (error) => {
+      return toast.error(`${error?.response?.data?.message}`, {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
-  };
+  })
 
   return (
     <Favorite>
@@ -67,12 +78,12 @@ export default function Favorites() {
         </div>
       )}
 
-      {data?.favorites.length === 0 && !isLoading && (
+      {data?.length === 0 && !isLoading && (
         <GotoShopping />
       )}
 
-      {data?.favorites &&
-        data?.favorites.map((item) => (
+      {
+        data?.map((item) => (
           <FavoriteContent key={item._id}>
             <div className="firstColumn">
               <img src={item.img} alt={item.name} />
@@ -86,7 +97,7 @@ export default function Favorites() {
             </div>
 
             <div className="secondColumn">
-              <button onClick={() => handleDeleteFavorite(item._id)}>
+              <button onClick={() => handleDeleteMutation.mutate(item._id)}>
                 <FontAwesomeIcon icon={faTrashCan} />
               </button>
               <Link to={`/shop/${item.name}/${item.productId}`}>
@@ -94,8 +105,9 @@ export default function Favorites() {
               </Link>
             </div>
           </FavoriteContent>
-        ))}
-         {Loading && <img className="loadingSvg" src={LoadingSvg} alt='loading' />}
+        ))
+      }
+         {handleDeleteMutation.isLoading && <img className="loadingSvg" src={LoadingSvg} alt='loading' />}
     </Favorite>
   );
 }

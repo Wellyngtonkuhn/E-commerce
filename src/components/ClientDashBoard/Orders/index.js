@@ -15,6 +15,8 @@ export default function Orders() {
       },
     });
     return request.data;
+  },{
+    refetchOnWindowFocus: false
   });
 
 

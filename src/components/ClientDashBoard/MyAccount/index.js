@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 
 import { useDispatch, useSelector } from "react-redux";
 import { removeToken } from "../../../redux/userSlice";
@@ -44,7 +44,8 @@ export default function MyAccount() {
     }
     return null
   },{
-    staleTime: (1000 * 60) * 60 // 1 hora 
+    staleTime: (1000 * 60) * 60, // 1 hora 
+    refetchOnWindowFocus: false
   })
 
 
@@ -53,51 +54,76 @@ export default function MyAccount() {
     resolver: yupResolver(schema)
   });
 
-  const handleSaveUser = async (data) => {
-    setIsloading(true)
-      const request = await api.patch(`/user/${user?.id}`, data, {
+  // const handleSaveUser = async (data) => {
+  //   setIsloading(true)
+  //     const request = await api.patch(`/user/${user?.id}`, data, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`
+  //       }
+  //    })
+
+  //    if(request.status === 200){
+  //     setIsloading(false)
+  //     queryClient.invalidateQueries('userData')
+  //     return toast.success('Usuário atualizado', {
+  //       position: "top-right",
+  //       autoClose: 3000
+  //     });
+  //    }
+  // };
+
+  const handleSaveUser = useMutation({
+    mutationFn: async (data) => {
+      const response = await api.patch(`/user/${user?.id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       })
+      return response
+    },
+    onSuccess: (data) => {
+        console.log(data) // to do
+    },
+    onError: () => {
 
-     if(request.status === 200){
-      setIsloading(false)
-      queryClient.invalidateQueries('userData')
-      return toast.success('Usuário atualizado', {
-        position: "top-right",
-        autoClose: 3000
-      });
-     }
-  };
+    }
+  })
 
-  const handleDelete = async (id) => {
-    const deleteUserAccount = window.confirm(`${user?.name} deseja excluir sua conta?`)
-    setIsloading(true)
-      if(deleteUserAccount){
-        const request = await api.delete(`user/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
-        if(request.status === 200){
-          setIsloading(false)
-          toast.success('Usuário deletado', {
-            position: "top-right",
-            autoClose: 3000
-          });
-            return dispatch(removeToken())
-          }
+  const handleDelete = useMutation({
+      mutationFn: async (id) => {
+        const deleteUserAccount = window.confirm(`${user?.name} deseja excluir sua conta?`)
+        if(deleteUserAccount){
+          const response = await api.delete(`user/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+          return response
         }
-      return null
-  }
+      },
+      onSuccess: () => {
+        toast.success('Usuário deletado', {
+          position: "top-right",
+          autoClose: 3000
+        });
+          return dispatch(removeToken())
+      },
+      onError: (error) => {
+        console.log(error)
+        toast.error(error?.response.data.message, {
+          position: "top-right",
+          autoClose: 3000
+        });
+      }
+      
+  })
 
    
   return (
     <MyAccountSection>
       <h3>Dados pessoais</h3>
       <Content>
-        <form onSubmit={handleSubmit(handleSaveUser)}>
+        <form onSubmit={handleSubmit(handleSaveUser.mutate)}>
           <label>
             Nome Completo
             <input
@@ -156,7 +182,7 @@ export default function MyAccount() {
           </label>
           <div>
             <button type="submit">Salvar</button>
-            <button onClick={()=> handleDelete(user?.id)}>Excuir conta</button>
+            <button onClick={()=> handleDelete.mutate(user?.id)}>Excuir conta</button>
           </div>
         </form>
         {isLoading && <img className="loading" src={Loading} alt='loading' />}

@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
@@ -30,6 +31,7 @@ root.render(
           </Suspense>
         </Elements>
       </Provider>
+      <ReactQueryDevtools />
     </QueryClientProvider>
   </>
 );

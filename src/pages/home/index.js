@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, QueryClient } from "@tanstack/react-query";
 import { api } from '../../axiosConfig/api.js' 
 
 import {
@@ -37,7 +37,9 @@ import { addUserClick } from "../../redux/userClick.js";
 
 
 export default function Home() {
+  // const [data, setData] = useState([])
   const dispatch = useDispatch()
+  const queryClient = new QueryClient()
   const showMenuMobile = useSelector(state => state.showMobile.show)
 
   const { data, isLoading, isError } = useQuery(["products"], async () => {
@@ -49,9 +51,30 @@ export default function Home() {
     }
   );
 
-    useEffect(() => {
-        if(isError) alert('Atualize a página para carregar os produtos')
-    }, [isError])
+  // const prefetchTodos = async () => {
+  // // The results of this query will be cached like a normal query
+  //   await queryClient.prefetchQuery({
+  //     queryKey: ['todos'],
+  //     queryFn: async () => {
+  //       const request = await api.get("/products");
+  //       return setData(request?.data)
+  //     },
+  //   },{
+  //     staleTime: (1000 * 60) * 60
+  //   })
+  // }
+
+//   console.log(data)
+
+
+// useEffect(() => {
+//   prefetchTodos()
+// },[])
+
+
+  // useEffect(() => {
+  //     if(isError) alert('Atualize a página para carregar os produtos')
+  // }, [isError])
     
   return (
     <>
@@ -114,14 +137,14 @@ export default function Home() {
           title="Best"
           span="sellers"
           data={data}
-          isLoading={isLoading}
+          // isLoading={isLoading}
         />
 
         <NewArrivals
           title="New"
           span="arrivals"
           data={data}
-          isLoading={isLoading}
+          // isLoading={isLoading}
         />
 
         <BrandsSection>
